@@ -1,0 +1,68 @@
+<p>admin-users works!</p>
+
+<div class="container">
+    <form #f="ngForm" (ngSubmit)="EditUserAddInfo(f.value)">
+        <h1>User Address Details </h1>
+        <div>
+            <label for="addressLine1"><b> AddressLine1 </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="userAddressInfo.addressLine1"
+            name="addressLine1"
+            type="text" 
+            placeholder="Enter addressLine1"  
+            id="addressLine1">
+            <br>
+        </div>
+        <div>
+            <label for="addressLine2"><b> AddressLine2 </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="userAddressInfo.addressLine2"
+            name="addressLine2"
+            type="text" 
+            placeholder="Enter addressLine2"  
+            id="addressLine2">
+            <br>
+        </div>
+        <div>
+            <label for="longitude"><b> Longitude </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="userAddressInfo.longitude"
+            name="longitude"
+            type="text" 
+            placeholder="Enter longitude"  
+            id="longitude">
+            <br>
+        </div>
+        <div>
+            <label for="latitude"><b> Latitude </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="userAddressInfo.latitude"
+            name="latitude"
+            type="text" 
+            placeholder="Enter latitude"  
+            id="latitude">
+            <br>
+        </div>
+        <div>
+            <label for="zip"><b> ZIP </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="userAddressInfo.zip"
+            name="zip"
+            type="text" 
+            placeholder="Enter zip"  
+            id="zip">
+            <br>
+        </div>
+        <button type="submit" class="btn btn-success">Edit</button>
+    </form>
+</div>

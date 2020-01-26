@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+
+body {
+  overflow: hidden;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+.data_grid_left_align {
+    text-align: left;
+  }
+.data_grid_center_align {
+  text-align: center;
+}
+button {
+  text-transform: uppercase;
+  margin-bottom: 5px !important
+}
+button+button {
+  margin-left: 5px
+}
+.form-group.required .control-label:after {
+  content:"*";
+}
