@@ -1,0 +1,52 @@
+<!-- <div class="container">
+    <form #f="ngForm" (ngSubmit)="tryRegister(f.value)">
+        <h1>Register</h1>
+            <label for="email"><b>E-mail</b></label><br>
+            <input
+            class="form-control" 
+            #email="ngModel"
+            [(ngModel)]="newUser.email"
+            type="email" 
+            placeholder="Enter Email" 
+            name="email" 
+            id="email">
+            <br>
+        <div>
+            <label for="password"><b>Password</b></label><br>
+            <input
+            class="form-control"
+            #password="ngModel"
+            [(ngModel)]="newUser.password" 
+            type="password" 
+            placeholder="Enter Password" 
+            name="password" 
+            id="password">
+            <br>
+        </div>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</div>
+------------------------------------------------------ -->
+
+<div class="login-form">
+    <form #f="ngForm" (ngSubmit)="tryRegister(f.value)">
+        <h2 class="text-center">Sign Up</h2>		
+        <div class="form-group">
+        	<div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" #email="ngModel" [(ngModel)]="newUser.email" name="email" placeholder="Email" id="email" required="required">
+            </div>
+        </div>
+		<div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" #password="ngModel" [(ngModel)]="newUser.password" name="password" id="passwprd" placeholder="Password" required="required">
+            </div>
+        </div>        
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block login-btn">Sign Up</button>
+        </div>
+        
+    </form>
+</div>
+  

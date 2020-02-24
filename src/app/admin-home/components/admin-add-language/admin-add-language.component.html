@@ -1,0 +1,73 @@
+
+<!-- <div *ngFor="let word of wordsArray">
+        <label for="trans"> {{word.word | json }} is : </label>
+          <input #wordTrans  type="text" value="{{word.trans | json }}">
+          <button (click)="updateTranslations( word.word, wordTrans.value)">Edit translation</button>
+</div>
+<div *ngFor="let word of wordsArray">
+ {{word.word | json }}
+ {{word.trans | json}}
+</div> -->
+<!-- 
+<div class="container">
+    <form #f="ngForm" (ngSubmit)="updateTranslations(f.value)">
+        Add new word
+        <div>
+            <label for="word"><b>Word</b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="word.word"
+            name="word"
+            type="text"  
+            id="word">
+            <br>
+        </div>
+        <div>
+            <label for="translations"><b>translations</b></label><br>
+            <input
+            class="form-control"
+            #name="ngModel"
+            [(ngModel)]="word.trans" 
+            name="tans" 
+            type="trans"  
+            id="trans">
+            <br>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+
+<button (click)="clicked()"> GET trans</button> -->
+
+
+<!-- <div id="page-wrapper">
+    <app-data-table [Columns]="colDefinitions" [Data]='data' ></app-data-table>
+</div> -->
+Table translation Language
+
+<select (change)="onLangChange($event)">
+    <option value="none" selected disabled hidden> 
+    <option 
+        *ngFor="let language of languages" 
+        [value]="language.key">
+        {{language.key}}
+    </option>
+  </select>
+<button class="btn btn-primary" (click)="AddLanguage()">Add Language</button>
+
+<div id="page-wrapper">
+    <app-data-table 
+        [Columns]="colDefinitions" 
+        [Data]='data' 
+        [ExpansionSettings]="languageExpansionSettings" 
+        [PageSettings]="pageSettings"  
+    >
+    </app-data-table>
+</div>
+<button class="btn btn-primary play_button" (click)="addNewWord()">Add New Word</button>
+
+<button (click)="testPaging()">Test Pagmin</button>
+<button (click)="getNextPage()">Next Pagmin</button>
+<button (click)="getPreviousPgae()">getPreviousPgae Pagmin</button>
+<button (click)="getNumChildren()">Set Total records</button>

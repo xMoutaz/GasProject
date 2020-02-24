@@ -1,0 +1,106 @@
+    
+    <div class="container" id='map-mapbox'>
+    <label for="map-mapbox">Enter your location:</label>
+    </div>
+
+<div class="container">
+    <form #f="ngForm" (ngSubmit)="addUserInfo(f.value)">
+        <div>
+            <label for="name"><b> Name </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newUser.name"
+            name="name"
+            type="text" 
+            placeholder="Enter Name"  
+            id="name">
+            <br>
+        </div>
+        <div>
+            <label for="address"><b> Address </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newUser.address"
+            name="address"
+            type="text" 
+            placeholder="Enter address"  
+            id="address">
+            <br>
+        </div>
+        <div>
+            <label for="zip"><b> ZIP </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newAddress.zip"
+            name="zip"
+            type="text" 
+            placeholder="Enter zip"  
+            id="zip">
+            <br>
+        </div>
+        <div>
+            <label for="addressLine1"><b> AddressLine1 </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newAddress.addressLine1"
+            name="addressLine1"
+            type="text" 
+            placeholder="Enter addressLine1"  
+            id="addressLine1">
+            <br>
+        </div>
+        <div>
+            <label for="addressLine2"><b> AddressLine2 </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newAddress.addressLine2"
+            name="addressLine2"
+            type="text" 
+            placeholder="Enter addressLine2"  
+            id="addressLine2">
+            <br>
+        </div>
+        <div>
+            <label for="longitude"><b> Longitude </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newAddress.longitude"
+            name="longitude"
+            type="text" 
+            placeholder="Enter longitude"  
+            id="longitude">
+            <br>
+        </div>
+        <div>
+            <label for="latitude"><b> Latitude </b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="newAddress.latitude"
+            name="latitude"
+            type="text" 
+            placeholder="Enter latitude"  
+            id="latitude">
+            <br>
+        </div>
+        <div>
+            <label for="phone"><b>Phone Number</b></label><br>
+            <input 
+            class="form-control"
+            #phoneNumber="ngModel"
+            [(ngModel)]="newUser.phone"
+            type="text" 
+            placeholder="Enter your Phone Number" 
+            name="phone" 
+            id="phone">
+            <br>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>

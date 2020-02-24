@@ -1,0 +1,195 @@
+.wuselect {
+    background: #fff url(images/vline.png) right no-repeat;
+    webkit-box-shadow: 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: 0 1px 1px rgba(0,0,0,.075);
+    border-radius: 4px !important
+}
+
+select.wuselect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-overflow: '...'
+}
+
+.ieselect {
+    background: #fff url(images/vline.png) right no-repeat;
+    webkit-box-shadow: 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: 0 1px 1px rgba(0,0,0,.075);
+    border-radius: 4px !important
+}
+
+select.ieselect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-overflow: '...'
+}
+
+select::-ms-expand {
+    display: none
+}
+
+/* 008_1 */
+thead, thead tr{
+    background-color: #f0f0f0 !important;
+    color:#333333;
+}
+
+/* 008_2 */
+.gpfi-detail-html thead tr,
+tfoot, tfoot tr  {
+    background-color:#f0f0f0 !important;
+    color:#333333;
+}
+/* 008_3 */
+tbody td{
+    color: #333333;
+}
+table tr{
+    background-color:#FFFFFF;
+}
+/* 008_4 */
+tbody tr:not(.child):nth-child(even){
+    background: #FFFFFF;
+}
+tbody tr:not(.child):nth-child(even) td{
+    color:#333333;
+}
+
+
+.down-arrow:before{
+    content: "\e900";
+    position: relative;
+    left: -14px;
+    top: 2px;
+    font-family: 'chevrons-up';
+    font-size:10px;
+}
+.gpfiExpand.gpfiExpand {
+    width: 35px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
+
+.btn.collapsed:before {
+    content: "\e900";
+    position: relative;
+    left: -14px;
+    top: 2px;
+    font-family: 'chevrons-down' !important;
+}
+.gpfiExpand:before {
+    position: static !important;
+    margin-left: -3.5px;
+}
+.gpfiExpansionCol {
+    width: 1% !important
+}
+.gpfiExpansionCol .gpfiExpand {
+    margin: 0 !important
+}
+/* 007_4 */
+.down-arrow:focus,
+.down-arrow.gpfiExpand,
+.down-arrow.collapsed,
+.down-arrow:hover{
+    background-color: #f8f8f8;
+    color:#bcbdbe;
+}
+
+table.collapsed {
+    background-color: white;
+    background: 0
+}
+
+table.detailItems {
+    width: 100%
+}
+
+.detailItems td {
+    border-top: 0 !important;
+    padding: 5px;
+    text-align: left;
+    box-sizing: content-box
+}
+
+.detailItems .dtr-title {
+    font-weight: bold;
+    width: 50%
+}
+
+.detailItems tr {
+    border-top: 0 !important;
+    border-bottom: 1px solid #ddd
+}
+
+
+.status-msg {
+    border: 1px solid #ffde00;
+    background: #ffffcc;
+    padding: 10px 0;
+    margin-bottom: 20px
+}
+
+.section-help-msg {
+    border: 1px solid #1358A8;
+    background: #f8f8f8;
+}
+
+.status-msg .descriptionMsgHolder {
+    padding-top: 5px;
+}
+
+.status-msg .descriptionMsgHolder p {
+    font-weight: bold;
+}
+
+.status-msg .statusMsgHolder .lead {
+    margin-bottom: 5px;
+}
+
+.gpfiCloseButton {
+    float: right;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+}
+
+.status-msg-description {
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.tick-msg {
+    color: #66cc00;
+    background: url('images/tick.png') left no-repeat;
+    padding-left: 30px;
+    margin-bottom: 0
+}
+
+.alert-msg {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.checkBoxCol {
+    width: 1px;
+    text-align: center;
+    padding: 10px !important;
+}
+.checkBoxCol input:hover{
+    cursor: pointer;
+}
+app-data-table table td {
+    word-break: break-all;
+    word-break: break-word
+}
+
+app-data-table table th {
+    word-break: normal
+}

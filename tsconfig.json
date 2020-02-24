@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "typings-lib": [
+        "dist/typings-lib"
+      ],
+      "typings-lib/*": [
+        "dist/typings-lib/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

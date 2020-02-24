@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-action-menu',
@@ -16,7 +16,7 @@ export class ActionMenuComponent implements OnInit {
   }
 
 }
-
+//
 export class ActionButton {
   label: String;
   data?;

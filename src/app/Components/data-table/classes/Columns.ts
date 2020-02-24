@@ -1,12 +1,8 @@
-import {ActionButton, ActionMenuComponent} from "../../action-menu/action-menu.component";
 import {ComponentFactoryResolver, ComponentRef, ViewContainerRef} from "@angular/core";
 import { DataTableComponent } from '../data-table.component';
 import { RenderedResponsiveCollapsedHelper } from './CollapsedResponsive';
-import { DataTableService } from 'src/app/services/data-table.service';
-import { map } from 'rxjs/operators';
-import { AngularFireObject } from '@angular/fire/database';
-import { Address } from 'src/app/models/address';
-// import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ActionMenuComponent } from '../../action-menu/action-menu.component';
 // import { CheckBoxHelper } from './CheckBox';
 // import { settings } from 'cluster';
 
@@ -20,7 +16,7 @@ export class HandleColumnSettings {
   renderedResponseCollapsedHelper: RenderedResponsiveCollapsedHelper;
   componentFactory: ComponentFactoryResolver;
   viewContainerRef: ViewContainerRef;
-  // translateService: TranslateService;
+  translateService: TranslateService;
   dataTableComponent: DataTableComponent;
 
   constructor(setting: ColumnDefs, dtComponent: DataTableComponent) {
@@ -30,8 +26,9 @@ export class HandleColumnSettings {
     this.dataTableComponent = dtComponent
     //TODO:- REFACTOR!
     this.renderedResponseCollapsedHelper = dtComponent.renderedResponsiveCollapsedHelper;
+    this.componentFactory = dtComponent.CFR;
     this.viewContainerRef = dtComponent.VCR;
-    // this.translateService = dtComponent.translateService;
+    this.translateService = dtComponent.translateService;
     
     Object.entries(setting).forEach(([key, value]) => {
       if (value && this[key + "_Func"])
@@ -63,9 +60,9 @@ export class HandleColumnSettings {
   header_Func(header: string) {
     this.colSettings.className += " head_" + header.replace(" ", "_");
     this.colSettings.className = this.colSettings.className.replace("/", "_");
-    // this.translateService.get(header).subscribe((res: string) => {
-    //   this.colSettings.title = res;
-    // });
+    this.translateService.get(header).subscribe((res: string) => {
+      this.colSettings.title = res;
+    });
   }
 
   key_Func(key: string) {
@@ -103,11 +100,11 @@ export class HandleColumnSettings {
 
   translate_Func() {
     this.colSettings.defaultContent = "";
-    // this.colSettings.createdCell = (cell, cellData) => {
-    //   this.translateService.get(cellData).subscribe((res: string) => {
-    //     $(cell).html(res);
-    //   });
-    // }
+    this.colSettings.createdCell = (cell, cellData) => {
+      this.translateService.get(cellData).subscribe((res: string) => {
+        $(cell).html(res);
+      });
+    }
   }
 
   formatter_Func(func: (any) => string) {
@@ -200,4 +197,23 @@ export class GPFIButton {
     return this.onClick(rowData, row);
   }
 }
+
+// export class TranslationTextBox {
+//   private html: JQuery<HTMLElement>;
+//   private onClick: any;
+
+//   constructor(onClick) {
+//     this.html = $(`<input type="text">`);
+//     this.onClick = onClick;
+//   }
+
+//   get Html() {
+//     return this.html;
+//   }
+
+//   OnClick(rowData, row) {
+//     return this.onClick(rowData, row);
+//   }
+// }
+
 

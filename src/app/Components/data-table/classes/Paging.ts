@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
 
  export class PageSettings{
-    private _pageSize = 10;
+    private _pageSize = 5;
     private _totalRecords = 0;
     private _currentPage = 1;
     private _onPageChange : any;
@@ -18,7 +18,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       this._onPageChange = onPageChangeFunc;
     }
 
-    onPageChange(){
+    onPageChange(){      
        return this._onPageChange();
     }
 
@@ -60,7 +60,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
     constructor(dtComponent: DataTableComponent){
       this._tableApi = dtComponent.dataTableApi;
       this._pagingSettings = dtComponent.PageSettings;
-      // this._translate = dtComponent.translateService;
+      this._translate = dtComponent.translateService;
 
       this.init();
     }
@@ -73,8 +73,8 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       return this.getDataTablesHolder().find("select");
     }
 
-    private init(){
-      from(["showTenPerPage", "showTwentyPerPage", "showThirtyPerPage", "showFiftyPerPage"]).pipe(
+    private init(){      
+      from(["showFivePerPage", "showTenPerPage", "showTwentyPerPage", "showThirtyPerPage", "showFiftyPerPage"]).pipe(
         switchMap((val) => this._translate.get(val)),
         toArray()
       ).subscribe((LENGTHNAMES)=>{
@@ -94,7 +94,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       selectControl.change(()=>{
         this._pagingSettings.currentPage = 1;
         this._pagingSettings.pageSize = selectControl.val() as number;
-        if(this._tableApi.data().length > 0){
+        if(this._tableApi.data().length > 0){          
           this._pagingSettings.onPageChange();
         }
       });
@@ -120,7 +120,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       this._expansionSettingsHandler = dtComponent.expansionSettingsHandler;
     }
 
-    renderButtons(){
+    renderButtons(){      
       if(this._pagingSettings.pagesNumber == 0){
           this.hidePagingButtons();
           return;
@@ -136,7 +136,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       this.getPageHolder().css("display", "block");
     }
 
-    initPaging(createTableFunc:() => void){
+    initPaging(createTableFunc:() => void){      
         this.hidePagingButtons();
         this._tableApi.page.len(this._pagingSettings.pageSize);
         createTableFunc();
@@ -147,12 +147,12 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
         this.getPageHolder().css("display", "none");
     }
 
-    private onPageButtonClick = (event) => {
+    private onPageButtonClick = (event) => {      
         var pageNo = event.data.page;
         this.hidePagingButtons();
         // add loading overLay
         this._pagingSettings.currentPage = pageNo;
-        if(this._expansionSettings){
+        if(this._expansionSettings){          
           this._expansionSettingsHandler.deleteChildComponents();
         }
         this._pagingSettings.onPageChange();
@@ -171,7 +171,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
       return prBtn;
     }
 
-    private createPageNoButtons(pageNumber){
+    private createPageNoButtons(pageNumber){      
       let tableClass = this.getTableClass();
       var liEle = $(`<li class='page-item'><a role='button' class='page-link' aria-controls='${tableClass}' data-dt-idx='${pageNumber}' tabindex='0'>${pageNumber}</a></li>`);
 

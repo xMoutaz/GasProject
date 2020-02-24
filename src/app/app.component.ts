@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
-import { UserService } from './services/user.service';
+
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +8,15 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor() {
+  
+  helloKey = 'HELLO';
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
+
+  onLangChange(event) {
+    this.translate.use(event.target.value);
+    console.log(event);
   }
 }

@@ -1,5 +1,14 @@
+    <select (change)="onLangChange($event)">
+      <option value="en">English</option>
+      <option value="ar">Arabic</option>
+    </select>
 
 <app-bs-navbar></app-bs-navbar>
 
 
 <router-outlet></router-outlet>  
+
+
+
+<p>{{ helloKey | translate }}</p>
+<p>{{ HOME | translate}}</p>

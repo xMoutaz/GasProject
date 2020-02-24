@@ -1,0 +1,27 @@
+<div class="container">
+    <form #f="ngForm" (ngSubmit)="addWord(f.value)  ">
+        <div>
+            <label for="word"><b>Word</b></label><br>
+            <input
+            class="form-control" 
+            #name="ngModel"
+            [(ngModel)]="word.word"
+            name="word"
+            type="text"  
+            id="word">
+            <br>
+        </div>
+        <div>
+            <label for="translations"><b>translations</b></label><br>
+            <input
+            class="form-control"
+            #name="ngModel"
+            [(ngModel)]="word.trans" 
+            name="tans" 
+            type="trans"  
+            id="trans">
+            <br>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
