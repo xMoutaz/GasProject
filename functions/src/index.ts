@@ -46,24 +46,3 @@ app.get(`/test/`, (request, response) => {
 }) // cors
 }) //app
 
-// export const Test = functions.https.onRequest((req, res) => {
-//   const trans: any[] = [];
-//   cors(req, res, () => {
-//     if (req.method == 'GET') {
-      
-//       admin.database().ref('/translates/ar/')
-//       .orderByKey()
-//       .startAt('')
-//       .once('value').then(function (snapshot) {
-//         snapshot.forEach(function(childSnapshot) {
-//           trans.push({
-//             key: childSnapshot.key,
-//             value: childSnapshot.val()
-//           }) // push
-//       });  // foreach
-//       res.status(200).send(trans);
-//         }) // once 
-//     } // if
-//   }) // cors 
-// }); 
-

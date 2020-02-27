@@ -157,7 +157,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     console.log('pg: ' +pg);
     console.log('pgS: ' +pgS);
     
-    this.http.get(`https://us-central1-gasproject-2f4cb.cloudfunctions.net/webApi/api/v1/test?pg=${pg}&&pgS=${pgS}`)
+    this.http.get(`http://localhost:4201/translations?pg=${pg}&&pgS=${pgS}`)
     .subscribe(data => {
       let temp : any = data;
       this.data.next(temp)
