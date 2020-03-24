@@ -1,15 +1,16 @@
 <div class="container">
-    <form #f="ngForm" (ngSubmit)="updateTranslations(f.value)">
+    <form #f="ngForm" (ngSubmit)="addNewKaLanguage()">
         <h2 class='data_grid_center_align'>Add New Language</h2>
         <div>
             <label for="word"><b>Language</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="language"
-            name="word"
+            [(ngModel)]="language.language"
+            name="language"
             type="text"  
-            id="word">
+            id="language"
+            required>
             <br>
         </div>
         <div>
@@ -17,10 +18,11 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="word.word"
+            [(ngModel)]="newWord.id"
             name="word"
             type="text"  
-            id="word">
+            id="word" 
+            required>
             <br>
         </div>
         <div>
@@ -28,10 +30,11 @@
             <input
             class="form-control"
             #name="ngModel"
-            [(ngModel)]="word.trans" 
+            [(ngModel)]="newWord.trans" 
             name="tans" 
             type="trans"  
-            id="trans">
+            id="trans" 
+            required>
             <br>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>

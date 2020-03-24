@@ -6,7 +6,7 @@ import { AdminAddLanguageComponent } from './components/admin-add-language/admin
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { EditWordComponent } from './components/edit-word/edit-word.component';
 import { NavpillComponent } from './components/navpill/navpill.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { UserDetailsComponent } from '../shared/components/user-details/user-details.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { AdminDataService } from './services/admin-data.service';
 import { AdminHomeComponent } from './admin-home.component';
@@ -28,20 +28,21 @@ import { AddWordComponent } from './components/add-word/add-word.component';
     AddWordComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
+    CommonModule,
+    
     RouterModule.forRoot([
       { 
         path: 'admin', 
         component:AdminHomeComponent,
         children: [
         { path: 'admin', component: AdminComponent}, // only admins can access
-        { path: 'admin-user', component: AdminUsersComponent}, // only admins can access
+        // { path: 'admin-user', component: AdminUsersComponent}, // only admins can access
         { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent}, // only admins can access
-        // { path: 'admin-user/:id', component: AdminUsersComponent}, // only admins can access
+        { path: 'admin-user/:id', component: AdminUsersComponent}, // only admins can access
         { path:'edit-language', component: EditWordComponent},
         { path:'add-lang', component: AdminAddLanguageComponent},
-        { path:'add-word', component: AddWordComponent},
+        { path:'add-word/:lang', component: AddWordComponent},
         ]
     }
         // { path: 'admin', component: AdminComponent}, // only admins can access

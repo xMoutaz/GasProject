@@ -1,16 +1,20 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { ColumnDefs, GPFIButton } from '../../../components/data-table/classes/Columns';
+import { ColumnDefs, GPFIButton } from '../../../components/controls/data-table/classes/Columns';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUsersComponent } from '../admin-users/admin-users.component';
 import { Router } from '@angular/router';
 import { AdminDataService } from '../../services/admin-data.service';
-import { ActionMenuComponent, ActionButton } from '../../../components/action-menu/action-menu.component';
-import { ExpansionSettingsHandler, ExpansionSettings } from '../../../components/data-table/classes/Expansion';
+import { ActionMenuComponent, ActionButton } from '../../../components/controls/action-menu/action-menu.component';
+import { ExpansionSettingsHandler, ExpansionSettings } from '../../../components/controls/data-table/classes/Expansion';
 import { User } from 'src/app/shared/models/user';
 import { Address } from 'src/app/shared/models/address';
 import { DataTableService } from 'src/app/shared/services/data-table.service';
+import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
+import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
+import { error } from 'protractor';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-admin',
@@ -27,6 +31,8 @@ export class AdminComponent {
   userAddressInfo = new Address();
 
   constructor(
+    private userMdbService : UserMdbService,
+    private addressMdbService: AddressMdbService,
     private datatablesServices : DataTableService, 
     private router: Router,
     private adminUser: AdminDataService) 
@@ -38,34 +44,29 @@ export class AdminComponent {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key:'key',
+        key:'_id',
         className: 'data_grid_left_align',
-        header: 'Key'
-      },
-      {
-        key:'email',
-        className: 'data_grid_center_align',
-        header: 'Email'
+        header: 'Id',
+        responsivePriority:true
       },
       {
         key:'name',
         className: 'data_grid_center_align',
-        header: 'Name'
+        header: 'Name',
+        responsivePriority:true
+      },
+      {
+        key:'email',
+        className: 'data_grid_center_align',
+        header: 'Email',
+        responsivePriority:true
       },
       {
         key:'phone',
         className: 'data_grid_center_align',
-        header: 'Phone Number'
+        header: 'Phone Number',
+        responsivePriority:true
       },
-      // Column CONFIGURE GPFIButton
-      { cellElement: () => {
-        return new GPFIButton("CONFIGURE", (data) => {
-          // this.getUserAddressDetails(data.key);
-          this.adminUser.changeTargetUid(data.key);
-          // this.router.navigate(['admin-user']);
-        });
-      }, className: 'data_grid_center_align'
-    },
     {  cellElement: (cellData, rowData, row) => {
       return this.generateActionMenuForRfr(cellData, rowData, row);
     }, className: 'data_grid_center_align', responsivePriority:true
@@ -73,32 +74,33 @@ export class AdminComponent {
     ];
   }
   getNewRows() {
-    this.datatablesServices.getUsersGenInfo()
-    .snapshotChanges().pipe(
-      map(changes =>      
-        changes.map(c =>
-          ({key:c.key, ...c.payload.val() })))
-    ).pipe(take(1))
-    .subscribe(data => {
-      // this.data.next(data);   
-          data.forEach((data)=>{
-          this.addData(data); 
-        });
-      });
+    this.userMdbService.getAll()
+    .subscribe((data) => {
+    this.data.next(data)
+    console.log(data);
+  })
+  
+    // this.datatablesServices.getUsersGenInfo()
+    // .snapshotChanges().pipe(
+    //   map(changes =>      
+    //     changes.map(c =>
+    //       ({key:c.key, ...c.payload.val() })))
+    // ).pipe(take(1))
+    // .subscribe(data => {
+    //   // this.data.next(data);   
+    //       data.forEach((data)=>{
+    //       this.addData(data); 
+    //     });
+    //   });
     }
 
-  addData(fireBData) {
-    const currentValue = this.data.value;
-    const updataValue = [...currentValue, fireBData];
-    this.data.next(updataValue); //it is publishing this value to all the subscribers that have already subscribed to this message
-  }
+  // addData(fireBData) {
+  //   const currentValue = this.data.value;
+  //   const updataValue = [...currentValue, fireBData];
+  //   this.data.next(updataValue); //it is publishing this value to all the subscribers that have already subscribed to this message
+  // }
 
-  deleteUserInfo(uid) {
-    if(confirm('Are you sure want to delte this user?')) {
-      this.datatablesServices.deleteUserInfo(uid);
-      // don't forget to update the table
-    }
-  }
+ 
 
   generateActionMenuForRfr(cellData, rowData, row) {
     let menu = new ActionMenuComponent();
@@ -107,14 +109,14 @@ export class AdminComponent {
     editAddressInfo.label = "edit address information";
     editAddressInfo.data = rowData;
     editAddressInfo.action = (data) => {
-    this.adminUser.changeTargetUid(data.key);
-    this.router.navigate(['admin/admin-user/']);
+      // stoped here
+    this.router.navigate([`admin/admin-user/`+`${data._id}`]);
     };  
     let deleteButton = new ActionButton();
     deleteButton.label = "delete";
     deleteButton.data = rowData;
     deleteButton.action = (data => {
-      this.deleteUserInfo(data.key);
+      this.deleteUserInfo(data._id);
     });
     let addLanguage = new ActionButton();
     addLanguage.label = "addLanguage";
@@ -126,6 +128,24 @@ export class AdminComponent {
     menu.buttons.push(editAddressInfo, deleteButton, addLanguage);
     return menu;
   };
+
+  deleteUserInfo(uid) {
+    if(confirm('Are you sure want to delte this user?')) {
+      // this.datatablesServices.deleteUserInfo(uid);
+      // this.addressMdbService.delteAddress(uid).subscribe(
+      //   () => console.log(`address with Id = ${uid} deleted`),
+      //   (error) => console.log(error));
+
+      this.userMdbService.deleteUser(uid).subscribe(
+        (data) => console.log(data, `User with Id = ${uid} deleted`));
+
+      this.addressMdbService.deleteAddress(uid).subscribe(
+        (data) => console.log(data, `address with Id = ${uid} deleted`));
+        
+      // don't forget to update the table
+        this.getNewRows();
+    }
+  }
 
   createAddLanguageOverlay() {
     this.router.navigate(['admin/add-language'])

@@ -4,7 +4,7 @@
     </div>
 
 <div class="container">
-    <form #f="ngForm" (ngSubmit)="addUserInfo(f.value)">
+    <form #f="ngForm" (ngSubmit)="addUserInfo()">
         <div>
             <label for="name"><b> Name </b></label><br>
             <input
@@ -15,18 +15,6 @@
             type="text" 
             placeholder="Enter Name"  
             id="name">
-            <br>
-        </div>
-        <div>
-            <label for="address"><b> Address </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="newUser.address"
-            name="address"
-            type="text" 
-            placeholder="Enter address"  
-            id="address">
             <br>
         </div>
         <div>

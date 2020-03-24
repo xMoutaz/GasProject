@@ -15,8 +15,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
-  tryRegister(value){
-    this.auth.signup(value);
+  tryRegister(newUser){
+    this.auth.signup(newUser);
   }
 
   ngOnInit() {

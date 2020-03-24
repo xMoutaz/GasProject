@@ -18,20 +18,21 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [  
-              "src/lib/semantic.min.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+            "styles": [ 
+              "src/lib/semantic.min.css",              
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "./node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css"
+              "node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css"
+
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery/dist/jquery.js",
               "src/lib/semantic.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
@@ -53,7 +54,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -146,7 +146,12 @@
             "tsConfig": "projects/typings-lib/tsconfig.lib.json",
             "project": "projects/typings-lib/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/typings-lib/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {

@@ -14,15 +14,22 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { FirebaseTransLoaderComponent } from './firebase-trans-loader/firebase-trans-loader.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+// import { FirebaseTransLoaderComponent } from './firebase-trans-loader/firebase-trans-loader.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataTableModule } from '../modules/dataTables.module';
 import { RouterModule } from '@angular/router';
-import { UserDetailsComponent } from '../admin-home/components/user-details/user-details.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { UserMdbService } from './services/Mongodb/user-mdb.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from 'src/lib/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 
-export function FbTransLoaderFactory(db: AngularFireDatabase) {
-  return new FirebaseTransLoaderComponent(db);
+// export function FbTransLoaderFactory(db: AngularFireDatabase) {
+//   return new FirebaseTransLoaderComponent(db);
+// }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -35,7 +42,7 @@ export function FbTransLoaderFactory(db: AngularFireDatabase) {
     NotFoundComponent,
     ProductsComponent,
     CheckOutComponent,
-    OrderSuccessComponent
+    OrderSuccessComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +50,14 @@ export function FbTransLoaderFactory(db: AngularFireDatabase) {
     FormsModule,
     DataTableModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
     RouterModule.forChild([
       { path: 'login', component: LoginComponent},
       { path: 'signup', component: RegistrationComponent},
@@ -53,9 +68,12 @@ export function FbTransLoaderFactory(db: AngularFireDatabase) {
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
  
     ]),
-    TranslateModule.forRoot({
-      loader: {provide: TranslateLoader, useFactory:FbTransLoaderFactory, deps: [AngularFireDatabase]}
-    })
+    // TranslateModule.forRoot({
+    //   loader: 
+    // {provide: TranslateLoader, 
+    // useFactory:FbTransLoaderFactory, 
+    //deps: [AngularFireDatabase]}
+    // })
   ],
   exports: [
     BrowserModule,
@@ -78,6 +96,9 @@ export function FbTransLoaderFactory(db: AngularFireDatabase) {
     AuthService,
     UserService,
     AuthGuardService,
-  ]
+    UserMdbService
+  ],
+  entryComponents: [ ActionMenuComponent]
 })
 export class SharedModule { }
+

@@ -85,7 +85,7 @@ export class  DataTableComponent implements  AfterViewInit {
     this.tableSettings = {
       info: false,
       ordering: false,
-      searching: false,
+      searching: true,
       // --------------------------
       scrollX: true,
       scrollY: '300',

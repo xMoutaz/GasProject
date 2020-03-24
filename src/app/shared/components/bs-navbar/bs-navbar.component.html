@@ -36,7 +36,6 @@
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button 
         type="button" 
@@ -53,7 +52,6 @@
       <a class="navbar-brand" href="">{{ HOME | translate}}</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
        
@@ -77,6 +75,37 @@
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
+ 
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">{{ HOME | translate}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <ng-template #anonymousUser>
+          <li class="nav-item"><a class="nav-link" routerLink="/login">login <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/signup">signup</a></li>
+        </ng-template>
+      <li class="nav-item dropdown" *ngIf="appUser ; else anonymousUser">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{appUser.name}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="appUser ; else anonymousUser">
+          <a class="dropdown-item" href="#">My Order</a>
+          <a class="dropdown-item" href="#">check-out</a>
+          <ng-container *ngIf="appUser.isAdmin">
+          <a class="dropdown-item" routerLink="admin">Manage Users</a>
+          </ng-container>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"(click)="logout()">log Out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav><br> <br> -->

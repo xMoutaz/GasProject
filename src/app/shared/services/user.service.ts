@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { User } from '../models/user';
 // import { AppUser } from '../models/app-user';
 // import { FirebaseObjectObservable } from '@angular/fire/database-deprecated';
@@ -16,11 +13,11 @@ export class UserService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  addUserInfo(newUser: User, user) {
-        this.db.object('/UsersInfo/' + user.uid).update({
+  addUserInfo(newUser: User) {
+        this.db.object('/UsersInfo/' + newUser._id).update({
           name: newUser.name,
           phone: newUser.phone,
-          email: user.email
+          email: newUser.email
         });
       }
 
@@ -29,6 +26,7 @@ export class UserService {
     return this.db.object('/UsersInfo/' + uid);
   }
 
+  // After Login check if the user have entered his Address data
   checkUserInfo(uid: string) {
     return this.db.object('/UsersInfo/' + uid)
   }

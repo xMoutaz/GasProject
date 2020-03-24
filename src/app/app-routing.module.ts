@@ -10,7 +10,7 @@ import { CheckOutComponent } from './shared/components/check-out/check-out.compo
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { OrderSuccessComponent } from './shared/components/order-success/order-success.component';
 
-import { UserDetailsComponent } from './admin-home/components/user-details/user-details.component';
+import { UserDetailsComponent } from './shared/components/user-details/user-details.component';
 import { AdminUsersComponent } from './admin-home/components/admin-users/admin-users.component';
 import { AdminAddLanguageComponent } from './admin-home/components/admin-add-language/admin-add-language.component';
 import { EditWordComponent } from './admin-home/components/edit-word/edit-word.component';

@@ -3,14 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable, of, config } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 
 import * as firebase from 'firebase';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { auth } from 'firebase/app';
+import { UserMdbService } from './Mongodb/user-mdb.service';
 
+// import * as functions from 'firebase-functions';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +20,14 @@ import { auth } from 'firebase/app';
 export class AuthService {
   
   user$: Observable<firebase.User>;
+  userMDB: User;
 
   constructor(
     private afAuth: AngularFireAuth,
     private route: ActivatedRoute,
     private router: Router,
+    private userMDBService : UserMdbService,
     private userService: UserService) {
-
     this.user$ = afAuth.authState;
      }
 
@@ -37,8 +40,8 @@ export class AuthService {
     
     emailLogin(email: string, password: string) {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
-        .then(value => {
-          this.router.navigate(['home']);
+        .then(value => {          
+          this.router.navigate(['']);
         })
         .catch(err => {
           console.log('Something went wrong:',err.message);
@@ -47,28 +50,69 @@ export class AuthService {
         }
 
     googlelogin() {
-      this.AuthLogin(new auth.GoogleAuthProvider());      
+      this.AuthLogin(new auth.GoogleAuthProvider()) 
     }
 
     AuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
-      .then((result) => {
-          let uid = result.user.uid;
-          this.userService.checkUserInfo(uid)
-          .valueChanges().subscribe((data => {
-            let exist : boolean;
-            if (data !== null) {
-               console.log(data);
-               this.router.navigate(['']) }
-            else {
-              console.log(data);
-              this.router.navigate(['userDetails']);
-            }
-          }))
-      }).catch((error) => {
-          console.log(error)
-      })
-    }
+       .then((result) => {
+        // console.log(result.user);
+        
+        //   let uid = result.user.uid;
+        //   console.log(uid);
+          
+          // this.userMDBService.checkUserInfo(uid) 
+          // // this.ngZone.run(() => this.getEmployees()));
+          // .subscribe((data : User) => {
+          //   if (data !== null) {
+          //     console.log(data);
+          //     return data;
+           this.router.navigate(['']);
+          //   } else {
+          //     this.router.navigate(['userDetails']);
+          //   } //else
+          // }) // subscribe
+          
+        }) // then 
+        .catch(function(error) {
+        // Handle Errors here.
+        alert(error.message);
+      });
+
+      
+      
+      // .then((result) => {
+      //   let user = this.appUser$;
+      //   console.log(user);
+        
+      // })
+
+      // .catch(function(error) {
+      //   // Handle Errors here.
+      //   alert(error.message);
+      // });
+
+      // .then((result) => {
+      //   console.log(result.user);
+        
+      //     let uid = result.user.uid;
+      //     console.log(uid);
+          
+          // this.userMDBService.checkUserInfo(uid) 
+          // // this.ngZone.run(() => this.getEmployees()));
+          // .subscribe((data : User) => {
+          //   if (data !== null) {
+          //     console.log(data);
+              
+          //     // this.router.navigate(['']);
+          //   } else {
+          //     this.router.navigate(['userDetails']);
+          //   } //else
+          // }) // subscribe
+          
+        // }) // then 
+      }
+        
 
     logout() {
       this.afAuth.auth.signOut();
@@ -80,8 +124,17 @@ export class AuthService {
     return this.user$
     .pipe(switchMap(user => {
       // Check if user is null or not
-      if (user) { return this.userService.get(user.uid).valueChanges(); }
+      if (user) {
+         return this.userMDBService.get(user.uid);
+        //  return this.userService.get(user.uid).valueChanges(); 
+      }
       return of(null);
     }));
   }
+
+  // deleteUser(uid) {
+  //   admin.auth().deleteUser(uid)
+  //   .then(() => console.log('Deleted user with ID:' + uid))
+  //         .catch((error) => console.error('There was an error while deleting user:', error));
+  // }
 }

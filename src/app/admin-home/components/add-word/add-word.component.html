@@ -1,22 +1,23 @@
 <div class="container">
-    <form #f="ngForm" (ngSubmit)="addWord(f.value)  ">
+    <form #f="ngForm" (ngSubmit)="addWord()  ">
+        <h2 class='data_grid_center_align'>Add New Word</h2>
         <div>
             <label for="word"><b>Word</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="word.word"
+            [(ngModel)]="newWord.id"
             name="word"
             type="text"  
             id="word">
             <br>
         </div>
         <div>
-            <label for="translations"><b>translations</b></label><br>
+            <label for="translations"><b>{{language.language}} translations</b></label><br>
             <input
             class="form-control"
             #name="ngModel"
-            [(ngModel)]="word.trans" 
+            [(ngModel)]="newWord.trans" 
             name="tans" 
             type="trans"  
             id="trans">

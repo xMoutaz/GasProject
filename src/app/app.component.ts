@@ -12,11 +12,13 @@ export class AppComponent {
   helloKey = 'HELLO';
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('en');
+    
     translate.use('en');
   }
 
   onLangChange(event) {
     this.translate.use(event.target.value);
-    console.log(event);
+    this.translate.getTranslation(event.target.value);
+    console.log(event.target.value);
   }
 }

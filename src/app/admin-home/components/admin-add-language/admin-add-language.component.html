@@ -44,30 +44,26 @@
 <!-- <div id="page-wrapper">
     <app-data-table [Columns]="colDefinitions" [Data]='data' ></app-data-table>
 </div> -->
-Table translation Language
-
+Translation Language
 <select (change)="onLangChange($event)">
     <option value="none" selected disabled hidden> 
     <option 
         *ngFor="let language of languages" 
-        [value]="language.key">
-        {{language.key}}
+        [value]="language">
+        {{language}}
     </option>
-  </select>
+</select>
 <button class="btn btn-primary" (click)="AddLanguage()">Add Language</button>
-
 <div id="page-wrapper">
     <app-data-table 
         [Columns]="colDefinitions" 
         [Data]='data' 
+        [(GeneralSettings)]="generalSettings"
         [ExpansionSettings]="languageExpansionSettings" 
         [PageSettings]="pageSettings"  
     >
     </app-data-table>
 </div>
-<button class="btn btn-primary play_button" (click)="addNewWord()">Add New Word</button>
+<button class="btn btn-primary" (click)="addNewWord()">Add New Word</button>
 
-<button (click)="testPaging()">Test Pagmin</button>
-<button (click)="getNextPage()">Next Pagmin</button>
-<button (click)="getPreviousPgae()">getPreviousPgae Pagmin</button>
-<button (click)="getNumChildren()">Set Total records</button>
+  

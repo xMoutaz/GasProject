@@ -8,6 +8,9 @@ export class GeneralSettings{
     }
     AddRow(){}
     UpddateRow(rowInfo, record){
+        console.log('rowInfo: ', rowInfo);
+        console.log('record: ', record);
+        
         this._generalSettingHelper.UpdateRow(rowInfo, record);
     }
     DeleteRow(rowInfo){
@@ -41,6 +44,9 @@ export class GeneralSettingsHelper{
     }
 
     UpdateRow(rowInfo: {id, propertyName: string} | DataTables.RowMethods | number, record){
+        console.log('rowInfo: ', rowInfo);
+        console.log('record: ', record);
+        
         let tableRecord = GeneralSettingsHelper.getDataTableRowObject(rowInfo, this._tableApi);
 
         if (tableRecord.data() == null) {

@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   emailLogin(value) {
     this.auth.emailLogin(value.email, value.password);
+    console.log(value);
+    
   }
 
   googleLogin() {

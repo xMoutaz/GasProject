@@ -1,18 +1,15 @@
-<ul class="nav nav-pills" id="myTab">
-    <li >
-      <a routerLink="/admin/admin">Admin-Users</a>
-    </li>
-    <li >
-      <a routerLink="/admin/add-lang">Admin-Language</a>
-    </li>
-    <li>
-      <a href="#">Menu 2</a>
-    </li>
-    <li>
-      <a href="#">Menu 3</a></li>
-</ul>
 
-<script type="text/javascript">
-  $('#myTab a').on('click', function() {
-    $(this).addClass('active')});
-</script>
+<ul class="nav nav-tabs">
+  <li class="nav-item" data-toggle="tab">
+    <a class="nav-link"   routerLink="/admin/admin">Admin-Users</a>
+  </li>
+  <li class="nav-item" data-toggle="tab">
+    <a class="nav-link"    routerLink="/admin/add-lang">Admin-Language</a>
+  </li>
+  <li class="nav-item" data-toggle="tab">
+    <a class="nav-link"    routerLink="/admin">Admin</a>
+  </li>
+  <li class="nav-item" data-toggle="tab">
+    <a class="nav-link"    routerLink="/admin">Admin</a>
+  </li>
+</ul>

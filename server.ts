@@ -14,13 +14,15 @@ admin.initializeApp({
     databaseURL: "https://gasproject-2f4cb.firebaseio.com"
   });
 
-const _port = 4201;
+const _port = 80;
 
 const app = express();
-const main = express();
 
 let trans= [];
-// `http://localhost:4201/translations?pg=${pg}&&pgS=${pgS}`
+
+
+// http://192.168.99.100/translations?pg=2&&pgS=5
+
 app.get(`/translations/`, (request, response) => {
   cors(request, response, () => {
    let pgN = +request.query.pg;

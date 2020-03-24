@@ -1,18 +1,20 @@
 import { Component, OnInit, OnDestroy, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { ColumnDefs, GPFIButton } from '../../../components/data-table/classes/Columns';
+import { ColumnDefs, GPFIButton } from '../../../components/controls/data-table/classes/Columns';
 import { map } from 'rxjs/operators';
-import { ActionMenuComponent, ActionButton } from '../../../components/action-menu/action-menu.component';
+import { ActionMenuComponent, ActionButton } from '../../../components/controls/action-menu/action-menu.component';
 import { Router } from '@angular/router';
 import { TranslationsService } from 'src/app/shared/services/translations.service';
 import { Word } from 'src/app/shared/models/wordTrans';
 import { AdminDataService } from '../../services/admin-data.service';
-import { ExpansionSettings } from 'src/app/components/data-table/classes/Expansion';
-import { EditWordComponent } from '../edit-word/edit-word.component';
-import { PageSettings } from 'src/app/components/data-table/classes/Paging';
-import { GeneralSettings, GeneralSettingsHelper } from 'src/app/components/data-table/classes/General';
 import { ThrowStmt } from '@angular/compiler';
 import { HttpClient } from '@angular/common/http';
+import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translations-mdb.service';
+import { NewWord } from 'src/app/shared/models/newWord';
+import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
+import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { EditWordComponent } from '../edit-word/edit-word.component';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -20,46 +22,37 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./admin-add-language.component.css']
 })
 export class AdminAddLanguageComponent implements OnInit, OnDestroy {
-  word= new Word();
 
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
-  selectedLanguage: string;
+  selectedLanguage: string ='en';
 
   // for paging data
   dataList: any;
 
-  subscription: Subscription;
-
   totalRecords : number;
 
-  languages: Array<any>;
+  languages: any;
 
   languageExpansionSettings: ExpansionSettings;
   pageSettings: PageSettings;
-  generalSettings: GeneralSettings;
-  tableSettings: DataTables.Settings;
-  showMessage: string;
-  testArray: Word[] = [];
+  generalSettings= new GeneralSettings();
 
-  pageSize: number = 2;
-
-  startingPoint: string = '';
-  endingPiont: string;
-
-  private _url: string ='https://us-central1-gasproject-2f4cb.cloudfunctions.net/webApi/api/v1/test';
-
-
+  
+  newWord: NewWord =<any>{};
+  
   constructor(
+    private translationsMDBService: TranslationsMdbService,
     private http: HttpClient,
     public CFR: ComponentFactoryResolver,
     private translationServices: TranslationsService, 
     private router: Router, 
-    private adminUser: AdminDataService) {          
-    this.setUpColumnDefintion();
-    this.getTransLanguages();
-    this.languageExpansionSettings = this.setupExpansionSettings();
-    this.setUppageSettings();  
+    private adminUser: AdminDataService) { 
+      this.getTotalRecord();   
+      this.getTranslationLanguages();   
+      this.setUpColumnDefintion();
+      this.languageExpansionSettings = this.setupExpansionSettings();
+      this.setUppageSettings();  
   }
 
   ngOnInit() {
@@ -68,27 +61,16 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 }
 
-  getTranslations() {
-   this.subscription = this.translationServices.getTrans(this.selectedLanguage)
-    .snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c  =>
-          ({ key: c.payload.key, ...c.payload })))
-    ).subscribe(data => {
-      this.data.next(data);
-    });
-  }
-
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key:'key',
+        key:'id',
         className: 'data_grid_left_align',
         header: "Word",
         responsivePriority:true
       },
       {
-        key:'value',
+        key:'trans',
         className: 'data_grid_center_align',
         header: "trans",
         responsivePriority:true
@@ -100,6 +82,13 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     ];
   }
 
+  getTotalRecord() {
+    this.translationsMDBService.getTotalRecord().subscribe((data: number) => {
+      this.totalRecords = data;
+      this.pageSettings.setTotalRecords(this.totalRecords);
+    })
+  }
+
   generateActionMenuForRfr(cellData, rowData, row) {
     let menu = new ActionMenuComponent();
 
@@ -107,13 +96,14 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     deleteButton.label = "delete";
     deleteButton.data = rowData;
     deleteButton.action = (data => {
-      this.deleteTranslation(data)
+      // {id: "ENGLISH", word: "الانجليزية"}
+     this.deleteTranslation(data.id)
     });
     let editLanguage = new ActionButton();
-    editLanguage.label = "editLanguage";
+    editLanguage.label = "editLanguage";    
     editLanguage.data = rowData;
     editLanguage.action = (data => {
-      this.languageExpansionSettings.ExpandGrid({id: rowData.key, propertyName: "key"})
+      this.languageExpansionSettings.ExpandGrid({id: rowData.id, propertyName: "id"})
     });
     menu.buttons.push( deleteButton, editLanguage);
     return menu;
@@ -127,14 +117,30 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
         // Data table returns its own view container, so it can manage the removing of its instance on collapse of the grid
         // to prevent memory leaks.
         let component = viewContainerRef.createComponent(componentResolve);
-        component.instance.word.word= rowData.key;
-        component.instance.word.trans= rowData.node_.value_;
-        this.word = component.instance.word;
-        component.instance.notify.subscribe(event => 
-          { console.log(this.word);
-            this.translationServices.updateArTrans(this.selectedLanguage , this.word); 
-            this.languageExpansionSettings.CollapseGrid({id:rowData.key, propertyName:"key"});
+        console.log(rowData);
+        component.instance.newWord = rowData;
+
+        // component.instance.newWord.id= rowData.id;
+        // component.instance.newWord.trans= rowData.word;
+        
+        this.newWord = component.instance.newWord;
+        console.log(this.newWord);
+        
+           component.instance.notify.subscribe(event => 
+          { 
+            rowData.id = this.newWord.id;
+            rowData.word = this.newWord.trans;
+            console.log({id:rowData.id, propertyName:"id"}, this.newWord);
+            
+             this.generalSettings.UpddateRow({id:this.newWord.id, propertyName:"id"}, rowData);
+            
+            this.translationsMDBService.updateTranslation(this.selectedLanguage, this.newWord).subscribe((data)=>
+            console.log(data));
+
+            // this.translationServices.updateArTrans(this.selectedLanguage , this.word); 
+            this.languageExpansionSettings.CollapseGrid({id:rowData.id, propertyName:"id"});
            })
+           
         resolve(component);
       });
     });
@@ -142,67 +148,70 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
 
   setUppageSettings() {
     this.pageSettings =  new PageSettings(() => {
-     this.onPageChange();
+      this.onPageChange();
+    });
+  }
+    onPageChange() {
+      let pg = this.pageSettings.currentPage-1;
+      let pgS = this.pageSettings.pageSize;
+      // http://localhost:3000/translations/dataTble/en?pg=${pg}&&pgS=${pgS}`
+      this.translationsMDBService.getDataTableTranslations(this.selectedLanguage, pg, pgS).subscribe((data: Word[]) => 
+        this.data.next(data));
+  }
+
+  deleteTranslation(_id) {
+    this.generalSettings.DeleteRow({id:_id,propertyName: "id" });
+    //  this.translationServices.deleteTranslation(data);
+    this.translationsMDBService.deleteTranslation(_id).subscribe(
+      (data) => {console.log(data, `Translation with Id = ${_id} deleted`); 
     });
   }
 
-  onPageChange() {
-    console.log('total Records: ' + this.totalRecords);
-    
-    console.log(this.pageSettings.getTotalRecords());
-    console.log(this.pageSettings.currentPage);
-    // pg=0&pgS=5
-    let pg = this.pageSettings.currentPage-1;
-    let pgS = this.pageSettings.pageSize;
-    console.log('pg: ' +pg);
-    console.log('pgS: ' +pgS);
-    
-    this.http.get(`http://localhost:4201/translations?pg=${pg}&&pgS=${pgS}`)
-    .subscribe(data => {
-      let temp : any = data;
-      this.data.next(temp)
-    })  
-  }
-
-    // number of child
-    getNumChildren(selectedLanguage): any {
-      this.translationServices.getNumChildren('ar')
-      .subscribe(data =>{
-       this.totalRecords =  data.payload.numChildren();
-       console.log(this.totalRecords);
-       this.pageSettings.setTotalRecords(this.totalRecords);       
-      })
-      this.onPageChange();
-    }
-
-  deleteTranslation(data) {
-     this.translationServices.deleteTranslation(data);
-  }
-
-  onLangChange(event) {
-    this.selectedLanguage = event.target.value;   
-    this.adminUser.changeTargetedLnaguage(this.selectedLanguage);  
-    this.getNumChildren(this.selectedLanguage);
+  onLangChange(event) {    
+     this.selectedLanguage =  event.target.value;  
+     this.onPageChange();
   }
 
   AddLanguage() {
     this.router.navigate(['admin/adminAddnewLanguage']);      
   }
-  addNewWord() {
-    this.router.navigate(['admin/add-word'])
+  addNewWord() {    
+    if(this.selectedLanguage){
+    this.router.navigate(['admin/add-word/'+`${this.selectedLanguage}`]);
+    }
   }
+
+
+  getTranslationLanguages() {
+    this.translationsMDBService.getTranslationLanguages().subscribe(data => 
+      this.languages = data);
+   }
+
   
-  getTransLanguages() {
-  this.translationServices.getLang()
-    .snapshotChanges()
-    .pipe(map(changes =>
-      changes.map(c  =>
-        ({ key: c.payload.key})))
-  ).subscribe(data => {
-      this.languages = data;
-    });
-  }
+  // number of child
+  // getNumChildren(selectedLanguage): any {
+  //   this.translationServices.getNumChildren('ar')
+  //   .subscribe(data =>{
+  //    this.totalRecords =  data.payload.numChildren();
+  //    console.log(this.totalRecords);
+  //    this.pageSettings.setTotalRecords(this.totalRecords);       
+  //   })
+  //   this.onPageChange();
+  // }
 
+  // getTranslations(lang) {
+  //   this.translationsMDBService.getDataTable(lang).subscribe((data: any) => {
+  //     console.log(data)
+  //     this.data.next(data);
+  //   });
 
-
+  // //  this.subscription = this.translationServices.getTrans(this.selectedLanguage)
+  // //   .snapshotChanges().pipe(
+  // //     map(changes =>
+  // //       changes.map(c  =>
+  // //         ({ key: c.payload.key, ...c.payload })))
+  // //   ).subscribe(data => {
+  // //     this.data.next(data);
+  // //   });
+  // }
 }
