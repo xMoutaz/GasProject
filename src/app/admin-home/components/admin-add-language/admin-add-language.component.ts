@@ -130,13 +130,10 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
           { 
             rowData.id = this.newWord.id;
             rowData.word = this.newWord.trans;
-            console.log({id:rowData.id, propertyName:"id"}, this.newWord);
-            
-             this.generalSettings.UpddateRow({id:this.newWord.id, propertyName:"id"}, rowData);
-            
+                        
             this.translationsMDBService.updateTranslation(this.selectedLanguage, this.newWord).subscribe((data)=>
             console.log(data));
-
+            this.generalSettings.UpddateRow({id:this.newWord.id, propertyName:"id"}, rowData);
             // this.translationServices.updateArTrans(this.selectedLanguage , this.word); 
             this.languageExpansionSettings.CollapseGrid({id:rowData.id, propertyName:"id"});
            })

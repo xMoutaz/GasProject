@@ -8,7 +8,7 @@ import { ThrowStmt } from '@angular/compiler';
 export class TranslateHttpLoader implements TranslateLoader {
   readonly translations$ = new BehaviorSubject<any>(null);
 
-  readonly baseUrl = 'http://localhost:3000/translations/ngx-translate'
+  readonly baseUrl = 'https://gas-apiv0.herokuapp.com/translations/ngx-translate'
   constructor(private http: HttpClient) { }
   getTranslation(lang: string) {
    return this.http.get(`${this.baseUrl}/${lang}`);

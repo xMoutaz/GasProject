@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   facebookLogin() {
-
+    this.auth.facebookLogin();
   }
 
 }

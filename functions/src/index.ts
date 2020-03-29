@@ -1,48 +1,34 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
-import * as express from 'express';
-import * as bodyParser from "body-parser";
+import admin = require('firebase-admin');
+
+
+const cors = require('cors')({origin: true});
+
+// Start writing Firebase Functions
+// https://firebase.google.com/docs/functions/typescript
 
 admin.initializeApp(functions.config().firebase);
 
-const app = express();
-const main = express();
 
-main.use('/api/v1', app);
-main.use(bodyParser.json());
+export const deleteUser = functions.https.onRequest((request, response) => {
 
-const cors = require('cors') ({origin: true});
-
-export const webApi = functions.https.onRequest(main);
-let trans: any[] = [];
-
-app.get(`/test/`, (request, response) => {
   cors(request, response, () => {
-   let pgN = +request.query.pg;
-    let pgS= +request.query.pgS;
-    let startingPoint = pgN * pgS;
-    let endingPoint = startingPoint + pgS;
-    let count=0;
 
-    admin.database().ref('/translates/ar/')
-    .orderByKey()
-    .startAt('')
-    .once('value')
-    .then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        if (count >= startingPoint && count < endingPoint){
-        trans.push({
-          key: childSnapshot.key,
-          value: childSnapshot.val()
-        }) // push
-      } // if
-      count ++;
-    }) // forEach
-    count=0; 
-  response.send(trans);
-  trans=[];
-  }) // then
-
-}) // cors
-}) //app
-
+      if(request.method === "DELETE") {
+        // https://us-central1-gasproject-2f4cb.cloudfunctions.net/deleteUser?uid=iT4psHvRbtaQdynHG254RRTdb9c2
+        const userUid = request.query.uid;
+      // Delete user record from Authentication
+        admin.auth().deleteUser(userUid)
+        .then(function() {
+            response.status(200).send(`User Authentication record: " ${userUid} " is  deleted`);
+            console.log('User Authentication record deleted');
+        })
+        .catch((err) => {
+          response.status(500).send(`Error while trying to delete the user', ${err}`);
+          console.error('Error while trying to delete the user', err)
+        })
+      } else {response.status(500).send('THE METHOD SHOULD BE "DELETE" METHOD');}
+  
+  });
+  
+});

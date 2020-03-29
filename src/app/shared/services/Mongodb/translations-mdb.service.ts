@@ -11,7 +11,7 @@ import { NewWord } from '../../models/newWord';
 })
 export class TranslationsMdbService {
   
-  readonly baseURL = 'http://localhost:3000/translations';
+  readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
   word : Word;
   translations: Word[];
   constructor(private http: HttpClient) { }
@@ -22,7 +22,7 @@ export class TranslationsMdbService {
 
   // http://localhost:3000/translations/dataTble/en?pg=0&&pgS=5
   getDataTableTranslations(lang, pg, pgS): Observable<Word[]> {
-    return this.http.get<Word[]>(`http://localhost:3000/translations/dataTble/${lang}?pg=${pg}&&pgS=${pgS}`);
+    return this.http.get<Word[]>(`${this.baseURL}/dataTble/${lang}?pg=${pg}&&pgS=${pgS}`);
   }
 
   // Get how many translations languages
@@ -31,7 +31,7 @@ export class TranslationsMdbService {
   }
 
   getTotalRecord() {
-    return this.http.get('http://localhost:3000/translations/dataTable/totalRecords');
+    return this.http.get(`${this.baseURL}/dataTable/totalRecords`);
   }
 
   addNewLanguage(language: Language ) {
@@ -44,7 +44,7 @@ export class TranslationsMdbService {
     console.log(lang);
     console.log(word);    
     // http://localhost:3000/translations/EditTranslation/ar?translationId=DELETE
-    return this.http.patch<Word>(`http://localhost:3000/translations/EditTranslation/${lang}`, word);
+    return this.http.patch<Word>(`${this.baseURL}/EditTranslation/${lang}`, word);
   }
 
   deleteTranslation(_id) {

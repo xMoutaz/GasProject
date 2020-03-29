@@ -13,7 +13,7 @@ export class UserMdbService {
   
   selectedUser: User;
   users: User[];
-  readonly baseURL = 'http://localhost:3000/users';
+  readonly baseURL = 'https://gas-apiv0.herokuapp.com/users';
   commingUser: User;
 
   constructor(private http: HttpClient, private router: Router) { }

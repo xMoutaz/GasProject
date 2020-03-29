@@ -15,6 +15,7 @@ import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service
 import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
 import { error } from 'protractor';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
 
 @Component({
   selector: 'app-admin',
@@ -33,7 +34,7 @@ export class AdminComponent {
   constructor(
     private userMdbService : UserMdbService,
     private addressMdbService: AddressMdbService,
-    private datatablesServices : DataTableService, 
+    private adminFBUser : AdminFirebasaeService, 
     private router: Router,
     private adminUser: AdminDataService) 
   {
@@ -136,6 +137,9 @@ export class AdminComponent {
       //   () => console.log(`address with Id = ${uid} deleted`),
       //   (error) => console.log(error));
 
+      this.adminFBUser.deleteFBUser(uid).subscribe(
+        (data) => console.log(data));
+      
       this.userMdbService.deleteUser(uid).subscribe(
         (data) => console.log(data, `User with Id = ${uid} deleted`));
 
@@ -143,7 +147,7 @@ export class AdminComponent {
         (data) => console.log(data, `address with Id = ${uid} deleted`));
         
       // don't forget to update the table
-        this.getNewRows();
+        // this.getNewRows();
     }
   }
 

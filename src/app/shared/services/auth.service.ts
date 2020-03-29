@@ -47,8 +47,11 @@ export class AuthService {
           console.log('Something went wrong:',err.message);
           this.router.navigate(['signup']);
         });
-        }
+    }
 
+    facebookLogin() {
+      this.AuthLogin(new auth.FacebookAuthProvider());
+    }
     googlelogin() {
       this.AuthLogin(new auth.GoogleAuthProvider()) 
     }
@@ -56,6 +59,12 @@ export class AuthService {
     AuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
        .then((result) => {
+         console.log(result);
+         if(result.additionalUserInfo.isNewUser){
+          this.router.navigate(['userDetails']);
+         } else {
+          this.router.navigate(['userDetails']);
+         }
         // console.log(result.user);
         
         //   let uid = result.user.uid;
@@ -67,7 +76,7 @@ export class AuthService {
           //   if (data !== null) {
           //     console.log(data);
           //     return data;
-           this.router.navigate(['']);
+          //  this.router.navigate(['']);
           //   } else {
           //     this.router.navigate(['userDetails']);
           //   } //else
@@ -76,6 +85,8 @@ export class AuthService {
         }) // then 
         .catch(function(error) {
         // Handle Errors here.
+        console.log(error);
+        
         alert(error.message);
       });
 

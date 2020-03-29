@@ -1,14 +1,15 @@
 <div class="container">
     <form #f="ngForm" (ngSubmit)="updateTranslations()">
         <div>
-            <label for="word"><b>Word</b></label><br>
+            <label for="word"><b>Word ID</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
             [(ngModel)]="newWord.id"
             name="word"
             type="text"  
-            id="word">
+            id="word"
+            disabled>
             <br>
         </div>
         <div>
