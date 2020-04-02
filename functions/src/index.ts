@@ -19,12 +19,12 @@ export const deleteUser = functions.https.onRequest((request, response) => {
         const userUid = request.query.uid;
       // Delete user record from Authentication
         admin.auth().deleteUser(userUid)
-        .then(function() {
-            response.status(200).send(`User Authentication record: " ${userUid} " is  deleted`);
+        .then(function(result) {
+            response.status(200).json(userUid);
             console.log('User Authentication record deleted');
         })
         .catch((err) => {
-          response.status(500).send(`Error while trying to delete the user', ${err}`);
+          response.status(500).send(err);
           console.error('Error while trying to delete the user', err)
         })
       } else {response.status(500).send('THE METHOD SHOULD BE "DELETE" METHOD');}

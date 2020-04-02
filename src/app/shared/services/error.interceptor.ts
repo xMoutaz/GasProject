@@ -23,7 +23,6 @@ export class ErrorIntercept implements HttpInterceptor {
      
       let subscription = next.handle(request)
       .pipe(
-          retry(1),
           catchError((response, obs) => {
         if (response instanceof HttpErrorResponse) {
           if ([500, 404, 403, 0].indexOf(response.status) != -1 ) {

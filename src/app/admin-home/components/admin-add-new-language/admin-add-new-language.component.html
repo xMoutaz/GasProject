@@ -30,7 +30,8 @@
             <input
             class="form-control"
             #name="ngModel"
-            [(ngModel)]="newWord.trans" 
+            [(ngModel)]="newWord.word[language.language]" 
+            name="newWord.word[language.language]" 
             name="tans" 
             type="trans"  
             id="trans" 

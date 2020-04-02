@@ -15,9 +15,8 @@ export class LoginComponent implements OnInit {
   }
 
   emailLogin(value) {
-    this.auth.emailLogin(value.email, value.password);
     console.log(value);
-    
+    this.auth.emailLogin(value.email, value.password);
   }
 
   googleLogin() {
@@ -28,4 +27,7 @@ export class LoginComponent implements OnInit {
     this.auth.facebookLogin();
   }
 
+  forgetPassword(email) {    
+    this.auth.forgetPassword(email);
+  }
 }

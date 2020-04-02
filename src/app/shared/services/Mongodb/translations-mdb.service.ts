@@ -16,8 +16,8 @@ export class TranslationsMdbService {
   translations: Word[];
   constructor(private http: HttpClient) { }
 
-  saveWord(word): Observable<Word> {
-    return this.http.post<Word>(this.baseURL + '/addNewWord/', word);
+  saveWord(word): Observable<NewWord> {
+    return this.http.post<NewWord>(this.baseURL + '/addNewWord/', word);
   }
 
   // http://localhost:3000/translations/dataTble/en?pg=0&&pgS=5

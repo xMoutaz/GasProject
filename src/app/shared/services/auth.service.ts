@@ -131,6 +131,17 @@ export class AuthService {
     }
 
 
+    forgetPassword(email) {
+      this.afAuth.auth.sendPasswordResetEmail(email).then(
+        (success) => {
+          console.log(success);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+
    get appUser$(): Observable<User> {
     return this.user$
     .pipe(switchMap(user => {

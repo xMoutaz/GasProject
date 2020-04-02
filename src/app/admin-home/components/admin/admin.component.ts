@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, mergeMap, concatMap } from 'rxjs/operators';
 import { ColumnDefs, GPFIButton } from '../../../components/controls/data-table/classes/Columns';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUsersComponent } from '../admin-users/admin-users.component';
@@ -137,15 +137,25 @@ export class AdminComponent {
       //   () => console.log(`address with Id = ${uid} deleted`),
       //   (error) => console.log(error));
 
-      this.adminFBUser.deleteFBUser(uid).subscribe(
-        (data) => console.log(data));
+      // this.adminFBUser.deleteFBUser(uid).subscribe(
+      //   (data) => console.log(data));
       
-      this.userMdbService.deleteUser(uid).subscribe(
-        (data) => console.log(data, `User with Id = ${uid} deleted`));
+      // this.userMdbService.deleteUser(uid).subscribe(
+      //   (data) => console.log(data, `User with Id = ${uid} deleted`));
 
-      this.addressMdbService.deleteAddress(uid).subscribe(
-        (data) => console.log(data, `address with Id = ${uid} deleted`));
+      // this.addressMdbService.deleteAddress(uid).subscribe(
+      //   (data) => console.log(data, `address with Id = ${uid} deleted`));
         
+
+      this.adminFBUser.deleteFBUser(uid).pipe(
+          concatMap(id => this.userMdbService.deleteUser(id).pipe(
+              mergeMap(() => this.addressMdbService.deleteAddress(id))
+            )
+          )
+      ).subscribe(
+        success => { console.log(success); },
+        err => { console.log(err); }
+      );
       // don't forget to update the table
         // this.getNewRows();
     }
