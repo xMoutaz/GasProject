@@ -63,7 +63,7 @@ export class AuthService {
          if(result.additionalUserInfo.isNewUser){
           this.router.navigate(['userDetails']);
          } else {
-          this.router.navigate(['userDetails']);
+          this.router.navigate(['']);
          }
         // console.log(result.user);
         

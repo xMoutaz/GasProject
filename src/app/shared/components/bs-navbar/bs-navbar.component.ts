@@ -22,15 +22,22 @@ export class BsNavbarComponent implements OnInit, OnDestroy{
      
   }
    ngOnInit() {
-    this.subscription =  this.auth.user$.subscribe(user => {
-       if(user) {  
-        this.appUser = user; 
+     this.auth.appUser$.subscribe(
+       (data: User) => {
+         console.log(data);
+       this.appUser = data;
        }
-      });
+       );
+
+    // this.subscription =  this.auth.user$.subscribe(user => {
+    //    if(user) {  
+    //     this.appUser = user; 
+    //    }
+    //   });
     }
 
     ngOnDestroy() {
-      this.subscription.unsubscribe();
+      // this.subscription.unsubscribe();
     }
 
   logout() {
