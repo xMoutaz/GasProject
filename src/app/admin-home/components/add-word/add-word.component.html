@@ -1,5 +1,5 @@
 <div class="container">
-    <form #f="ngForm" (ngSubmit)="addWord()  ">
+    <form  *ngIf="language.language" #f="ngForm" (ngSubmit)="addWord()  ">
         <h2 class='data_grid_center_align'>Add New Word</h2>
         <div>
             <label for="word"><b>Word</b></label><br>
@@ -12,7 +12,7 @@
             id="word">
             <br>
         </div>
-        <div>
+        <div >
             <label for="translations"><b>{{language.language}} translations</b></label><br>
             <input
             class="form-control"

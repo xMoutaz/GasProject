@@ -8,17 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { environment } from 'src/environments/environment';
-
-// import { AdminHomeModule } from './admin-home/admin-home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { FirebaseTransLoaderComponent } from './shared/firebase-trans-loader/firebase-trans-loader.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminHomeModule } from './admin-home/admin-home.module';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateHttpLoader } from 'src/lib/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LoaderService, LoaderInterceptor } from './shared/services/loader.service';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -33,11 +28,14 @@ import { ConfirmationBoxComponent } from './components/controls/confirmation-box
 import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
 import { ActionMenuComponent } from './components/controls/action-menu/action-menu.component';
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
-// import { AppDropdownComponent } from './components/data-table/dropdown/app.dropdown.component';
-
-// export function FbTransLoaderFactory(db: AngularFireDatabase) {
-//   return new FirebaseTransLoaderComponent(db);
-// }
+import { StoreModule } from "@ngrx/store";
+import {  LanguageReducer, 
+          SelelectLanguageReducer, 
+           } from './reducers/language.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { LanguageEffects } from './state/language.effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -59,19 +57,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     OperationButtonsComponent
     ],
   imports: [
-    // TranslateModule.forRoot({
-    //   loader: {
-    //       provide: TranslateLoader,
-    //       useFactory: HttpLoaderFactory,
-    //       deps: [HttpClient]
-    //   }
-    // }),
     SharedModule,
     AdminHomeModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -80,12 +70,26 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     MatIconModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({
+      selectLang: SelelectLanguageReducer,
+      language: LanguageReducer,
+      routerReducer: routerReducer
+    }),
+    StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([LanguageEffects]),
+    StoreRouterConnectingModule,
+
     HttpClientModule,
-      MatProgressSpinnerModule,
-      MatDialogModule    
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    MatProgressSpinnerModule,
+    MatDialogModule    
   ],
   providers: 
-  [MessageService, ErrorIntercept, 
+  [ 
+    MessageService, ErrorIntercept, 
     {
     provide: HTTP_INTERCEPTORS,
       useClass: ErrorIntercept,

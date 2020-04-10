@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
 import { NewWord } from 'src/app/shared/models/newWord';
 import { concatMap } from 'rxjs/operators';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { AddLanguage } from 'src/app/state/language.actions';
+import { SelectLanguage } from 'src/app/state/select-language.actions';
 
 @Component({
   selector: 'app-admin-add-new-language',
@@ -17,34 +21,30 @@ import { Subscription } from 'rxjs';
 export class AdminAddNewLanguageComponent implements OnInit {
 
   language = new Language();
-
-  newWord: NewWord =<any>{};
-
-  subscription: Subscription;
   constructor(
-    private wordLang: LanguagesService,
-    private router : Router,
-    private translationsMdbService: TranslationsMdbService,
+    private store: Store<AppState>,
+    private router: Router
     ) {
   }
 
     ngOnInit() {
-      this.subscription= this.wordLang.wordLanguagesOBS.subscribe((newWord: NewWord) => this.newWord = newWord);
-       console.log(this.newWord);
-     }
-   
-     ngOnDestroy(): void {
-       this.subscription.unsubscribe();
+
      }
 
-  addNewKaLanguage() {
-      console.log(this.newWord);
+
+  addNewKaLanguage() {      
+      // this.store.dispatch(new SelectLanguage(this.language));
+      this.store.dispatch(new SelectLanguage(this.language));
+      this.store.dispatch(new AddLanguage(this.language));
+      
+      // this.router.navigate(['admin/add-lang']);
+
       // add language => add the new word => update the word 
-      this.translationsMdbService.addNewLanguage(this.language).pipe(
-          concatMap(ok => this.translationsMdbService.saveWord(this.newWord))
-      ).subscribe(
-        (word: NewWord) => { console.log(word); this.router.navigate(['admin/add-lang']);},
-        err => { console.log(err); }
-      );
+      // this.translationsMdbService.addNewLanguage(this.language).pipe(
+      //     concatMap(ok => this.translationsMdbService.saveWord(this.newWord))
+      // ).subscribe(
+      //   (word: NewWord) => { console.log(word); this.router.navigate(['admin/add-lang']);},
+      //   err => { console.log(err); }
+      // );
   }
 }

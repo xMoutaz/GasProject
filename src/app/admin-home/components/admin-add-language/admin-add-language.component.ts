@@ -1,14 +1,9 @@
-import { Component, OnInit, OnDestroy, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject, Subscription, Observable, Subject } from 'rxjs';
-import { ColumnDefs, GPFIButton } from '../../../components/controls/data-table/classes/Columns';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, ComponentFactoryResolver} from '@angular/core';
+import { BehaviorSubject, Observable} from 'rxjs';
+import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
 import { ActionMenuComponent, ActionButton } from '../../../components/controls/action-menu/action-menu.component';
 import { Router } from '@angular/router';
-import { TranslationsService } from 'src/app/shared/services/translations.service';
 import { Word } from 'src/app/shared/models/wordTrans';
-import { AdminDataService } from '../../services/admin-data.service';
-import { ThrowStmt } from '@angular/compiler';
-import { HttpClient } from '@angular/common/http';
 import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translations-mdb.service';
 import { NewWord } from 'src/app/shared/models/newWord';
 import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
@@ -16,6 +11,11 @@ import { PageSettings, PagingHelper } from 'src/app/components/controls/data-tab
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
 import { EditWordComponent } from '../edit-word/edit-word.component';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
+import { Language } from 'src/app/shared/models/language';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { SelectLanguage } from 'src/app/state/select-language.actions';
+import { LoadLanguages } from 'src/app/state/language.actions';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -24,37 +24,57 @@ import { LanguagesService } from 'src/app/shared/services/languages.service';
 })
 export class AdminAddLanguageComponent implements OnInit, OnDestroy {
 
+
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
-  selectedLanguage: string ='en';
+  
+  selectedLanguage: any;
+
 
   // for paging data
   dataList: any;
 
   totalRecords : number;
 
-  languages: any;
-
+  languages$: Observable<Array<any>>;
   languageExpansionSettings: ExpansionSettings;
   pageSettings: PageSettings;
   generalSettings= new GeneralSettings();
   
   newWord: NewWord =<any>{};
   
+  selectedProject: any;
+  
   constructor(
+    private store: Store<AppState>,
     private wordLang: LanguagesService,
     private translationsMDBService: TranslationsMdbService,
     public CFR: ComponentFactoryResolver,
     private router: Router)
      { 
       this.getTotalRecord();   
-      this.getTranslationLanguages();   
+      // this.getTranslationLanguages();   
       this.setUpColumnDefintion();
       this.languageExpansionSettings = this.setupExpansionSettings();
-      this.setUppageSettings();  
+      this.setUppageSettings(); 
+      
+    //  console.log(this.languages$);
+    this.languages$ = this.store.select(store => store.language.list);
+    console.log(this.languages$);  
+    this.store.select(store => store.language.error);
+    this.store.dispatch(new LoadLanguages());
+
+    this.store.select(store => store.selectLang.selectedLang)
+    .subscribe(data => this.selectedLanguage = data);
+    console.log(this.selectedLanguage);
+    
   }
 
   ngOnInit() {
+    if(this.selectedLanguage.language) {
+      this.selectedProject = this.selectedLanguage.language;      
+      this.onPageChange();
+    }
   }
 
   ngOnDestroy() {
@@ -150,8 +170,10 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       let pg = this.pageSettings.currentPage-1;
       let pgS = this.pageSettings.pageSize;
       // http://localhost:3000/translations/dataTble/en?pg=${pg}&&pgS=${pgS}`
-      this.translationsMDBService.getDataTableTranslations(this.selectedLanguage, pg, pgS).subscribe((data: Word[]) => 
-        this.data.next(data));
+      this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS).subscribe((data: Word[]) => 
+      {console.log(data);
+      this.data.next(data)
+    });
   }
 
   deleteTranslation(_id) {
@@ -166,8 +188,13 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     });
   }
 
-  onLangChange(event) {    
-     this.selectedLanguage =  event.target.value;  
+  onLangChange(event) {      
+    const language = new Language();
+    
+    language.language = this.selectedProject;
+    console.log(language);
+    this.selectedLanguage= language;
+    this.store.dispatch(new SelectLanguage(language));
      this.onPageChange();
   }
 
@@ -176,7 +203,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   }
   addNewWord() {    
     if(this.selectedLanguage){
-    this.router.navigate(['admin/add-word/'+`${this.selectedLanguage}`]);
+    this.router.navigate(['admin/add-word/'+`${this.selectedLanguage.language}`]);
     }
   }
 
@@ -184,7 +211,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   getTranslationLanguages() {
     this.newWord.word={};
     this.translationsMDBService.getTranslationLanguages().subscribe((data: any) => {
-      this.languages = data;
+      // this.languages = data;
       data.forEach(data => {this.newWord['word'][data]=  '';});
     // passing data to wordLang service 
     // this will help us to avoid subscribing to API each time

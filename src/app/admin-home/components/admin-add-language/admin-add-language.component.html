@@ -45,14 +45,23 @@
     <app-data-table [Columns]="colDefinitions" [Data]='data' ></app-data-table>
 </div> -->
 Translation Language
-<select (change)="onLangChange($event)">
-    <option value="none" selected disabled hidden> 
-    <option 
-        *ngFor="let language of languages" 
-        [value]="language">
+<select [(ngModel)]="selectedProject" (change)="onLangChange($event)">
+    <!-- <option value="none" selected disabled hidden>  -->
+    <!-- <option value="">- - Language Selection - -</option> -->
+    <option *ngFor="let language of languages$ | async" [value]="language">
         {{language}}
     </option>
 </select>
+<!-- {{selectedProject | json }} selectedProject -->
+<!-- {{selectedLanguage | json}} == here -->
+    <!-- <option *ngIf="!selectedLanguage" value="none" selected disabled hidden></option>
+    <option *ngIf="selectedLanguage" value="selectedlanguage" selected="selected">{{selectedLanguage}}</option> -->
+
+    <!-- <select class="form-control" [(ngModel)]="selectedWorkout" (ngModelChange)="updateWorkout($event)">
+        <option *ngFor="#workout of workouts">{{workout.name}}</option>
+    </select> -->
+
+
 <button class="btn btn-primary" (click)="AddLanguage()">Add Language</button>
 <div id="page-wrapper">
     <app-data-table 
@@ -65,5 +74,3 @@ Translation Language
     </app-data-table>
 </div>
 <button class="btn btn-primary" (click)="addNewWord()">Add New Word</button>
-
-  
