@@ -43,7 +43,7 @@
         ]
       }
     ],
-    "no-consecutive-blank-lines": false,
+    "no-consecutive-blank-lines": true,
     "no-console": [
       true,
       "debug",
@@ -52,7 +52,7 @@
       "timeEnd",
       "trace"
     ],
-    "no-empty": false,
+    "no-empty": true,
     "no-inferrable-types": [
       true,
       "ignore-params"
