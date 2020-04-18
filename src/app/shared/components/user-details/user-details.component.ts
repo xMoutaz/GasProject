@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/user';
 import { Address } from 'src/app/shared/models/address';
-import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { AddressService } from 'src/app/shared/services/address.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {  map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
-import { error } from 'protractor';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-details',
@@ -20,20 +17,24 @@ import { error } from 'protractor';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
+  
   newUser = new User();
   newAddress = new Address();
   map: mapboxgl.Map;
-  
+  search: string;
   subscription: Subscription;
-  constructor(private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private router: Router ,private userServices: UserService, private auth: AuthService, private addressServices: AddressService) { 
-  
+  addresses: any;
+  selectedAddress: [number, number];
+  center: any;
+  features: Feature[];
+  selectedFeature: Feature;
+  selectedIndex: number;
+
+  constructor(private http: HttpClient, private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private router: Router ,private auth: AuthService) { 
     this.auth.user$.subscribe(user => {
       if (user) {
-        console.log(user);
-        // takeing userID and UserEmail from firebase and put it into User Class to enter it into a database
         this.newAddress._id = this.newUser._id = user.uid;
         this.newUser.email = user.email;
-        console.log(this.newUser);
         }
     });
   }
@@ -42,55 +43,73 @@ export class UserDetailsComponent implements OnInit {
     (mapboxgl as any ).accessToken 
     = environment.mapboxKey;
     this.map = new mapboxgl.Map({
-    container: 'map-mapbox', // container id
+    container: 'map-mapbox',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-5.4014975, 35.5850629], // starting position LNG,LTD
-    zoom: 16.6 // starting zoom
+    center: [-5.4014975, 35.5850629],
+    zoom: 12
     });
-    this.creatMarker(-5.4014975, 35.5850629);
-
-    
   }
+
+  search_word(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    if (searchTerm && searchTerm.length > 0) {
+      this.searchMap(searchTerm)
+      .subscribe((features: Feature[]) => {
+       this.features = features;
+      })
+    }  else {
+      this.features = null;
+    }
+  }
+  onSelect() {
+    this.selectedFeature  = this.features[this.selectedIndex];
+    let lng = this.selectedFeature.center[0];
+    let lat = this.selectedFeature.center[1];
+    this.creatMarker(lng, lat);
+    this.features = null;
+  }
+
   creatMarker(lng: number, lat: number) {
-   
     const marker = new mapboxgl.Marker({
       draggable: true
       }).setLngLat([lng, lat]).addTo(this.map);
-      
       marker.on('drag', () => {
         let lat: any = marker.getLngLat().lat;
         let lng: any = marker.getLngLat().lng;
+        console.log(lng, lat);
+        
          this.newAddress.latitude = lat;
          this.newAddress.longitude = lng;
       })
   }
 
   addUserInfo() {
-    // console.log(this.newUser);
-    // this.userServices.addUserInfo(this.newUser);
-    // this.addUserAddressInfo(this.newAddress);
-
-    // Saving user details
     this.mDBUserService.saveUser(this.newUser)
     .subscribe((data : User) => {
-      console.log(data);
       this.router.navigate(['']); 
-    }
-    );
-
-    // Saving address details
+    });
     this.mDBAddressService.saveAddress(this.newAddress)
     .subscribe((data : Address) => {
-      console.log(data);
     });
-    
   }
 
-  // addUserAddressInfo(newAddress) {
-  //   this.auth.user$.subscribe(user => {
-  //     if(user) {this.addressServices.addAddressinfo(this.newAddress, user);}
-  //   });
-  // }
+  searchMap(query: string) {
+    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
+    return this.http.get(url + query + '.json?access_token='+ environment.mapboxKey)
+    .pipe(map((res: MapboxOutput) => {
+      return res.features;
+    }));
+  }
+}
 
+export interface MapboxOutput {
+  attribution: string;
+  features: Feature[];
+  query: [];
+}
+
+export interface Feature {
+  place_name: any;
+  center: [number, number];
 }
 

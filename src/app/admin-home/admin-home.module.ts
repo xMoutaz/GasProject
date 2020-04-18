@@ -8,7 +8,6 @@ import { EditWordComponent } from './components/edit-word/edit-word.component';
 import { NavpillComponent } from './components/navpill/navpill.component';
 import { UserDetailsComponent } from '../shared/components/user-details/user-details.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
-import { AdminDataService } from './services/admin-data.service';
 import { AdminHomeComponent } from './admin-home.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuardService } from '../shared/services/auth-guard.service';
@@ -62,7 +61,6 @@ import { AddWordComponent } from './components/add-word/add-word.component';
   ],
   providers: [
     AdminAuthGuardService,
-    AdminDataService,
     AuthGuardService
   ],
   entryComponents: [AdminUsersComponent, AdminAddLanguageComponent]

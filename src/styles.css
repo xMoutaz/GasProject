@@ -6,7 +6,7 @@
 @import "legacy_assets/semantic.css";
 @import "legacy_assets/whiteLabeling.css";
 
-html, body { height: 100%; }
+html, body { width: 100%; height: 100%; }
 body {
   overflow: hidden;
 }

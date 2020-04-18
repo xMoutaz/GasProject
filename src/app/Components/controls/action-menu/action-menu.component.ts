@@ -16,7 +16,7 @@ export class ActionMenuComponent implements OnInit {
   }
 
 }
-//
+
 export class ActionButton {
   label: String;
   data?;

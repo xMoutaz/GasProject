@@ -21,30 +21,15 @@ import { SelectLanguage } from 'src/app/state/select-language.actions';
 export class AdminAddNewLanguageComponent implements OnInit {
 
   language = new Language();
-  constructor(
-    private store: Store<AppState>,
-    private router: Router
-    ) {
+
+  constructor(private store: Store<AppState>, private router: Router) {
   }
 
-    ngOnInit() {
+  ngOnInit() {
+  }
 
-     }
-
-
-  addNewKaLanguage() {      
-      // this.store.dispatch(new SelectLanguage(this.language));
-      this.store.dispatch(new SelectLanguage(this.language));
-      this.store.dispatch(new AddLanguage(this.language));
-      
-      // this.router.navigate(['admin/add-lang']);
-
-      // add language => add the new word => update the word 
-      // this.translationsMdbService.addNewLanguage(this.language).pipe(
-      //     concatMap(ok => this.translationsMdbService.saveWord(this.newWord))
-      // ).subscribe(
-      //   (word: NewWord) => { console.log(word); this.router.navigate(['admin/add-lang']);},
-      //   err => { console.log(err); }
-      // );
+  addNewKaLanguage() {
+    this.store.dispatch(new SelectLanguage(this.language));
+    this.store.dispatch(new AddLanguage(this.language));
   }
 }

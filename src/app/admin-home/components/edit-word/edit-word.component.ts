@@ -1,10 +1,4 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AdminDataService } from '../../services/admin-data.service';
-import { throwIfEmpty, map, take } from 'rxjs/operators';
-import { Word } from 'src/app/shared/models/wordTrans';
-import { TranslationsService } from 'src/app/shared/services/translations.service';
-import { Route, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { NewWord } from 'src/app/shared/models/newWord';
 
 @Component({
@@ -13,41 +7,19 @@ import { NewWord } from 'src/app/shared/models/newWord';
   styleUrls: ['./edit-word.component.css']
 })
 export class EditWordComponent implements OnInit {
-  wordkey: string;
-  wordTrans: string;
-  word = new Word();
-  selectedLanguage: string;
-  totalRecords: number;
 
-  newWord: NewWord =<any>{};
-  
   @Output() notify: EventEmitter<any> = new EventEmitter();
 
-  private _url: string ='https://us-central1-gasproject-2f4cb.cloudfunctions.net/webApi/api/v1/test';
+  newWord: NewWord =<any>{};
 
-  constructor(
-    private http: HttpClient,
-    private router: Router, 
-    private adminUser: AdminDataService, 
-    private translationService: TranslationsService) { 
+  constructor() { 
   }
-
-  // getWord(key: string) {
-  //   return this.translationService.getWordTrans(this.selectedLanguage, key)
-  //   .valueChanges().pipe(take(1)).subscribe((data) => {
-  //     console.log(data);
-  //     let temp : any = data;
-  //     this.word.trans = temp;
-  //   });
-  // }
 
   updateTranslations() {
     this.notify.emit();
-    
   }
 
   ngOnInit() {
   }
   
-
 }

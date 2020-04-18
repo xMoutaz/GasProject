@@ -66,7 +66,9 @@ export interface SelectLangState {
   selectedLang: Language
 }
 export const selectLanguageInitialState: SelectLangState = {
-  selectedLang: new Language()
+  selectedLang: {
+    language: 'en'
+  }
 }
 export function SelelectLanguageReducer(
   state:SelectLangState = selectLanguageInitialState, 
