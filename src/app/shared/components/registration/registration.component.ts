@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-
-import { AngularFireDatabase } from '@angular/fire/database';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -15,7 +12,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
-  tryRegister(newUser){
+  tryRegister(newUser) {
     this.auth.signup(newUser);
   }
 

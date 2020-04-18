@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { Address } from '../models/address';
 
 @Injectable({
@@ -27,9 +27,5 @@ export class AddressService {
       latitude: newAddress.latitude
     });
   }
-
-  // get(UserId) {
-  //   return this.db.object('/Addressess/'+ UserId )
-  // }
 
 }

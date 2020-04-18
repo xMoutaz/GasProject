@@ -51,4 +51,8 @@ export class TranslationsMdbService {
     return this.http.delete<void>(this.baseURL+ `/${_id}`)
    }
 
+   searchWord(language: Language, word: Word): Observable<Word[]> {
+     // http://localhost:8081/translations/dataTable/search/ar?wordId=ENGLISH&&Word=
+    return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${language.language}?wordId=${word.id}&&Word=${word.word}`);
+   }
   }

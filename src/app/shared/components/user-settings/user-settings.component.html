@@ -1,24 +1,14 @@
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+<p>user-settings works!</p>
 
-    <div class="container" id='map-mapbox'>
-        <!-- <input type="text" [(ngModel)]="search" placeholder="Search.." name="search"> -->
-        <input type="text" class="form-control" (input)="search_word($event)">
-        <select (change)="onSelect()" [(ngModel)]="selectedIndex">
-            <option *ngFor="let feature of features; index as i" [value]="i">{{feature.place_name}}</option>  
-        </select>
-        <!-- <button (click)="search_word()">search</button> -->
-        <label for="map-mapbox">Enter your location:</label>
-    </div>
-<div class="container">
-    <form  *ngIf="newAddress" #f="ngForm" (ngSubmit)="addUserInfo()">
+<h2>General Account Settings</h2>
+
+<div class="container" *ngIf="address">
         <div>
             <label for="name"><b> Name </b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newUser.name"
+            [(ngModel)]="appUser.name"
             name="name"
             type="text" 
             placeholder="Enter Name"  
@@ -30,7 +20,7 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newAddress.zip"
+            [(ngModel)]="address.zip"
             name="zip"
             type="text" 
             placeholder="Enter zip"  
@@ -42,7 +32,7 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newAddress.addressLine1"
+            [(ngModel)]="address.addressLine1"
             name="addressLine1"
             type="text" 
             placeholder="Enter addressLine1"  
@@ -54,7 +44,7 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newAddress.addressLine2"
+            [(ngModel)]="address.addressLine2"
             name="addressLine2"
             type="text" 
             placeholder="Enter addressLine2"  
@@ -66,7 +56,7 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newAddress.longitude"
+            [(ngModel)]="address.longitude"
             name="longitude"
             type="text" 
             placeholder="Enter longitude"  
@@ -78,7 +68,7 @@
             <input
             class="form-control" 
             #name="ngModel"
-            [(ngModel)]="newAddress.latitude"
+            [(ngModel)]="address.latitude"
             name="latitude"
             type="text" 
             placeholder="Enter latitude"  
@@ -90,13 +80,15 @@
             <input 
             class="form-control"
             #phoneNumber="ngModel"
-            [(ngModel)]="newUser.phone"
+            [(ngModel)]="appUser.phone"
             type="text" 
             placeholder="Enter your Phone Number" 
             name="phone" 
             id="phone">
             <br>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
+        <button type="submit" class="btn btn-success" (click)="updateUserInfo()">Save Changes</button>
+        <button type="submit" class="btn btn-danger" (click)="deleteAccount()">Delete My Account</button>
+    
 </div>
+

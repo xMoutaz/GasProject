@@ -1,26 +1,19 @@
-import { HttpInterceptor, 
-    HttpRequest, 
-    HttpHandler, 
-    HttpEvent, 
-    HttpErrorResponse } from '@angular/common/http';
-import { Observable, EMPTY, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from './message.service';
-import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { EMPTY, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
+import { MessageService } from './message.service';
 
 @Injectable()
 
 export class ErrorIntercept implements HttpInterceptor {
-    constructor(
-        private statusMessageService: MessageService,
-        private  translate: TranslateService) {
+    constructor(private statusMessageService: MessageService, private  translate: TranslateService) {
     }
   
     intercept(request: HttpRequest<any>,
         next: HttpHandler): Observable<HttpEvent<any>> {
-     
       let subscription = next.handle(request)
       .pipe(
           catchError((response, obs) => {

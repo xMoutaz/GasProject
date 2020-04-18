@@ -44,4 +44,15 @@ export class UserMdbService {
    return this.http.delete<void>(this.baseURL+ `/${_id}`)
   }
 
+  searchUser(user: User): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/search/user/?userName=${user.name}&&_id=${user._id}`)
+  }
+
+  setAdmin(data) {
+    return this.http.patch(`${this.baseURL}/setAdmin/${data._id}`, data)
+  }
+
+  updateUserInfo(user: User) {
+    return this.http.patch(`${this.baseURL}/${user._id}` , user);
+  }
 }

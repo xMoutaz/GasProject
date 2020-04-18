@@ -1,4 +1,12 @@
+ 
 
 <div id="page-wrapper">
-    <app-data-table [Columns]="colDefinitions" [Data]='data' ></app-data-table>
+    <label>Name: </label>
+    <input type="text" [(ngModel)]="searchedUser.name">
+    
+    <label>Id: </label>
+    <input type="text" [(ngModel)]="searchedUser._id">
+    <button class="button btn" (click)="search()">search</button>
+
+    <app-data-table [Columns]="colDefinitions" [Data]='data'  [(GeneralSettings)]="generalSettings" ></app-data-table>
 </div>

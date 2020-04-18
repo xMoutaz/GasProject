@@ -1,33 +1,30 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from 'src/lib/http-loader';
+import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
+import { DataTableModule } from '../modules/dataTables.module';
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
-import { RegistrationComponent } from './components/registration/registration.component';
-import { HomeComponent } from './components/home/home.component';
-import { NoAccessComponent } from './components/no-access/no-access.component';
-import { ProductsComponent } from './components/products/products.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CheckOutComponent } from './components/check-out/check-out.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
+import { ProductsComponent } from './components/products/products.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFireDatabase } from '@angular/fire/database';
-// import { FirebaseTransLoaderComponent } from './firebase-trans-loader/firebase-trans-loader.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { DataTableModule } from '../modules/dataTables.module';
-import { RouterModule } from '@angular/router';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserMdbService } from './services/Mongodb/user-mdb.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateHttpLoader } from 'src/lib/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
+import { UserService } from './services/user.service';
 
-// export function FbTransLoaderFactory(db: AngularFireDatabase) {
-//   return new FirebaseTransLoaderComponent(db);
-// }
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -43,6 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductsComponent,
     CheckOutComponent,
     OrderSuccessComponent,
+    UserSettingsComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -66,14 +65,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path:'check-out', component: CheckOutComponent, canActivate: [AuthGuardService]}, // should be loged in 
       { path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService]}, // should be loged in    
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
+      { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] }, // should be loged in
+      { path : 'forgetPassword', component: ForgetPasswordComponent }, // should be loged in
  
     ]),
-    // TranslateModule.forRoot({
-    //   loader: 
-    // {provide: TranslateLoader, 
-    // useFactory:FbTransLoaderFactory, 
-    //deps: [AngularFireDatabase]}
-    // })
   ],
   exports: [
     BrowserModule,

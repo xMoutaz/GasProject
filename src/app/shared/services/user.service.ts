@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
-
 import { User } from '../models/user';
-// import { AppUser } from '../models/app-user';
-// import { FirebaseObjectObservable } from '@angular/fire/database-deprecated';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +8,8 @@ import { User } from '../models/user';
 
 export class UserService {
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) { 
+  }
 
   addUserInfo(newUser: User) {
         this.db.object('/UsersInfo/' + newUser._id).update({

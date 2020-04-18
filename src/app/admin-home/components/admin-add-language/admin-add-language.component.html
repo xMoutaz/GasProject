@@ -64,6 +64,9 @@ Translation Language
 
 <button class="btn btn-primary" (click)="AddLanguage()">Add Language</button>
 <div id="page-wrapper">
+    <label>Id:  </label> <input type="text" [(ngModel)]="searchedWord.id">
+    <label> word:</label> <input type="text" [(ngModel)]="searchedWord.word">
+    <button class="button btn" (click)="search()">search</button>
     <app-data-table 
         [Columns]="colDefinitions" 
         [Data]='data' 
