@@ -19,4 +19,12 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
+  googleLogin() {
+    this.auth.googlelogin();
+  }
+
+  facebookLogin() {
+    this.auth.facebookLogin();
+  }
+
 }
