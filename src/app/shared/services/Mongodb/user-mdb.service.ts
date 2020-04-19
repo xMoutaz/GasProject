@@ -27,6 +27,15 @@ export class UserMdbService {
     return this.http.get<User[]>(this.baseURL);
   }
 
+  getTotalRecord(user?:User) {
+    return this.http.get(this.baseURL +`/search/count?_id=${user._id}&&userName=${user.name}`)
+    // return this.http.get(this.baseURL +'/dataTable/totalRecords')
+  }
+
+  getDatatable(pg, pgS): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/dataTable/users?pg=${pg}&&pgS=${pgS}`)
+  }
+
   saveUser(newUser: User): Observable<User> {
     return this.http.post<User>(this.baseURL, newUser, {
       headers: new HttpHeaders({
@@ -44,8 +53,8 @@ export class UserMdbService {
    return this.http.delete<void>(this.baseURL+ `/${_id}`)
   }
 
-  searchUser(user: User): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseURL}/search/user/?userName=${user.name}&&_id=${user._id}`)
+  searchUser(pg: number,pgS:number, user?: User): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/search/user/?pg=${pg}&&pgS=${pgS}&&_id=${user._id}&&userName=${user.name}`)
   }
 
   setAdmin(data) {

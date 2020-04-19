@@ -8,9 +8,6 @@ export class GeneralSettings{
     }
     AddRow(){}
     UpddateRow(rowInfo, record){
-        console.log('rowInfo: ', rowInfo);
-        console.log('record: ', record);
-        
         this._generalSettingHelper.UpdateRow(rowInfo, record);
     }
     DeleteRow(rowInfo){

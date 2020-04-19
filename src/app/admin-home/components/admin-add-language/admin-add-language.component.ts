@@ -16,7 +16,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectLanguage } from 'src/app/state/select-language.actions';
 import { LoadLanguages } from 'src/app/state/language.actions';
-import { filter } from 'rxjs/operators';
+import { filter, tap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -41,18 +41,20 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>, private wordLang: LanguagesService, private translationsMDBService: TranslationsMdbService,
     public CFR: ComponentFactoryResolver, private router: Router) {
-
-    this.getTotalRecord();
-    this.setUpColumnDefintion();
-    this.languageExpansionSettings = this.setupExpansionSettings();
-    this.setUppageSettings();
+    this.searchedWord.id = "";
+    this.searchedWord.word = "";
+    
+    
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => store.selectLang.selectedLang)
       .subscribe(data => this.selectedLanguage = data);
-    this.searchedWord.id = "";
-    this.searchedWord.word = "";
+
+      this.getTotalRecord();
+      this.setUpColumnDefintion();
+      this.languageExpansionSettings = this.setupExpansionSettings();
+      this.setUppageSettings();
   }
 
   ngOnInit() {
@@ -88,7 +90,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   }
 
   getTotalRecord() {
-    this.translationsMDBService.getTotalRecord().subscribe((data: number) => {
+    this.translationsMDBService.getTotalRecord(this.selectedLanguage, this.searchedWord).subscribe((data: number) => {
       this.totalRecords = data;
       this.pageSettings.setTotalRecords(this.totalRecords);
     })
@@ -146,7 +148,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     // http://localhost:3000/translations/dataTble/en?pg=${pg}&&pgS=${pgS}`
-    this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS).subscribe((data: Word[]) => {
+    this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
       console.log(data);
       this.data.next(data)
     });
@@ -194,11 +196,22 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    console.log(this.searchedWord);
-    this.translationsMDBService.searchWord(this.selectedLanguage, this.searchedWord).subscribe(
-      data => { this.data.next(data) },
-      err => { console.log(err); }
+    this.translationsMDBService.getTotalRecord(this.selectedLanguage, this.searchedWord).pipe(
+    tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
+    switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language,this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedWord))
+    ).subscribe(
+      (data) => {
+        console.log(data);
+        
+        this.data.next(data);
+      },
+      err => { console.log(err) }
     );
+    // console.log(this.searchedWord);
+    // this.translationsMDBService.searchWord(this.selectedLanguage, this.searchedWord).subscribe(
+    //   data => { this.data.next(data) },
+    //   err => { console.log(err); }
+    // );
     // Todo: update the table
   }
 

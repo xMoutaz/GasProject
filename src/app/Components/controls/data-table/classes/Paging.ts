@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
 
  export class PageSettings{
-    private _pageSize = 5;
+    private _pageSize = 10;
     private _totalRecords = 0;
     private _currentPage = 1;
     private _onPageChange : any;
@@ -74,7 +74,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
     }
 
     private init(){      
-      from(["showFivePerPage", "showTenPerPage", "showTwentyPerPage", "showThirtyPerPage", "showFiftyPerPage"]).pipe(
+      from(["showTenPerPage", "showTwentyPerPage", "showThirtyPerPage", "showFiftyPerPage"]).pipe(
         switchMap((val) => this._translate.get(val)),
         toArray()
       ).subscribe((LENGTHNAMES)=>{

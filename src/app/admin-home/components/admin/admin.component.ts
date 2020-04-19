@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { concatMap, mergeMap, filter } from 'rxjs/operators';
+import { concatMap, mergeMap, filter, switchMap, tap } from 'rxjs/operators';
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
 import { Address } from 'src/app/shared/models/address';
 import { User } from 'src/app/shared/models/user';
@@ -10,6 +10,7 @@ import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service
 import { ActionButton, ActionMenuComponent } from '../../../components/controls/action-menu/action-menu.component';
 import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
 import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 
 @Component({
   selector: 'app-admin',
@@ -25,14 +26,21 @@ export class AdminComponent {
   name: string;
   id: string;
   searchedUser = new User();
+  pageSettings: PageSettings;
   generalSettings = new GeneralSettings();
-
+  
   constructor(
     private userMdbService: UserMdbService, private addressMdbService: AddressMdbService, private adminFBUser: AdminFirebasaeService, private router: Router) {
-    this.setUpColumnDefintion();
-    this.getNewRows();
     this.searchedUser.name = "";
     this.searchedUser._id = "";
+    
+    this.getTotalRecord();
+    this.setUpColumnDefintion();
+    this.setUppageSettings();
+  }
+
+  ngOnInit() {
+    this.onPageChange();
   }
 
   setUpColumnDefintion() {
@@ -75,12 +83,27 @@ export class AdminComponent {
     ];
   }
 
-  getNewRows() {
-    this.userMdbService.getAll()
-      .subscribe((data) => {
-        this.data.next(data)
-        console.log(data);
-      })
+  setUppageSettings() {
+    this.pageSettings = new PageSettings(() => {
+      this.onPageChange();
+    });
+  }
+
+  getTotalRecord() {
+    let temp: any = this.searchedUser;
+    
+    this.userMdbService.getTotalRecord(this.searchedUser).subscribe((data: number) => {
+      this.pageSettings.setTotalRecords(data);
+    });
+  }
+
+  onPageChange() {
+    let pg = this.pageSettings.currentPage - 1;
+    let pgS = this.pageSettings.pageSize;
+    this.userMdbService.searchUser(pg, pgS, this.searchedUser).subscribe(
+      data => { this.data.next(data) },
+      err => { console.log(err); }
+    );
   }
 
   generateActionMenuForRfr(cellData, rowData, row) {
@@ -123,16 +146,26 @@ export class AdminComponent {
   }
 
   search() {
-    this.userMdbService.searchUser(this.searchedUser).subscribe(
-      data => { this.data.next(data) },
-      err => { console.log(err); }
+    this.userMdbService.getTotalRecord(this.searchedUser).pipe(
+      tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
+      switchMap(() => this.userMdbService.searchUser(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedUser))
+    ).subscribe(
+      (data) => {
+        this.data.next(data);
+      },
+      err => { console.log(err) }
     );
+
+    // this.userMdbService.searchUser(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedUser).subscribe(
+    //   data => { this.data.next(data) },
+    //   err => { console.log(err); }
+    // );
   }
 
   makeAdmin(data) {
     this.userMdbService.setAdmin(data)
     .pipe(filter((data:any) => data.ok ===1))
-    .subscribe(success => {this.generalSettings.UpddateRow({ id: data.id, propertyName: "id" }, data); });
+    .subscribe(success => {this.generalSettings.UpddateRow({ id: data._id, propertyName: "_id" }, data); });
   }
 
 }

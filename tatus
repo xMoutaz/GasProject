@@ -1,0 +1,53 @@
+[33mcommit 38b73f59a64de7dc489b230b60e94b5b3f82ead8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: xmoutaz <xMoutaz@hotmail.com>
+Date:   Sat Apr 18 11:33:15 2020 +0100
+
+    Fixing Map, signup, isAdmin, dataTable ..
+
+[33mcommit 1c001ea301b7bdf74dcde77d13ce34d58761e40f[m
+Author: xmoutaz <xMoutaz@hotmail.com>
+Date:   Fri Apr 10 17:21:12 2020 +0100
+
+    fixing AppUser
+
+[33mcommit ff29101e4acd4d979af9013789072bb1caa70efe[m
+Author: xmoutaz <xMoutaz@hotmail.com>
+Date:   Fri Apr 10 11:02:44 2020 +0100
+
+    adding NgRx sotre,effect and router-store
+
+[33mcommit bcc3127a28cc09acdef0117070e9c021b9b3d144[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Thu Apr 2 12:35:52 2020 +0100
+
+    handling multiple http request
+
+[33mcommit 81f68d77b4c00e8ab15a39defc1a0f8af882fe27[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Sun Mar 29 12:08:21 2020 +0100
+
+    dockerdeployment
+
+[33mcommit b630defff20283a9e5dd0d4e3cadcb76b9b17b14[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Tue Mar 24 19:03:38 2020 +0100
+
+    adding-mongodbAPI
+
+[33mcommit f9d9b89cccafa760a8d63f045e33bd0f2f9d5172[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Thu Feb 27 11:15:49 2020 +0100
+
+    Dockerfile and Dockerignore
+
+[33mcommit 414aa57f57fe5429aec2104ae864a80b8a34a825[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Mon Feb 24 12:41:14 2020 +0100
+
+    Paging for Translations
+
+[33mcommit 8902d3321180706918eb805d80d82bc00cfb616f[m
+Author: Moutaz J <xMoutaz@hotmail.com>
+Date:   Sun Jan 26 13:09:55 2020 +0100
+
+    firstCommit
