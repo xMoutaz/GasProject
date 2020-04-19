@@ -25,6 +25,7 @@ import { AuthService } from './services/auth.service';
 import { UserMdbService } from './services/Mongodb/user-mdb.service';
 import { UserService } from './services/user.service';
 import { UnregisterationComponent } from './components/unregisteration/unregisteration.component';
+import {MatButtonModule} from '@angular/material/button';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UnregisterationComponent,
   ],
   imports: [
+    MatButtonModule,
     CommonModule,
     BrowserModule,
     FormsModule,

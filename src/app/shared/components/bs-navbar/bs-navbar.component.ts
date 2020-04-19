@@ -14,6 +14,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   appUser: any;
   HOME = 'HOME';
   id: string = '';
+  btnWord = '';
   subscription: Subscription;
 
   constructor(public auth: AuthService) {
@@ -24,6 +25,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.auth.appUser$.pipe(filter((data) => !!data))
     .subscribe((data) =>{
           console.log(data);
+          this.btnWord = data.name.slice(0,1);
           this.appUser.isAdmin = data.isAdmin;
     });
   }

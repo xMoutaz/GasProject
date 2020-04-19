@@ -1,0 +1,13 @@
+.signInBtn{
+    background: transparent;
+}
+.nameBadge{
+    box-shadow: none;
+}
+.settingsBtn{
+    font-size: 31px;
+    margin-top: 4px;
+}
+.settingsBtn:hover{
+    cursor: pointer;
+}
