@@ -1,79 +1,55 @@
+ 
+<div class="panel panel-default">
+    <div class="panel-body">   
+        <h3>Manage Language</h3>
 
-<!-- <div *ngFor="let word of wordsArray">
-        <label for="trans"> {{word.word | json }} is : </label>
-          <input #wordTrans  type="text" value="{{word.trans | json }}">
-          <button (click)="updateTranslations( word.word, wordTrans.value)">Edit translation</button>
-</div>
-<div *ngFor="let word of wordsArray">
- {{word.word | json }}
- {{word.trans | json}}
-</div> -->
-<!-- 
-<div class="container">
-    <form #f="ngForm" (ngSubmit)="updateTranslations(f.value)">
-        Add new word
-        <div>
-            <label for="word"><b>Word</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="word.word"
-            name="word"
-            type="text"  
-            id="word">
-            <br>
+        <div class="well">
+            <form>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Word</label> <input class="form-control" type="text" [(ngModel)]="searchedWord.id">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Trans</label> <input class="form-control" type="text" [(ngModel)]="searchedWord.word">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="button btn btn-primary pull-right" (click)="search()">search</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="translations"><b>translations</b></label><br>
-            <input
-            class="form-control"
-            #name="ngModel"
-            [(ngModel)]="word.trans" 
-            name="tans" 
-            type="trans"  
-            id="trans">
-            <br>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3" >
+                        <label>Select Language</label>
+                        <select class="form-control" [(ngModel)]="selectedProject" (change)="onLangChange($event)">
+                            <option *ngFor="let language of languages$ | async" [value]="language">
+                                {{language}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="pull-right" style="padding-top:23px;">
+                            <button class="btn btn-default" (click)="AddLanguage()">Add Language</button>
+                            <button class="btn btn-primary" (click)="addNewWord()">Add New Word</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
+
+        <app-data-table 
+            [Columns]="colDefinitions" 
+            [Data]='data' 
+            [(GeneralSettings)]="generalSettings"
+            [ExpansionSettings]="languageExpansionSettings" 
+            [PageSettings]="pageSettings"  
+        >
+        </app-data-table>
+        
+        
+    </div>
 </div>
-
-<button (click)="clicked()"> GET trans</button> -->
-
-
-<!-- <div id="page-wrapper">
-    <app-data-table [Columns]="colDefinitions" [Data]='data' ></app-data-table>
-</div> -->
-Translation Language
-<select [(ngModel)]="selectedProject" (change)="onLangChange($event)">
-    <!-- <option value="none" selected disabled hidden>  -->
-    <!-- <option value="">- - Language Selection - -</option> -->
-    <option *ngFor="let language of languages$ | async" [value]="language">
-        {{language}}
-    </option>
-</select>
-<!-- {{selectedProject | json }} selectedProject -->
-<!-- {{selectedLanguage | json}} == here -->
-    <!-- <option *ngIf="!selectedLanguage" value="none" selected disabled hidden></option>
-    <option *ngIf="selectedLanguage" value="selectedlanguage" selected="selected">{{selectedLanguage}}</option> -->
-
-    <!-- <select class="form-control" [(ngModel)]="selectedWorkout" (ngModelChange)="updateWorkout($event)">
-        <option *ngFor="#workout of workouts">{{workout.name}}</option>
-    </select> -->
-
-
-<button class="btn btn-primary" (click)="AddLanguage()">Add Language</button>
-<div id="page-wrapper">
-    <label>Word: </label> <input type="text" [(ngModel)]="searchedWord.id">
-    <label>Trans: </label> <input type="text" [(ngModel)]="searchedWord.word">
-    <button class="button btn" (click)="search()">search</button>
-    <app-data-table 
-        [Columns]="colDefinitions" 
-        [Data]='data' 
-        [(GeneralSettings)]="generalSettings"
-        [ExpansionSettings]="languageExpansionSettings" 
-        [PageSettings]="pageSettings"  
-    >
-    </app-data-table>
-</div>
-<button class="btn btn-primary" (click)="addNewWord()">Add New Word</button>

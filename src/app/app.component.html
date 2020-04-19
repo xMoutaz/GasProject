@@ -4,9 +4,11 @@
     </select>
 
 <app-bs-navbar></app-bs-navbar>
-<app-message></app-message>
-
-<router-outlet></router-outlet>  
+<div class="main_content">
+  <div class="page-wrapper">
+    <app-message></app-message>
+    <router-outlet></router-outlet>
+  </div>
+</div>  
 
 <app-loader></app-loader>
-<p>{{ helloKey | translate }}</p>
