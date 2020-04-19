@@ -65,14 +65,21 @@
           <ul class="dropdown-menu" *ngIf="appUser ; else anonymousUser">
             <li><a routerLink="/">My Order</a></li>
             <li><a routerLink="/check-out">check-out</a></li>
-            <li><a routerLink="/userSetting">Settings</a></li>
-           
+                       
             <ng-container *ngIf="appUser.isAdmin">
             <li><a routerLink="admin">Manage Users</a></li>
             </ng-container>
 
             <li role="separator" class="divider"></li>
             <li><a routerLink="#" (click)="logout()">log Out</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" *ngIf="appUser">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
+          <ul class="dropdown-menu" *ngIf="appUser ; else anonymousUser">
+            <li><a routerLink="/userSetting"> Details</a></li>
+            <li><a routerLink="/unRegister">Unregister</a></li>
           </ul>
         </li>
       </ul>

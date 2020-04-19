@@ -24,6 +24,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { UserMdbService } from './services/Mongodb/user-mdb.service';
 import { UserService } from './services/user.service';
+import { UnregisterationComponent } from './components/unregisteration/unregisteration.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderSuccessComponent,
     UserSettingsComponent,
     ForgetPasswordComponent,
+    UnregisterationComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
       { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] }, // should be loged in
       { path : 'forgetPassword', component: ForgetPasswordComponent }, // should be loged in
+      { path : 'unRegister', component: UnregisterationComponent }, // should be loged in
  
     ]),
   ],
