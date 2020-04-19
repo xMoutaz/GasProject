@@ -21,8 +21,8 @@ export class TranslationsMdbService {
   }
 
   // http://localhost:3000/translations/dataTble/en?pg=0&&pgS=5
-  getDataTableTranslations(lang, pg, pgS): Observable<Word[]> {
-    return this.http.get<Word[]>(`${this.baseURL}/dataTble/${lang}?pg=${pg}&&pgS=${pgS}`);
+  getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {
+    return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
   }
 
   // Get how many translations languages
@@ -30,8 +30,9 @@ export class TranslationsMdbService {
     return this.http.get<Language>(this.baseURL +'/TranslationsLanguage');
   }
 
-  getTotalRecord() {
-    return this.http.get(`${this.baseURL}/dataTable/totalRecords`);
+  getTotalRecord(language: Language, word: Word) {
+    return this.http.get(this.baseURL +`/dataTable/totalRecord/${language.language}?wordId=${word.id}&Word=${word.word}`)
+    // return this.http.get(`${this.baseURL}/dataTable/totalRecords`);
   }
 
   addNewLanguage(language: Language ) {

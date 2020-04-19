@@ -99,7 +99,7 @@ export class  DataTableComponent implements  AfterViewInit {
       // -----------------------------
       dom: (this.PageSettings) ? '<\'responsive-tables p20\'<\'container-fluid\'<\'row gpfiPageLengthControl\' <\'clearfix\'> l><\'row\'t><\'row\'p>>>' :
         '<\'responsive-tables p20\'<\'container-fluid\'<\'row\'t>>>',
-      lengthMenu: [[5, 10, 20, 30, 50], ['show 5 per page', 'Show 10 per page', 'Show 20 per page', 'Show 30 per page', 'Show 50 per page']]
+      lengthMenu: [[10, 20, 30, 50], ['Show 10 per page', 'Show 20 per page', 'Show 30 per page', 'Show 50 per page']]
     };
   }
 
@@ -122,7 +122,6 @@ export class  DataTableComponent implements  AfterViewInit {
         update = true;
     }
     return update;
-    
   }
 
 
