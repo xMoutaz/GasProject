@@ -28,6 +28,10 @@ export class AuthService {
   signup(value) {
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then(value => {
+        this.signedUpUser._id =  value.user.uid;
+        this.signedUpUser.email =  value.user.email;
+        console.log(this.signedUpUser);
+        
         this.statusMessageService.ClearMessage();
         this.router.navigate(['userDetails']);
         { return auth; }
