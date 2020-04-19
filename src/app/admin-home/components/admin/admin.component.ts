@@ -48,8 +48,7 @@ export class AdminComponent {
       {
         key: '_id',
         className: 'data_grid_left_align',
-        header: 'Id',
-        responsivePriority: true
+        header: 'Id'
       },
       {
         key: 'name',
@@ -66,14 +65,25 @@ export class AdminComponent {
       {
         key: 'phone',
         className: 'data_grid_center_align',
-        header: 'Phone Number',
-        responsivePriority: true
+        header: 'Phone Number'
       },
       {
         key: 'isAdmin',
         className: 'data_grid_center_align',
-        header: 'isAdmin',
-        responsivePriority: true
+        header: 'Admin',
+        cellElement: (cellData, rowData, row, col, td) => {
+          let checkBox = $("<input style='form-control' type='checkbox'/>");
+          checkBox.prop("checked", !!cellData);
+          checkBox.change(rowData, (e) => {
+            let isChecked = (e.currentTarget as any).checked;
+            let data = e.data;
+            data.isAdmin = isChecked;
+            this.makeAdmin(data);
+          });
+          $(td).html('');
+          $(td).append(checkBox);
+        }
+
       },
       {
         cellElement: (cellData, rowData, row) => {
