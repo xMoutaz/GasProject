@@ -1,16 +1,31 @@
  
 
-<div id="page-wrapper">
-    <label>Name: </label>
-    <input type="text" [(ngModel)]="searchedUser.name">
-    
-    <label>Id: </label>
-    <input type="text" [(ngModel)]="searchedUser._id">
-    <button class="button btn" (click)="search()">search</button>
-
-    <app-data-table 
-    [Columns]="colDefinitions" 
-    [Data]='data' 
-    [(GeneralSettings)]="generalSettings"
-    [PageSettings]="pageSettings"></app-data-table>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>Manage Users</h3>
+        <div class="well">
+            <form>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="searchedUser.name">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>User Id</label>
+                        <input type="text"  class="form-control" [(ngModel)]="searchedUser._id">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="button btn btn-primary pull-right" (click)="search()">search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <app-data-table 
+        [Columns]="colDefinitions" 
+        [Data]='data' 
+        [(GeneralSettings)]="generalSettings"
+        [PageSettings]="pageSettings"></app-data-table>
+    </div>
 </div>
