@@ -35,20 +35,19 @@ import { AddWordComponent } from './components/add-word/add-word.component';
         path: 'admin', 
         component:AdminHomeComponent,
         children: [
-        { path: 'admin', component: AdminComponent}, // only admins can access
-        // { path: 'admin-user', component: AdminUsersComponent}, // only admins can access
-        { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent}, // only admins can access
-        { path: 'admin-user/:id', component: AdminUsersComponent}, // only admins can access
-        { path:'edit-language', component: EditWordComponent},
-        { path:'add-lang', component: AdminAddLanguageComponent},
-        { path:'add-word/:lang', component: AddWordComponent},
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'users'
+          },
+          { path: 'users', component: AdminComponent},
+          { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent}, // only admins can access
+          { path: 'admin-user/:id', component: AdminUsersComponent}, // only admins can access
+          { path:'edit-language', component: EditWordComponent},
+          { path:'add-lang', component: AdminAddLanguageComponent},
+          { path:'add-word/:lang', component: AddWordComponent}
         ]
     }
-        // { path: 'admin', component: AdminComponent}, // only admins can access
-        // { path: 'admin-user', component: AdminUsersComponent}, // only admins can access
-        // { path:'edit-language', component: EditWordComponent},
-        // { path:'add-lang', component: AdminAddLanguageComponent},
-        // { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
     ])
   ],
   exports: [

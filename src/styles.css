@@ -47,10 +47,11 @@ textarea{
 }
 
 button {
-  text-transform: uppercase;
   margin-bottom: 5px !important
 }
 
 button+button {
   margin-left: 5px
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

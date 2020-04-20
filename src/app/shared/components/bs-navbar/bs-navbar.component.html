@@ -1,39 +1,3 @@
-<!-- <nav class="navbar navbar-default">
-  <a class="navbar-brand" href="#">Navbar</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <ng-template #anonymousUser >
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/login">login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/signup">signup</a>
-        </li>
-      </ng-template>
-      <li ngbDropdown *ngIf="appUser ; else anonymousUser" class="nav-item dropdown">
-        <a ngbDropdownToggle class="nav-link dropdown-toggle"  id="navbarDropdown" 
-        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{appUser.email}}</a>
-        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/">My Orders</a>
-          <a class="dropdown-item" routerLink="/check-out">check-out</a>
-
-          <ng-container *ngIf="appUser.isAdmin">
-            <a class="dropdown-item" routerLink="/admin">Adminstration Page</a>
-          </ng-container>
-
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="#" (click)="logout()">log Out</a>
-        </div>
-      </li>
-    </ul>
-
-  </div>
-</nav> -->
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -49,70 +13,40 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">{{ HOME | translate}}</a>
+      <h3>tetouan project</h3>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-       
-        <ng-template #anonymousUser>
-          <li ><a routerLink="/login">login <span class="sr-only">(current)</span></a></li>
-          <li><a routerLink="/signup">signup</a></li>
-        </ng-template>
-
-        <li class="dropdown" *ngIf="appUser ; else anonymousUser">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{appUser.email}} <span class="caret"></span></a>
-          <ul class="dropdown-menu" *ngIf="appUser ; else anonymousUser">
-            <li><a routerLink="/">My Order</a></li>
-            <li><a routerLink="/check-out">check-out</a></li>
-                       
-            <ng-container *ngIf="appUser.isAdmin">
-            <li><a routerLink="admin">Manage Users</a></li>
-            </ng-container>
-
-            <li role="separator" class="divider"></li>
-            <li><a routerLink="#" (click)="logout()">log Out</a></li>
+      <ul class="nav navbar-nav navbar-right" *ngIf="appUser ; else anonymousUser">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog settingsBtn"></span></a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/userSetting">Details</a></li>
+            <li><a routerLink="/unRegister">Unregister</a></li>
           </ul>
         </li>
-
-        <li class="dropdown" *ngIf="appUser">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
-          <ul class="dropdown-menu" *ngIf="appUser ; else anonymousUser">
-            <li><a routerLink="/userSetting"> Details</a></li>
-            <li><a routerLink="/unRegister">Unregister</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/">My Order</a></li>
+            <li><a routerLink="/check-out">check-out</a></li>
+            <ng-container *ngIf="appUser.isAdmin">
+              <li><a routerLink="admin">Manage Users</a></li>
+            </ng-container>
+            <li role="separator" class="divider"></li>
+            <li><a routerLink="#" (click)="logout()">log Out</a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
- 
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">{{ HOME | translate}}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <ng-template #anonymousUser>
-          <li class="nav-item"><a class="nav-link" routerLink="/login">login <span class="sr-only">(current)</span></a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/signup">signup</a></li>
-        </ng-template>
-      <li class="nav-item dropdown" *ngIf="appUser ; else anonymousUser">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{appUser.name}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="appUser ; else anonymousUser">
-          <a class="dropdown-item" href="#">My Order</a>
-          <a class="dropdown-item" href="#">check-out</a>
-          <ng-container *ngIf="appUser.isAdmin">
-          <a class="dropdown-item" routerLink="admin">Manage Users</a>
-          </ng-container>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"(click)="logout()">log Out</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav><br> <br> -->
+<ng-template #anonymousUser>
+  <ul class="nav navbar-nav navbar-right">
+    <li ><a routerLink="/login"><button class="btn signInBtn">signIn <span class="sr-only">(current)</span></button></a></li>
+    <li><a routerLink="/signup"><button class="btn btn-primary">signup</button></a></li>
+  </ul>
+</ng-template>
