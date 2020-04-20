@@ -4,20 +4,20 @@
     <div class="panel-body">
         <h3>Manage Users</h3>
         <div class="well">
-            <form>
+            <form #f="ngForm" (ngSubmit)="search()">
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" [(ngModel)]="searchedUser.name">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="searchedUser.name">
                     </div>
                     <div class="col-md-3 form-group">
                         <label>User Id</label>
-                        <input type="text"  class="form-control" [(ngModel)]="searchedUser._id">
+                        <input type="text"  class="form-control" name="_id" [(ngModel)]="searchedUser._id">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="button btn btn-primary pull-right" (click)="search()">search</button>
+                        <button type="submit" class="button btn btn-primary pull-right" (click)="search()">search</button>
                     </div>
                 </div>
             </form>

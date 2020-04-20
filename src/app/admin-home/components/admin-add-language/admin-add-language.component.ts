@@ -1,22 +1,22 @@
-import { Component, OnInit, OnDestroy, ComponentFactoryResolver } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
-import { ActionMenuComponent, ActionButton } from '../../../components/controls/action-menu/action-menu.component';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Word } from 'src/app/shared/models/wordTrans';
-import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translations-mdb.service';
-import { NewWord } from 'src/app/shared/models/newWord';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
-import { PageSettings, PagingHelper } from 'src/app/components/controls/data-table/classes/Paging';
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
-import { EditWordComponent } from '../edit-word/edit-word.component';
-import { LanguagesService } from 'src/app/shared/services/languages.service';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { Language } from 'src/app/shared/models/language';
-import { Store, select } from '@ngrx/store';
+import { NewWord } from 'src/app/shared/models/newWord';
+import { Word } from 'src/app/shared/models/wordTrans';
+import { LanguagesService } from 'src/app/shared/services/languages.service';
+import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translations-mdb.service';
+import { LoadLanguages } from 'src/app/state/language.actions';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectLanguage } from 'src/app/state/select-language.actions';
-import { LoadLanguages } from 'src/app/state/language.actions';
-import { filter, tap, switchMap } from 'rxjs/operators';
+import { ActionButton, ActionMenuComponent } from '../../../components/controls/action-menu/action-menu.component';
+import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
+import { EditWordComponent } from '../edit-word/edit-word.component';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -43,18 +43,18 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     public CFR: ComponentFactoryResolver, private router: Router) {
     this.searchedWord.id = "";
     this.searchedWord.word = "";
-    
-    
+
+
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => store.selectLang.selectedLang)
       .subscribe(data => this.selectedLanguage = data);
 
-      this.getTotalRecord();
-      this.setUpColumnDefintion();
-      this.languageExpansionSettings = this.setupExpansionSettings();
-      this.setUppageSettings();
+    this.getTotalRecord();
+    this.setUpColumnDefintion();
+    this.languageExpansionSettings = this.setupExpansionSettings();
+    this.setUppageSettings();
   }
 
   ngOnInit() {
@@ -98,12 +98,10 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
 
   generateActionMenuForRfr(cellData, rowData, row) {
     let menu = new ActionMenuComponent();
-
     let deleteButton = new ActionButton();
     deleteButton.label = "delete";
     deleteButton.data = rowData;
     deleteButton.action = (data => {
-      // {id: "ENGLISH", word: "الانجليزية"}
       this.deleteTranslation(data.id)
     });
     let editLanguage = new ActionButton();
@@ -127,12 +125,14 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
         component.instance.notify.subscribe(event => {
           rowData.id = this.newWord.id;
           rowData.word = this.newWord.trans;
-
           this.translationsMDBService.updateTranslation(this.selectedLanguage, this.newWord)
-            .pipe(filter((data:any) => data.ok ===1))
-            .subscribe((success) =>  { this.generalSettings.UpddateRow({ id: this.newWord.id, propertyName: "id" }, rowData); });
+            .pipe(filter((data: any) => data.ok === 1))
+            .subscribe((success) => { this.generalSettings.UpddateRow({ id: this.newWord.id, propertyName: "id" }, rowData); });
           this.languageExpansionSettings.CollapseGrid({ id: rowData.id, propertyName: "id" });
         });
+        component.instance.cancel.subscribe(event => {
+          this.languageExpansionSettings.CollapseGrid({ id: rowData.id, propertyName: "id"});
+        })
         resolve(component);
       });
     });
@@ -147,28 +147,25 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   onPageChange() {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
-    // http://localhost:3000/translations/dataTble/en?pg=${pg}&&pgS=${pgS}`
     this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
-      console.log(data);
       this.data.next(data)
     });
   }
 
   deleteTranslation(_id) {
     this.translationsMDBService.deleteTranslation(_id)
-    .pipe(filter((data:any) => data.ok ===1))
-    .subscribe(
-      (data) => {
+      .pipe(filter((data: any) => data.ok === 1))
+      .subscribe(
+        (data) => {
           this.generalSettings.DeleteRow({ id: _id, propertyName: "id" });
           this.pageSettings.setTotalRecords(this.totalRecords - 1);
           //Todo: refresh page number
-      });
+        });
   }
 
   onLangChange(event) {
     const language = new Language();
     language.language = this.selectedProject;
-    console.log(language);
     this.selectedLanguage = language;
     this.store.dispatch(new SelectLanguage(language));
     this.onPageChange();
@@ -183,36 +180,26 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getTranslationLanguages() {
     this.newWord.word = {};
     this.translationsMDBService.getTranslationLanguages().subscribe((data: any) => {
-      // this.languages = data;
       data.forEach(data => { this.newWord['word'][data] = ''; });
-      // passing data to wordLang service 
-      // this will help us to avoid subscribing to API each time
       this.wordLang.changeWord(this.newWord);
     })
   }
 
   search() {
     this.translationsMDBService.getTotalRecord(this.selectedLanguage, this.searchedWord).pipe(
-    tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
-    switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language,this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedWord))
+      tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
+      switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, this.pageSettings.currentPage - 1, this.pageSettings.pageSize, this.searchedWord))
     ).subscribe(
       (data) => {
         console.log(data);
-        
+
         this.data.next(data);
       },
       err => { console.log(err) }
     );
-    // console.log(this.searchedWord);
-    // this.translationsMDBService.searchWord(this.selectedLanguage, this.searchedWord).subscribe(
-    //   data => { this.data.next(data) },
-    //   err => { console.log(err); }
-    // );
-    // Todo: update the table
   }
 
 }

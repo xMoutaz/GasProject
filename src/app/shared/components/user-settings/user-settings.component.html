@@ -1,8 +1,6 @@
-<p>user-settings works!</p>
-
 <h2>General Account Settings</h2>
-
-<div class="container" *ngIf="address">
+<form *ngIf="address" #f="ngForm" (ngSubmit)="updateUserInfo()">
+<div class="container">
         <div>
             <label for="name"><b> Name </b></label><br>
             <input
@@ -12,7 +10,8 @@
             name="name"
             type="text" 
             placeholder="Enter Name"  
-            id="name">
+            id="name"
+            required>
             <br>
         </div>
         <div>
@@ -24,7 +23,8 @@
             name="zip"
             type="text" 
             placeholder="Enter zip"  
-            id="zip">
+            id="zip"
+            required>
             <br>
         </div>
         <div>
@@ -36,7 +36,8 @@
             name="addressLine1"
             type="text" 
             placeholder="Enter addressLine1"  
-            id="addressLine1">
+            id="addressLine1"
+            required>
             <br>
         </div>
         <div>
@@ -48,31 +49,8 @@
             name="addressLine2"
             type="text" 
             placeholder="Enter addressLine2"  
-            id="addressLine2">
-            <br>
-        </div>
-        <div>
-            <label for="longitude"><b> Longitude </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="address.longitude"
-            name="longitude"
-            type="text" 
-            placeholder="Enter longitude"  
-            id="longitude">
-            <br>
-        </div>
-        <div>
-            <label for="latitude"><b> Latitude </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="address.latitude"
-            name="latitude"
-            type="text" 
-            placeholder="Enter latitude"  
-            id="latitude">
+            id="addressLine2"
+            required>
             <br>
         </div>
         <div>
@@ -84,11 +62,11 @@
             type="text" 
             placeholder="Enter your Phone Number" 
             name="phone" 
-            id="phone">
+            id="phone"
+            required>
             <br>
         </div>
-        <button type="submit" class="btn btn-success" (click)="updateUserInfo()">Save Changes</button>
-       
-    
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save Changes</button>
+        <button type="button" class="btn btn-btn" (click)="backButton()">Back</button>
 </div>
-
+</form>

@@ -5,6 +5,8 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { UserMdbService } from '../../services/Mongodb/user-mdb.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-settings',
@@ -15,8 +17,8 @@ export class UserSettingsComponent implements OnInit {
 
   appUser: User;
   address: Address;
-  constructor(public auth: AuthService, private userMdbServices: UserMdbService, private addressMdbService: AddressMdbService,
-    ) {
+  constructor(public auth: AuthService, private userMdbServices: UserMdbService,
+     private addressMdbService: AddressMdbService, private _location: Location, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -35,10 +37,13 @@ export class UserSettingsComponent implements OnInit {
   updateUserInfo() {
     this.userMdbServices.updateUserInfo(this.appUser).pipe(
       switchMap(() => this.addressMdbService.updateAddress(this.appUser._id, this.address))
-    ).subscribe(success => { console.log(success); },
+    ).subscribe(success => { this.router.navigate(['']); console.log(success); },
       err => { console.log(err); }
     );
   }
 
+  backButton() {
+    this._location.back();
+  }
 
 }

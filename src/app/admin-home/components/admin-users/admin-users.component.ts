@@ -1,11 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/shared/models/address';
-import { DataTableService } from 'src/app/shared/services/data-table.service';
-import { AddressService } from 'src/app/shared/services/address.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
-import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-users',
@@ -16,7 +13,7 @@ export class AdminUsersComponent implements OnInit {
   userAddressInfo = new Address();
   userUid: string = null;
 
-  constructor(private route: ActivatedRoute, private addressMdbService: AddressMdbService) {
+  constructor(private route: ActivatedRoute, private addressMdbService: AddressMdbService, private _location: Location) {
     this.userUid = this.route.snapshot.paramMap.get('id');
     if (this.userUid) { this.getUserAddressDetails(this.userUid); }
   }
@@ -36,4 +33,7 @@ export class AdminUsersComponent implements OnInit {
       console.log(data));
   }
 
+  backButton() {
+    this._location.back();
+  }
 }

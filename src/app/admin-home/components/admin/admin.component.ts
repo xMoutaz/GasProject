@@ -65,7 +65,8 @@ export class AdminComponent {
       {
         key: 'phone',
         className: 'data_grid_center_align',
-        header: 'Phone Number'
+        header: 'Phone Number',
+        responsivePriority: true
       },
       {
         key: 'isAdmin',
@@ -100,8 +101,6 @@ export class AdminComponent {
   }
 
   getTotalRecord() {
-    let temp: any = this.searchedUser;
-    
     this.userMdbService.getTotalRecord(this.searchedUser).subscribe((data: number) => {
       this.pageSettings.setTotalRecords(data);
     });
@@ -131,14 +130,7 @@ export class AdminComponent {
     deleteButton.action = (data => {
       this.deleteUserInfo(data._id);
     });
-    let addLanguage = new ActionButton();
-    addLanguage.label = "set/unset Admin";
-    addLanguage.data = rowData;
-    addLanguage.action = (data => {
-      data.isAdmin = !data.isAdmin;
-      this.makeAdmin(data);
-    });
-    menu.buttons.push(editAddressInfo, deleteButton, addLanguage);
+    menu.buttons.push(editAddressInfo, deleteButton);
     return menu;
   };
 
@@ -165,17 +157,12 @@ export class AdminComponent {
       },
       err => { console.log(err) }
     );
-
-    // this.userMdbService.searchUser(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedUser).subscribe(
-    //   data => { this.data.next(data) },
-    //   err => { console.log(err); }
-    // );
   }
 
   makeAdmin(data) {
     this.userMdbService.setAdmin(data)
     .pipe(filter((data:any) => data.ok ===1))
-    .subscribe(success => {this.generalSettings.UpddateRow({ id: data._id, propertyName: "_id" }, data); });
+    .subscribe();
   }
 
 }

@@ -22,7 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ActionMenuComponent } from './components/controls/action-menu/action-menu.component';
 import { ConfirmationBoxComponent } from './components/controls/confirmation-box/confirmation-box.component';
-import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
 import { GpfiModalComponent } from './components/controls/gpfi-modal/gpfi-modal.component';
 import { MessageComponent } from './components/controls/message/message.component';
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
@@ -45,13 +44,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LoaderComponent,
     MessageComponent,
-    // AppDropdownComponent
     // FirebaseTransLoaderComponent,
     GpfiModalComponent,
     ActionMenuComponent,
     OverlayComponent,
     ConfirmationBoxComponent,
-    AppDropdownComponent,
     OperationButtonsComponent
     ],
   imports: [

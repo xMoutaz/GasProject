@@ -30,8 +30,6 @@
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
           </a>
           <ul class="dropdown-menu">
-            <li><a routerLink="/">My Order</a></li>
-            <li><a routerLink="/check-out">check-out</a></li>
             <ng-container *ngIf="appUser.isAdmin">
               <li><a routerLink="admin">Manage Users</a></li>
             </ng-container>

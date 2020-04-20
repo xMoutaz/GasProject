@@ -9,14 +9,11 @@ import { TranslateHttpLoader } from 'src/lib/http-loader';
 import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 import { DataTableModule } from '../modules/dataTables.module';
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
-import { CheckOutComponent } from './components/check-out/check-out.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { OrderSuccessComponent } from './components/order-success/order-success.component';
-import { ProductsComponent } from './components/products/products.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
@@ -39,9 +36,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegistrationComponent,
     NoAccessComponent,
     NotFoundComponent,
-    ProductsComponent,
-    CheckOutComponent,
-    OrderSuccessComponent,
     UserSettingsComponent,
     ForgetPasswordComponent,
     UnregisterationComponent,
@@ -65,9 +59,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'login', component: LoginComponent},
       { path: 'signup', component: RegistrationComponent},
       { path: 'no-access', component: NoAccessComponent},
-      { path: 'products', component: ProductsComponent, canActivate: [AuthGuardService]}, // should be loged in
-      { path:'check-out', component: CheckOutComponent, canActivate: [AuthGuardService]}, // should be loged in 
-      { path:'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService]}, // should be loged in    
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
       { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] }, // should be loged in
       { path : 'forgetPassword', component: ForgetPasswordComponent }, // should be loged in
@@ -86,9 +77,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegistrationComponent,
     NoAccessComponent,
     NotFoundComponent,
-    ProductsComponent,
-    CheckOutComponent,
-    OrderSuccessComponent,
     TranslateModule,
     RouterModule
   ],

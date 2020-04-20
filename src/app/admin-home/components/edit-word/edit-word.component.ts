@@ -9,6 +9,7 @@ import { NewWord } from 'src/app/shared/models/newWord';
 export class EditWordComponent implements OnInit {
 
   @Output() notify: EventEmitter<any> = new EventEmitter();
+  @Output() cancel: EventEmitter<any> = new EventEmitter();
 
   newWord: NewWord =<any>{};
 
@@ -17,6 +18,10 @@ export class EditWordComponent implements OnInit {
 
   updateTranslations() {
     this.notify.emit();
+  }
+
+  cancelButton() {
+    this.cancel.emit();
   }
 
   ngOnInit() {
