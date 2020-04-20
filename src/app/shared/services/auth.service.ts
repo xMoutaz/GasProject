@@ -9,6 +9,8 @@ import { MessageStatus, MessageType } from 'src/app/components/controls/message/
 import { User } from '../models/user';
 import { MessageService } from './message.service';
 import { UserMdbService } from './Mongodb/user-mdb.service';
+import { AddressMdbService } from './Mongodb/address-mdb.service';
+import { Address } from '../models/address';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +19,25 @@ export class AuthService {
 
   user$: Observable<firebase.User>;
   userMDB: User;
-  signedUpUser: User;
+  signedUpUser: User= new User();
+  signedUpAddress: Address = new Address();
 
   constructor(
     private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
-    private userMDBService: UserMdbService) {
+    private userMDBService: UserMdbService, private addressMdbService: AddressMdbService) {
     this.user$ = afAuth.authState;
   }
 
-  signup(value) {
+  async signup(value) {
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
-      .then(value => {
-        this.signedUpUser._id =  value.user.uid;
-        this.signedUpUser.email =  value.user.email;
-        console.log(this.signedUpUser);
-        
+      .then(result => {
+        this.signedUpUser.name = value.name;
+        this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
+        this.signedUpUser.email = result.user.email;
+        this.userMDBService.saveUser(this.signedUpUser).pipe(
+          switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
+        ).subscribe();
+
         this.statusMessageService.ClearMessage();
         this.router.navigate(['userDetails']);
         { return auth; }
@@ -70,7 +76,15 @@ export class AuthService {
   AuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
+        console.log(result);
         if (result.additionalUserInfo.isNewUser) {
+          this.signedUpUser.name = result.user.displayName;
+          this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
+          this.signedUpUser.email = result.user.email;
+          this.userMDBService.saveUser(this.signedUpUser).pipe(
+            switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
+          ).subscribe();
+
           this.router.navigate(['userDetails']);
         } else {
           this.router.navigate(['']);

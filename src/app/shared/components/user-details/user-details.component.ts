@@ -6,7 +6,7 @@ import { Address } from 'src/app/shared/models/address';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { Subscription } from 'rxjs';
-import {  map } from 'rxjs/operators';
+import {  map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { HttpClient } from '@angular/common/http';
@@ -31,12 +31,16 @@ export class UserDetailsComponent implements OnInit {
   selectedIndex: number;
 
   constructor(private http: HttpClient, private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private router: Router ,private auth: AuthService) { 
-    this.auth.user$.subscribe(user => {
-      if (user) {
-        this.newAddress._id = this.newUser._id = user.uid;
-        this.newUser.email = user.email;
-        }
-    });
+    this.auth.appUser$.pipe(
+      tap(appUser => this.newUser = appUser),
+      switchMap(appUser =>
+        this.mDBUserService.get(appUser._id))
+    ).subscribe(
+      (address: Address) => {
+        this.newAddress = address
+      },
+      err => { console.log(err) }
+    );
   }
   
   ngOnInit() {
@@ -84,13 +88,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   addUserInfo() {
-    this.mDBUserService.saveUser(this.newUser)
-    .subscribe((data : User) => {
-      this.router.navigate(['']); 
-    });
-    this.mDBAddressService.saveAddress(this.newAddress)
-    .subscribe((data : Address) => {
-    });
+    this.mDBUserService.updateUserInfo(this.newUser).pipe(
+      switchMap(() => this.mDBAddressService.updateAddress(this.newAddress._id, this.newAddress))
+    ).subscribe(success => { console.log(success); },
+      err => { console.log(err); }
+    );
+  
   }
 
   searchMap(query: string) {

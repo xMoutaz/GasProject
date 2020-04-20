@@ -88,7 +88,6 @@ export class  DataTableComponent implements  AfterViewInit {
       searching: true,
       // --------------------------
       scrollX: true,
-      scrollY: '300',
       // --------------------------
       language: {
         lengthMenu: '_MENU_'
