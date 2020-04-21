@@ -79,7 +79,7 @@ import { ExpansionSettings, ExpansionSettingsHandler } from './Expansion';
         toArray()
       ).subscribe((LENGTHNAMES)=>{
         let lengthSelect = this.getLengthElement();
-        lengthSelect.addClass("wuselect pr40").removeClass("input-sm");
+
         lengthSelect.find("option").each(function (i) {
           $(this).html(LENGTHNAMES[i]);
         });

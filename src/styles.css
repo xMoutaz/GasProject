@@ -54,7 +54,11 @@ button+button {
   margin-left: 5px
 }
 html, body { height: 100%; }
-/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
 .panel-heading{
   text-align: center;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
 }
