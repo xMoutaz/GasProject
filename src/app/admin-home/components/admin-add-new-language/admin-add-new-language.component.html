@@ -1,6 +1,6 @@
 <div class="container">
     <form #f="ngForm" (ngSubmit)="addNewKaLanguage()">
-        <h2 class='data_grid_center_align'>Add New Language</h2>
+        <h3 class='data_grid_center_align'>Add New Language</h3>
         <div>
             <label for="word"><b>Language</b></label><br>
             <input
@@ -13,31 +13,9 @@
             required>
             <br>
         </div>
-        <!-- <div>
-            <label for="word"><b>New Word</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="newWord.id"
-            name="word"
-            type="text"  
-            id="word" 
-            required>
-            <br>
+        <div class="pull-right" style="padding-top:23px;">
+        <button type="submit" class="button btn btn-primary" [disabled]="!f.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)="backButton()">cancel</button>
         </div>
-        <div>
-            <label for="translations"><b>Word Translations</b></label><br>
-            <input
-            class="form-control"
-            #name="ngModel"
-            [(ngModel)]="newWord.word[language.language]" 
-            name="newWord.word[language.language]" 
-            name="tans" 
-            type="trans"  
-            id="trans" 
-            required>
-            <br>
-        </div> -->
-        <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>

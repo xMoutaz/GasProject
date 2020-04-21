@@ -12,6 +12,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { AddLanguage } from 'src/app/state/language.actions';
 import { SelectLanguage } from 'src/app/state/select-language.actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-add-new-language',
@@ -22,7 +23,7 @@ export class AdminAddNewLanguageComponent implements OnInit {
 
   language = new Language();
 
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<AppState>, private _location: Location) {
   }
 
   ngOnInit() {
@@ -31,5 +32,9 @@ export class AdminAddNewLanguageComponent implements OnInit {
   addNewKaLanguage() {
     this.store.dispatch(new SelectLanguage(this.language));
     this.store.dispatch(new AddLanguage(this.language));
+  }
+
+  backButton() {
+    this._location.back();
   }
 }

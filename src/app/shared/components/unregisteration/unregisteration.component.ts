@@ -3,10 +3,11 @@ import { UserMdbService } from '../../services/Mongodb/user-mdb.service';
 import { AuthService } from '../../services/auth.service';
 import { AdminFirebasaeService } from 'src/app/admin-home/services/admin-firebasae.service';
 import { Router } from '@angular/router';
-import { concatMap, mergeMap } from 'rxjs/operators';
+import { concatMap, mergeMap, tap, switchMap } from 'rxjs/operators';
 import { User } from '../../models/user';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { Address } from '../../models/address';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-unregisteration',
@@ -17,11 +18,21 @@ export class UnregisterationComponent implements OnInit {
 
   appUser: User;
   address: Address;
-  
+
   constructor(public auth: AuthService, private userMdbServices: UserMdbService, private addressMdbService: AddressMdbService,
-    private adminFBUser: AdminFirebasaeService, private router: Router) { }
+    private adminFBUser: AdminFirebasaeService, private router: Router, private _location: Location) { }
 
   ngOnInit(): void {
+    this.auth.appUser$.pipe(
+      tap(appUser => this.appUser = appUser),
+      switchMap(appUser =>
+        this.addressMdbService.get(appUser._id))
+    ).subscribe(
+      (address: Address) => {
+        this.address = address
+      },
+      err => { console.log(err) }
+    );
   }
 
   deleteAccount() {
@@ -41,4 +52,7 @@ export class UnregisterationComponent implements OnInit {
     }
   }
 
+  cancelButton() {
+    this._location.back();
+  }
 }

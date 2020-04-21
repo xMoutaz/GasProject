@@ -7,6 +7,7 @@ import { LanguagesService } from 'src/app/shared/services/languages.service';
 import {  Observable } from 'rxjs';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-word',
@@ -18,8 +19,8 @@ export class AddWordComponent implements OnInit {
   language = new Language();
   languages$: Observable<Array<any>>;
   
-  constructor(
-    private store: Store<AppState>, private translationServiceMdb: TranslationsMdbService, private route: ActivatedRoute, private router: Router) {
+  constructor(private store: Store<AppState>, private translationServiceMdb: TranslationsMdbService, 
+    private _location: Location, private router: Router) {
     this.store.select(store => store)
       .subscribe(state => {
         this.language.language = state.routerReducer.state.root.firstChild.firstChild.params.lang;
@@ -46,5 +47,8 @@ export class AddWordComponent implements OnInit {
     );
   }
 
+  backButton() {
+    this._location.back();
+  }
 
 }

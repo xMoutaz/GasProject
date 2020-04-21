@@ -4,20 +4,18 @@
             <form #f="ngForm" (ngSubmit)="updateTranslations()">
                 <div class="row">
                     <div class="col-md-5 form-group">
-                        <label for="word">Word ID: </label>
-                        <input class="form-control" #name="ngModel" [(ngModel)]="newWord.id" name="word" type="text"
-                            id="word" disabled>
+                        <label>Word ID: </label> <br> <input class="form-control" #name="ngModel" [(ngModel)]="newWord.id" name="word" type="text" id="word" disabled>
                     </div>
                     <div class="col-md-5 form-group">
-                        <label for="translations">Translation: </label>
-                        <input class="form-control" #name="ngModel" [(ngModel)]="newWord.trans" name="tans" type="trans"
-                            id="trans">
+                        <label>Translation: </label> <br> <input class="form-control" #name="ngModel" [(ngModel)]="newWord.trans" name="tans" type="trans" id="trans">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="button btn btn-primary pull-right">Submit</button>
-                        <button type="button" class="btn btn-default pull-right" (click)="cancelButton()">Cancel</button>
+                        <div class="pull-right" style="padding-top:23px;">
+                            <button type="submit" class="button btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-default" (click)="cancelButton()">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </form>
