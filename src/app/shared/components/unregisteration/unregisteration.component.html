@@ -1,14 +1,19 @@
 <div class="container-fluid">
-    <div>
-      <div class="col-sm-9 col-md-9 col-lg-10 content equal-height">
-        <div class="bottom">
-            <h2 class="title">Do you want to unsubscribe?</h2>
-            <p class="subtitle">If you unsubscribe, your account will be deleted and you will need to register again </p>
-                <div class="buttons">
-                    <button type="submit" class="btn btn-danger" (click)="deleteAccount()">Delete My Account</button>
-                    <button type="submit" class="btn" routerLink="">Back</button>
-                </div>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="bottom">
+              <h3 class="title">Do you want to unsubscribe?</h3>
+              <p class="subtitle">If you unsubscribe, your account will be deleted and you will need to register again </p>
+              <div class="row">
+                <hr/>
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-danger pull-right" (click)="deleteAccount()">Delete My Account</button>
+                    <button type="submit" class="btn pull-left" routerLink="">Back</button>
+                  </div>
+              </div>
+          </div>
         </div>
-      </div>
     </div>
   </div>
+</div>

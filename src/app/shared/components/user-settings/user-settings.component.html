@@ -1,72 +1,83 @@
-<h2>General Account Settings</h2>
-<form *ngIf="address" #f="ngForm" (ngSubmit)="updateUserInfo()">
-<div class="container">
-        <div>
-            <label for="name"><b> Name </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="appUser.name"
-            name="name"
-            type="text" 
-            placeholder="Enter Name"  
-            id="name"
-            required>
-            <br>
+<div class="main_content">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="panel-heading">General Account Settings</h3>
+                <form *ngIf="address" #f="ngForm" (ngSubmit)="updateUserInfo()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="name"><b>Name</b></label><br>
+                            <input
+                            class="form-control" 
+                            #name="ngModel"
+                            [(ngModel)]="appUser.name"
+                            name="name"
+                            type="text" 
+                            placeholder="Enter Name"  
+                            id="name"
+                            required>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="zip"><b>ZIP</b></label><br>
+                            <input
+                            class="form-control" 
+                            #name="ngModel"
+                            [(ngModel)]="address.zip"
+                            name="zip"
+                            type="text" 
+                            placeholder="Enter zip"  
+                            id="zip"
+                            required>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="addressLine1"><b>AddressLine1</b></label><br>
+                            <input
+                            class="form-control" 
+                            #name="ngModel"
+                            [(ngModel)]="address.addressLine1"
+                            name="addressLine1"
+                            type="text" 
+                            placeholder="Enter addressLine1"  
+                            id="addressLine1"
+                            required>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="addressLine2"><b>AddressLine2</b></label><br>
+                            <input
+                            class="form-control" 
+                            #name="ngModel"
+                            [(ngModel)]="address.addressLine2"
+                            name="addressLine2"
+                            type="text" 
+                            placeholder="Enter addressLine2"  
+                            id="addressLine2"
+                            required>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="phone"><b>Phone Number</b></label><br>
+                            <input 
+                            class="form-control"
+                            #phoneNumber="ngModel"
+                            [(ngModel)]="appUser.phone"
+                            type="text" 
+                            placeholder="Enter your Phone Number" 
+                            name="phone" 
+                            id="phone"
+                            required>
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <hr/>
+                            <button type="submit" class="btn btn-primary pull-right" [disabled]="!f.valid">Save Changes</button>
+                            <button type="button" class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="zip"><b> ZIP </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="address.zip"
-            name="zip"
-            type="text" 
-            placeholder="Enter zip"  
-            id="zip"
-            required>
-            <br>
-        </div>
-        <div>
-            <label for="addressLine1"><b> AddressLine1 </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="address.addressLine1"
-            name="addressLine1"
-            type="text" 
-            placeholder="Enter addressLine1"  
-            id="addressLine1"
-            required>
-            <br>
-        </div>
-        <div>
-            <label for="addressLine2"><b> AddressLine2 </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="address.addressLine2"
-            name="addressLine2"
-            type="text" 
-            placeholder="Enter addressLine2"  
-            id="addressLine2"
-            required>
-            <br>
-        </div>
-        <div>
-            <label for="phone"><b>Phone Number</b></label><br>
-            <input 
-            class="form-control"
-            #phoneNumber="ngModel"
-            [(ngModel)]="appUser.phone"
-            type="text" 
-            placeholder="Enter your Phone Number" 
-            name="phone" 
-            id="phone"
-            required>
-            <br>
-        </div>
-        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save Changes</button>
-        <button type="button" class="btn btn-btn" (click)="backButton()">Back</button>
+    </div>
 </div>
-</form>

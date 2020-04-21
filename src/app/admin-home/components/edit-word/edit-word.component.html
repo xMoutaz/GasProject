@@ -1,26 +1,23 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="well">
-            <form #f="ngForm" (ngSubmit)="updateTranslations()">
-                <div class="row">
-                    <div class="col-md-5 form-group">
-                        <label for="word">Word ID: </label>
-                        <input class="form-control" #name="ngModel" [(ngModel)]="newWord.id" name="word" type="text"
-                            id="word" disabled>
-                    </div>
-                    <div class="col-md-5 form-group">
-                        <label for="translations">Translation: </label>
-                        <input class="form-control" #name="ngModel" [(ngModel)]="newWord.trans" name="tans" type="trans"
-                            id="trans">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="button btn btn-primary pull-right">Submit</button>
-                        <button type="button" class="btn btn-default pull-right" (click)="cancelButton()">Cancel</button>
-                    </div>
-                </div>
-            </form>
+
+<div class="well">
+    <form #f="ngForm" (ngSubmit)="updateTranslations()">
+        <div class="row">
+            <div class="col-md-5 form-group">
+                <label for="word">Word ID: </label>
+                <input class="form-control" #name="ngModel" [(ngModel)]="newWord.id" name="word" type="text"
+                    id="word" disabled>
+            </div>
+            <div class="col-md-5 form-group">
+                <label for="translations">Translation: </label>
+                <input class="form-control" #name="ngModel" [(ngModel)]="newWord.trans" name="tans" type="trans"
+                    id="trans">
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default pull-left" (click)="cancelButton()">Cancel</button>
+                <button type="submit" class="button btn btn-primary pull-right">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>

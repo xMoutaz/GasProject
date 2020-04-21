@@ -32,6 +32,7 @@ export class ExpansionSettingsHandler{
 
     expandGrid(rowInfo : DataTables.RowMethods):void {
         this._expansionSettings.DetailRowCallback(this._viewContainer, rowInfo.data(), rowInfo).then((expansionHtml) => {
+            $(rowInfo.node()).closest(".dataTables_wrapper.form-inline").removeClass("form-inline"); 
             let html: any = expansionHtml;
             if(expansionHtml instanceof ComponentRef){
                 this._componentMap.set(rowInfo.index(),expansionHtml);

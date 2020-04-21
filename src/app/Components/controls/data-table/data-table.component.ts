@@ -76,6 +76,7 @@ export class  DataTableComponent implements  AfterViewInit {
     });
 
     this.dataTableApi.on('draw', (param) => {
+      $('.dataTables_wrapper.form-inline').removeClass('form-inline');
       /** Todo :- create a generic event function with speck enum valuesa */
       // this.onGridInit$.next({api: this.dataTableApi, tableDom: this.tableHtml.nativeElement});
     });
