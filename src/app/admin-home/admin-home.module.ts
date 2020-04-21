@@ -34,6 +34,7 @@ import { AddWordComponent } from './components/add-word/add-word.component';
       { 
         path: 'admin', 
         component:AdminHomeComponent,
+        canActivate: [AdminAuthGuardService],
         children: [
           {
             path: '',
@@ -41,8 +42,8 @@ import { AddWordComponent } from './components/add-word/add-word.component';
             redirectTo: 'users'
           },
           { path: 'users', component: AdminComponent},
-          { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent}, // only admins can access
-          { path: 'admin-user/:id', component: AdminUsersComponent}, // only admins can access
+          { path: 'adminAddnewLanguage', component: AdminAddNewLanguageComponent},
+          { path: 'admin-user/:id', component: AdminUsersComponent},
           { path:'edit-language', component: EditWordComponent},
           { path:'add-lang', component: AdminAddLanguageComponent},
           { path:'add-word/:lang', component: AddWordComponent}

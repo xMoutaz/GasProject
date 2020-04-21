@@ -60,10 +60,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'login', component: LoginComponent},
       { path: 'signup', component: RegistrationComponent},
       { path: 'no-access', component: NoAccessComponent},
-      { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] }, // should be loged in
-      { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] }, // should be loged in
-      { path : 'forgetPassword', component: ForgetPasswordComponent }, // should be loged in
-      { path : 'unRegister', component: UnregisterationComponent }, // should be loged in
+      { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] },
+      { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] },
+      { path : 'forgetPassword', component: ForgetPasswordComponent, canActivate: [AuthGuardService] },
+      { path : 'unRegister', component: UnregisterationComponent, canActivate: [AuthGuardService] },
  
     ]),
   ],

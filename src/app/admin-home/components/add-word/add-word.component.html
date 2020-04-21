@@ -20,9 +20,13 @@
             [(ngModel)]="newWord.word[language.language]" 
             name="newWord.word[language.language]" 
             type="text"  
-            id="trans">
+            id="trans"
+            required>
             <br>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <div class="pull-right" style="padding-top:23px;">
+        <button type="submit" class="button btn btn-primary" [disabled]="!f.valid">Submit</button>
+        <button type="button" class="btn btn-default" (click)="backButton()">cancel</button>
+        </div>
     </form>
 </div>
