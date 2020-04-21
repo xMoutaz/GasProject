@@ -1,21 +1,24 @@
 <div class="container">
-    <form #f="ngForm" (ngSubmit)="addNewKaLanguage()">
-        <h3 class='data_grid_center_align'>Add New Language</h3>
-        <div>
-            <label for="word"><b>Language</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="language.language"
-            name="language"
-            type="text"  
-            id="language"
-            required>
-            <br>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form #f="ngForm" (ngSubmit)="addNewKaLanguage()">
+                <h3 class='data_grid_center_align'>Add New Language</h3>
+                <div>
+                    <label for="word"><b>Language</b></label><br>
+                    <input
+                    class="form-control" 
+                    #name="ngModel"
+                    [(ngModel)]="language.language"
+                    name="language"
+                    type="text"  
+                    id="language"
+                    required>
+                    <br>
+                </div>
+                <hr/>
+                <button type="button" class="btn btn-default pull-left" (click)="backButton()">cancel</button>
+                <button type="submit" class="button btn btn-primary pull-right" [disabled]="!f.valid">Submit</button>
+            </form>
         </div>
-        <div class="pull-right" style="padding-top:23px;">
-        <button type="submit" class="button btn btn-primary" [disabled]="!f.valid">Submit</button>
-        <button type="button" class="btn btn-default" (click)="backButton()">cancel</button>
-        </div>
-    </form>
+    </div>
 </div>

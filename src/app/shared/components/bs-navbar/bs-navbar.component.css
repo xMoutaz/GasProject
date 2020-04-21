@@ -11,3 +11,7 @@
 .settingsBtn:hover{
     cursor: pointer;
 }
+
+.projectName{
+    color: Black;
+}

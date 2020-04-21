@@ -16,11 +16,11 @@ body {
 }
 .content, .reportPanel {
   background-image: none;
-  border-top: 5px solid #ffdd00;
+  border-top: 5px solid #3f51b5;
 }
 .nav-tabs li.active a {
   border: 1px solid #c1c1c1;
-  border-bottom: 1px solid #ffdd00;
+  border-bottom: 1px solid #3f51b5;
   margin-bottom: -2px !important;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -32,8 +32,8 @@ body {
 .nav-pills>li.active>a,
 .nav-pills>li.active>a:focus,
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .btn.btn-primary{
-  background-color:#ffdd00;
-  color:#333333;
+  background-color:#3f51b5;
+  color:#FFFFFF;
 }
 .btn.btn-primary {
   border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
@@ -67,15 +67,15 @@ body {
   .nav-tabs:not(.gpfi-response-nav) > li.active > a:focus,
   .nav-tabs:not(.gpfi-response-nav) > li.active > a:hover,
   .nav-tabs:not(.gpfi-response-nav) > li.active > a {
-    background-color: #ffdd00;
-    color:#333333;
+    background-color: #3f51b5;
+    color:#FFFF;
   }
 }
 
 
 /* 011_4 :- PART OF WHTE LABELING */
 .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background  {
-  background-color: #ffde04;
+  background-color: #3f51b5;
 }
 .mat-checkbox-mixedmark {
   border-color: #000000;

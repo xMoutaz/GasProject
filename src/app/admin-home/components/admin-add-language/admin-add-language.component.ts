@@ -77,7 +77,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       },
       {
         key: 'trans',
-        className: 'data_grid_center_align',
+        className: 'data_grid_left_align',
         header: "trans",
         responsivePriority: true
       },

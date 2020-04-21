@@ -148,7 +148,8 @@ export class  DataTableComponent implements  AfterViewInit {
       this.dataTableApi.rows.add(data);
       //if(!this.ExpansionSettings){
         this.dataTableApi.draw(!!this.PageSettings);
-      //}
+        this.dataTableApi.columns.adjust().draw()
+       //}
     }
   }
 

@@ -37,23 +37,6 @@ h3 {
     border-radius: 3px
 }
 
-.btn-primary {
-    color: #000;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-    background-color: #ffde04;
-    *background-color: #ffde04;
-    background-image: -moz-linear-gradient(top,#ffea5a,#ffde04);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffea5a),to(#ffde04));
-    background-image: -webkit-linear-gradient(top,#ffea5a,#ffde04);
-    background-image: -o-linear-gradient(top,#ffea5a,#ffde04);
-    background-image: linear-gradient(to bottom,#ffea5a,#ffde04);
-    background-repeat: repeat-x;
-    border-color: #ffde04;
-    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEA5A',endColorstr='#FFDE04',GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-    font-size: 13px
-}
 
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled] {
     color: #666;

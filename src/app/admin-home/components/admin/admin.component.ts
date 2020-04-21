@@ -52,13 +52,13 @@ export class AdminComponent {
       },
       {
         key: 'name',
-        className: 'data_grid_center_align',
+        className: 'data_grid_left_align',
         header: 'Name',
         responsivePriority: true
       },
       {
         key: 'email',
-        className: 'data_grid_center_align',
+        className: 'data_grid_left_align',
         header: 'Email',
         responsivePriority: true
       },
