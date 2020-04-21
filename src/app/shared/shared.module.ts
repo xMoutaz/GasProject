@@ -23,6 +23,7 @@ import { UserMdbService } from './services/Mongodb/user-mdb.service';
 import { UserService } from './services/user.service';
 import { UnregisterationComponent } from './components/unregisteration/unregisteration.component';
 import {MatButtonModule} from '@angular/material/button';
+import { ApixuService } from './components/services/apixu.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -84,7 +85,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthService,
     UserService,
     AuthGuardService,
-    UserMdbService
+    UserMdbService,
+    ApixuService
   ],
   entryComponents: [ ActionMenuComponent]
 })
