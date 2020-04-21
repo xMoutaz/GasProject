@@ -85,17 +85,11 @@ export class  DataTableComponent implements  AfterViewInit {
     this.tableSettings = {
       info: false,
       ordering: false,
-      searching: true,
-      // --------------------------
-      scrollX: true,
-      // --------------------------
+      searching: false,
       language: {
         lengthMenu: '_MENU_'
       },
        paging: !!(this.PageSettings),
-      // -------------------------------
-      //  paging: true,
-      // -----------------------------
       dom: (this.PageSettings) ? '<\'responsive-tables p20\'<\'container-fluid\'<\'row gpfiPageLengthControl\' <\'clearfix\'> l><\'row\'t><\'row\'p>>>' :
         '<\'responsive-tables p20\'<\'container-fluid\'<\'row\'t>>>',
       lengthMenu: [[10, 20, 30, 50], ['Show 10 per page', 'Show 20 per page', 'Show 30 per page', 'Show 50 per page']]
