@@ -67,6 +67,8 @@ export class  DataTableComponent implements  AfterViewInit {
 
     // New API instances can be created by .DataTable constructor
     this.dataTableApi = $(this.tableHtml.nativeElement).DataTable(this.tableSettings);
+    $.fn.dataTable.ext.errMode = "none"
+    
     this.onGridInit$.next({api: this.dataTableApi, tableDom: this.tableHtml.nativeElement});
 
     this.initPaging();
