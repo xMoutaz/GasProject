@@ -25,6 +25,10 @@
             <li><a routerLink="/unRegister">{{'UNREGISTER' | translate}}</a></li>
           </ul>
         </li>
+        <button mat-button [matMenuTriggerFor]="menu" class="glyphicon glyphicon-globe languageBtn"></button>
+        <mat-menu #menu="matMenu" class="glyphicon glyphicon-globe languageBtn">
+          <button  mat-menu-item *ngFor="let language of languages$ | async" [value]="language" (click)="selectLanguage(language)">{{language | translate}}</button>
+        </mat-menu>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
@@ -48,3 +52,6 @@
     <li><a routerLink="/signup"><button class="btn btn-primary">{{'SIGNUP' | translate}}</button></a></li>
   </ul>
 </ng-template>
+
+
+

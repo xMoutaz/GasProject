@@ -15,3 +15,11 @@
 .projectName{
     color: Black;
 }
+
+.languageBtn{
+    font-size: 31px;
+    margin-top: 4px;
+}
+.languageBtn{
+    cursor: pointer;
+}

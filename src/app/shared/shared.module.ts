@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -24,6 +24,8 @@ import { UserService } from './services/user.service';
 import { UnregisterationComponent } from './components/unregisteration/unregisteration.component';
 import {MatButtonModule} from '@angular/material/button';
 import { ApixuService } from './components/services/apixu.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -43,6 +45,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     CommonModule,
     BrowserModule,
     FormsModule,
@@ -88,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserMdbService,
     ApixuService
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [ ActionMenuComponent]
 })
 export class SharedModule { }

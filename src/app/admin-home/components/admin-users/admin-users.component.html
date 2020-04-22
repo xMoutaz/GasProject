@@ -2,7 +2,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3>{{'USER_ADDRESS_DETAILS' | translate}}</h3>
+                <h3 class="panel-heading">{{'USER_ADDRESS_DETAILS' | translate}}</h3>
                 <form *ngIf="userAddressInfo" #f="ngForm" (ngSubmit)="EditUserAddInfo()">
                     <div>
                         <label for="addressLine1"><b> {{'ADDRESSLINE1' | translate}} </b></label><br>
