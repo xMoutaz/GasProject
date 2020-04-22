@@ -1,13 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button 
-        type="button" 
-        class="navbar-toggle collapsed" 
-        data-toggle="collapse" 
-        data-target="#bs-example-navbar-collapse-1" 
-        aria-expanded="false">
-
+      <button  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -15,8 +9,11 @@
       </button>
       <h3><a class="projectName" href="">{{'TETOUAN_PROJECT ' | translate}}</a></h3>
     </div>
-
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <button mat-button [matMenuTriggerFor]="menu" class="glyphicon glyphicon-globe languageBtn pull-right"></button>
+          <mat-menu #menu="matMenu">
+          <button  mat-menu-item *ngFor="let language of languages$ | async" [value]="language" (click)="selectLanguage(language)">{{language | translate}}</button>
+        </mat-menu>
       <ul class="nav navbar-nav navbar-right" *ngIf="appUser ; else anonymousUser">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog settingsBtn"></span></a>
@@ -25,10 +22,6 @@
             <li><a routerLink="/unRegister">{{'UNREGISTER' | translate}}</a></li>
           </ul>
         </li>
-        <button mat-button [matMenuTriggerFor]="menu" class="glyphicon glyphicon-globe languageBtn"></button>
-        <mat-menu #menu="matMenu" class="glyphicon glyphicon-globe languageBtn">
-          <button  mat-menu-item *ngFor="let language of languages$ | async" [value]="language" (click)="selectLanguage(language)">{{language | translate}}</button>
-        </mat-menu>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
