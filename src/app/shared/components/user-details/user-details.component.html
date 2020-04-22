@@ -1,58 +1,41 @@
-<div class="container" *ngIf="newAddress">
-    <form  *ngIf="newAddress" #f="ngForm" (ngSubmit)="addUserInfo()">
-        <div>
-            <label for="zip"><b>{{'ZIP' | translate}}</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="newAddress.zip"
-            name="zip"
-            type="text" 
-            placeholder="Enter zip"  
-            id="zip"
-            required>
-            <br>
+<div class="main_content">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 class="panel-heading">{{'REGISTRATION_INFORMATION' | translate}}</h3>
+                <form *ngIf="newAddress" #f="ngForm" (ngSubmit)="addUserInfo()">
+                    <div class="row">
+                    <div class="col-md-12">
+                        <label for="zip"><b>{{'ZIP' | translate}}</b></label><br>
+                        <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.zip" name="zip" type="text" placeholder="Enter zip" id="zip" required>
+                        <br>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="addressLine1"><b>{{'ADDRESSLINE1' | translate}}</b></label><br>
+                        <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.addressLine1"
+                            name="addressLine1" type="text" placeholder="Enter addressLine1" id="addressLine1" required>
+                        <br>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="addressLine2"><b>{{'ADDRESSLINE2' | translate}}</b></label><br>
+                        <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.addressLine2"
+                            name="addressLine2" type="text" placeholder="Enter addressLine2" id="addressLine2" required>
+                        <br>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="phone"><b>{{'PHONE_NUMBER' | translate}}</b></label><br>
+                        <input class="form-control" #phoneNumber="ngModel" [(ngModel)]="newUser.phone" type="text"
+                            placeholder="Enter your Phone Number" name="phone" id="phone" required>
+                        <br>
+                    </div>
+                    <div class="col-md-12">
+                        <hr/>
+                    <button type="submit" class="btn btn-primary pull-right" [disabled]="!f.valid">{{'SUBMIT' | translate}}</button>
+                    <button type="button" class="btn btn-default pull-left" routerLink="">{{'SKIP' | translate}}</button>
+                    </div>
+                </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="addressLine1"><b>{{'ADDRESSLINE1' | translate}}</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="newAddress.addressLine1"
-            name="addressLine1"
-            type="text" 
-            placeholder="Enter addressLine1"  
-            id="addressLine1"
-            required>
-            <br>
-        </div>
-        <div>
-            <label for="addressLine2"><b>{{'ADDRESSLINE2' | translate}}</b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="newAddress.addressLine2"
-            name="addressLine2"
-            type="text" 
-            placeholder="Enter addressLine2"  
-            id="addressLine2"
-            required>
-            <br>
-        </div>
-        <div>
-            <label for="phone"><b>{{'PHONE_NUMBER' | translate}}</b></label><br>
-            <input 
-            class="form-control"
-            #phoneNumber="ngModel"
-            [(ngModel)]="newUser.phone"
-            type="text" 
-            placeholder="Enter your Phone Number" 
-            name="phone" 
-            id="phone"
-            required>
-            <br>
-        </div>
-        <button type="submit" class="btn btn-success" [disabled]="!f.valid">{{'SUBMIT' | translate}}</button>
-        <button type="button" class="btn btn-btn" routerLink="">{{'SKIP' | translate}}</button>
-    </form>
+    </div>
 </div>
