@@ -59,10 +59,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule.forChild([
       { path: 'login', component: LoginComponent},
       { path: 'signup', component: RegistrationComponent},
+      { path : 'forgetPassword', component: ForgetPasswordComponent },
       { path: 'no-access', component: NoAccessComponent},
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] },
       { path : 'userSetting', component: UserSettingsComponent, canActivate: [AuthGuardService] },
-      { path : 'forgetPassword', component: ForgetPasswordComponent, canActivate: [AuthGuardService] },
       { path : 'unRegister', component: UnregisterationComponent, canActivate: [AuthGuardService] },
  
     ]),

@@ -1,7 +1,7 @@
 <div class="container" *ngIf="newAddress">
     <form  *ngIf="newAddress" #f="ngForm" (ngSubmit)="addUserInfo()">
         <div>
-            <label for="zip"><b> ZIP </b></label><br>
+            <label for="zip"><b>{{'ZIP' | translate}}</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
@@ -14,7 +14,7 @@
             <br>
         </div>
         <div>
-            <label for="addressLine1"><b> AddressLine1 </b></label><br>
+            <label for="addressLine1"><b>{{'ADDRESSLINE1' | translate}}</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
@@ -27,7 +27,7 @@
             <br>
         </div>
         <div>
-            <label for="addressLine2"><b> AddressLine2 </b></label><br>
+            <label for="addressLine2"><b>{{'ADDRESSLINE2' | translate}}</b></label><br>
             <input
             class="form-control" 
             #name="ngModel"
@@ -40,7 +40,7 @@
             <br>
         </div>
         <div>
-            <label for="phone"><b>Phone Number</b></label><br>
+            <label for="phone"><b>{{'PHONE_NUMBER' | translate}}</b></label><br>
             <input 
             class="form-control"
             #phoneNumber="ngModel"
@@ -52,7 +52,7 @@
             required>
             <br>
         </div>
-        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
-        <button type="button" class="btn btn-btn" routerLink="">Skip</button>
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">{{'SUBMIT' | translate}}</button>
+        <button type="button" class="btn btn-btn" routerLink="">{{'SKIP' | translate}}</button>
     </form>
 </div>

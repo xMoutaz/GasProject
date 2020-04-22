@@ -2,11 +2,11 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3 class="panel-heading">General Account Settings</h3>
+                <h3 class="panel-heading">{{'GENERAL_ACCOUNT_SETTINGS' | translate}}</h3>
                 <form *ngIf="address" #f="ngForm" (ngSubmit)="updateUserInfo()">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="name"><b>Name</b></label><br>
+                            <label for="name"><b>{{'NAME' | translate}}</b></label><br>
                             <input
                             class="form-control" 
                             #name="ngModel"
@@ -19,7 +19,7 @@
                             <br>
                         </div>
                         <div class="col-md-12">
-                            <label for="zip"><b>ZIP</b></label><br>
+                            <label for="zip"><b>{{'ZIP' | translate}}</b></label><br>
                             <input
                             class="form-control" 
                             #name="ngModel"
@@ -32,7 +32,7 @@
                             <br>
                         </div>
                         <div class="col-md-12">
-                            <label for="addressLine1"><b>AddressLine1</b></label><br>
+                            <label for="addressLine1"><b>{{'ADDRESSLINE1' | translate}}</b></label><br>
                             <input
                             class="form-control" 
                             #name="ngModel"
@@ -45,7 +45,7 @@
                             <br>
                         </div>
                         <div class="col-md-12">
-                            <label for="addressLine2"><b>AddressLine2</b></label><br>
+                            <label for="addressLine2"><b>{{'ADDRESSLINE2' | translate}}</b></label><br>
                             <input
                             class="form-control" 
                             #name="ngModel"
@@ -58,7 +58,7 @@
                             <br>
                         </div>
                         <div class="col-md-12">
-                            <label for="phone"><b>Phone Number</b></label><br>
+                            <label for="phone"><b>{{'PHONE_NUMBER' | translate}}</b></label><br>
                             <input 
                             class="form-control"
                             #phoneNumber="ngModel"
@@ -72,8 +72,8 @@
                         </div>
                         <div class="col-md-12">
                             <hr/>
-                            <button type="submit" class="btn btn-primary pull-right" [disabled]="!f.valid">Save Changes</button>
-                            <button type="button" class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                            <button type="submit" class="btn btn-primary pull-right" [disabled]="!f.valid">{{'SAVE_CHANGES' | translate}}</button>
+                            <button type="button" class="btn btn-default pull-left" (click)="backButton()">{{'BACK' | translate}}</button>
                         </div>
                     </div>
                 </form>

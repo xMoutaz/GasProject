@@ -3,13 +3,13 @@
     <div class="panel panel-default">
       <div class="panel-body">
           <div class="bottom">
-              <h3 class="title">Do you want to unsubscribe?</h3>
-              <p class="subtitle">If you unsubscribe, your account will be deleted and you will need to register again </p>
+              <h3 class="title">{{'DO_YOU_WANT_TO_UNREGISTER?' | translate}}</h3>
+              <p class="subtitle">{{'IF_YOU_UNREGISTER_YOUR_ACCOUNT_WILL_BE_DELETED_AND_YOU_WILL_NEED_TO_REGISTER_AGAIN' | translate}}</p>
               <div class="row">
                 <hr/>
                   <div class="col-md-12">
-                    <button type="submit" class="btn btn-danger pull-right" (click)="deleteAccount()">Delete My Account</button>
-                    <button type="submit" class="btn pull-left" (click)="cancelButton()">Cancel</button>
+                    <button type="submit" class="btn btn-danger pull-right" (click)="deleteAccount()">{{'DELETE_MY_ACCOUNT' | translate}}</button>
+                    <button type="submit" class="btn pull-left" (click)="cancelButton()">{{'CANCEL' | translate}}</button>
                   </div>
               </div>
           </div>
