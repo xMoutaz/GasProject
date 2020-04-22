@@ -24,7 +24,6 @@ import { EditWordComponent } from '../edit-word/edit-word.component';
   styleUrls: ['./admin-add-language.component.css']
 })
 export class AdminAddLanguageComponent implements OnInit, OnDestroy {
-
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
   selectedLanguage: any;
@@ -43,14 +42,11 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     public CFR: ComponentFactoryResolver, private router: Router) {
     this.searchedWord.id = "";
     this.searchedWord.word = "";
-
-
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => store.selectLang.selectedLang)
       .subscribe(data => this.selectedLanguage = data);
-
     this.getTotalRecord();
     this.setUpColumnDefintion();
     this.languageExpansionSettings = this.setupExpansionSettings();
