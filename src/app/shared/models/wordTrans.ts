@@ -5,7 +5,7 @@ export class Word {
     //     en: string,
     //     ar: string
     // }
-    public word: string;
+    public word: {};
     public trans: string;
 
      [language: string]: any;         
