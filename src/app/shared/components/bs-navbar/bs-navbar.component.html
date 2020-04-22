@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <h3><a class="projectName" href="">tetouan project</a></h3>
+      <h3><a class="projectName" href="">{{'TETOUAN_PROJECT ' | translate}}</a></h3>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -21,8 +21,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog settingsBtn"></span></a>
           <ul class="dropdown-menu">
-            <li><a routerLink="/userSetting">Details</a></li>
-            <li><a routerLink="/unRegister">Unregister</a></li>
+            <li><a routerLink="/userSetting">{{'DETAILS' | translate}}</a></li>
+            <li><a routerLink="/unRegister">{{'UNREGISTER' | translate}}</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -31,10 +31,10 @@
           </a>
           <ul class="dropdown-menu">
             <ng-container *ngIf="appUser.isAdmin">
-              <li><a routerLink="admin">Manage Users</a></li>
+              <li><a routerLink="admin">{{'MANAGE_USERS' | translate}}</a></li>
             </ng-container>
             <li role="separator" class="divider"></li>
-            <li><a routerLink="#" (click)="logout()">log Out</a></li>
+            <li><a routerLink="#" (click)="logout()">{{'LOG_OUT' | translate}}</a></li>
           </ul>
         </li>
       </ul>
@@ -44,7 +44,7 @@
 
 <ng-template #anonymousUser>
   <ul class="nav navbar-nav navbar-right">
-    <li ><a routerLink="/login"><button class="btn signInBtn">signIn <span class="sr-only">(current)</span></button></a></li>
-    <li><a routerLink="/signup"><button class="btn btn-primary">signup</button></a></li>
+    <li ><a routerLink="/login"><button class="btn signInBtn">{{'SIGNIN' | translate}} <span class="sr-only">(current)</span></button></a></li>
+    <li><a routerLink="/signup"><button class="btn btn-primary">{{'SIGNUP' | translate}}</button></a></li>
   </ul>
 </ng-template>

@@ -4,7 +4,7 @@
             <form  *ngIf="language.language" #f="ngForm" (ngSubmit)="addWord()  ">
                 <h3 class='data_grid_center_align'>{{'ADD_NEW_WORD' | translate}}</h3>
                 <div>
-                    <label for="word"><b>{{language.language | translate}} {{ 'TRANSLATION' | translate}}</b></label><br>
+                    <label for="word"><b>{{'WORD' | translate}}</b></label><br>
                     <input
                     class="form-control" 
                     #name="ngModel"
@@ -15,7 +15,7 @@
                     <br>
                 </div>
                 <div >
-                    <label for="translations"><b>{{language.language}} translations</b></label><br>
+                    <label for="translations"><b>{{language.language | translate}} translations</b></label><br>
                     <input
                     class="form-control"
                     #name="ngModel"
