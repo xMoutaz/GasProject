@@ -1,12 +1,25 @@
 <div class="main_content">
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-body">
-            <h3 class="panel-heading">Weather Details in : {{weatherData?.location.name}}, {{weatherData?.location.country}}</h3>
-            <p class="text-center">Weather_descriptions: {{weatherData?.current.weather_descriptions}} <img [src]="weatherData?.current.weather_icons"></p>
-            <p class="text-center">Temperature in: {{weatherData?.current.temperature}}</p>
-            <p class="text-center">Temperature Feels like: {{weatherData?.current.feelslike}}</p>
-</div>
-</div>
-</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-right  col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 style="text-align: left;"><span class="glyphicon glyphicon-cloud pull-right"></span>Weather</h3></div>
+                    <div class="panel-body">
+
+                        <div style="display: inline-block;">
+                            <p class="degree">
+                                <img [src]="weatherData?.current.weather_icons">
+                                {{weatherData?.current.temperature}}<span>&#176;</span>
+                            </p>
+                        </div>
+                        <div style="display: inline-block; margin-left: 15px;">
+                            <h3 style="color: grey;">{{weatherData?.current.weather_descriptions}} </h3>
+                            <p>{{weatherData?.location.name}}, {{weatherData?.location.country}}</p>
+                        </div>                     
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>
