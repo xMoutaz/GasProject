@@ -23,3 +23,6 @@
 .languageBtn{
     cursor: pointer;
 }
+.settingsBtn{
+    color: black;
+}
