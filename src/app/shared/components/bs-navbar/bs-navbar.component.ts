@@ -35,6 +35,8 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.store.select(store => this.selectedLanguage = store.selectLang.selectedLang)
       .subscribe(data => console.log(data));
 
+    //TODO:- cache user name on get, and refresh when user logged out
+
     this.auth.user$.subscribe((user: User) => this.appUser = user);
     this.auth.appUser$.pipe(filter((data) => !!data))
     .subscribe((data) =>{

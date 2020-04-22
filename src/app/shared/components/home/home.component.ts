@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.sendToAPIXU('Tetouan');
+    // TODO: -Access user from store here and display user name in welcome message
   }
 
   sendToAPIXU(location) {
