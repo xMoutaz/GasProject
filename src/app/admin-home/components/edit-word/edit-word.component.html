@@ -2,18 +2,18 @@
             <form #f="ngForm" (ngSubmit)="updateTranslations()">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>Word ID: </label>
+                        <label>{{'Word_ID' | translate}}:</label>
                         <input class="form-control" #name="ngModel" [(ngModel)]="newWord.id" name="word" type="text" id="word" disabled>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>Translation: </label> 
+                        <label>{{'TRANSLATION' | translate}}:</label> 
                         <input class="form-control" #name="ngModel" [(ngModel)]="newWord.trans" name="tans" type="trans" id="trans">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-default pull-left" (click)="cancelButton()">Cancel</button>
-                        <button type="submit" class="button btn btn-primary pull-right">Submit</button>
+                        <button type="button" class="btn btn-default pull-left" (click)="cancelButton()">{{'SUBMIT' | translate}}</button>
+                        <button type="submit" class="button btn btn-primary pull-right">{{'SUBMIT' | translate}}</button>
                     </div>
                 </div>
             </form>

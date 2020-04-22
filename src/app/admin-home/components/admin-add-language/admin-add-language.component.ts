@@ -125,7 +125,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
         component.instance.notify.subscribe(event => {
           rowData.id = this.newWord.id;
           rowData.word = this.newWord.trans;
-          this.translationsMDBService.updateTranslation(this.selectedLanguage, this.newWord)
+          this.translationsMDBService.updateTranslation(this.selectedLanguage.language, this.newWord)
             .pipe(filter((data: any) => data.ok === 1))
             .subscribe((success) => { this.generalSettings.UpddateRow({ id: this.newWord.id, propertyName: "id" }, rowData); });
           this.languageExpansionSettings.CollapseGrid({ id: rowData.id, propertyName: "id" });

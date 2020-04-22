@@ -2,47 +2,23 @@
 
 <div class="container">
     <form *ngIf="userAddressInfo" #f="ngForm" (ngSubmit)="EditUserAddInfo()">
-        <h1>User Address Details </h1>
+        <h1>{{'USER_ADDRESS_DETAILS' | translate}}</h1>
         <div>
-            <label for="addressLine1"><b> AddressLine1 </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="userAddressInfo.addressLine1"
-            name="addressLine1"
-            type="text" 
-            placeholder="Enter addressLine1"  
-            id="addressLine1"
-            required>
+            <label for="addressLine1"><b> {{'ADDRESSLINE1' | translate}} </b></label><br>
+            <input class="form-control" #name="ngModel" [(ngModel)]="userAddressInfo.addressLine1" name="addressLine1" type="text" placeholder="Enter addressLine1" id="addressLine1" required>
             <br>
         </div>
         <div>
-            <label for="addressLine2"><b> AddressLine2 </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="userAddressInfo.addressLine2"
-            name="addressLine2"
-            type="text" 
-            placeholder="Enter addressLine2"  
-            id="addressLine2"
-            required>
+            <label for="addressLine2"><b> {{'ADDRESSLINE2' | translate}} </b></label><br>
+            <input class="form-control" #name="ngModel" [(ngModel)]="userAddressInfo.addressLine2" name="addressLine2" type="text"  placeholder="Enter addressLine2" id="addressLine2" required>
             <br>
         </div>
         <div>
-            <label for="zip"><b> ZIP </b></label><br>
-            <input
-            class="form-control" 
-            #name="ngModel"
-            [(ngModel)]="userAddressInfo.zip"
-            name="zip"
-            type="text" 
-            placeholder="Enter zip"  
-            id="zip"
-            required>
+            <label for="zip"><b> {{'ZIP' | translate}} </b></label><br>
+            <input class="form-control" #name="ngModel" [(ngModel)]="userAddressInfo.zip" name="zip" type="text" placeholder="Enter zip" id="zip" required>
             <br>
         </div>
-        <button type="submit" class="button btn btn-primary" [disabled]="!f.valid">Submit</button>
-        <button type="button" class="btn btn-default" (click)="backButton()">Back</button>
+        <button type="submit" class="button btn btn-primary" [disabled]="!f.valid">{{'SUBMIT' | translate}}</button>
+        <button type="button" class="btn btn-default" (click)="backButton()">{{'BACK' | translate}}</button>
     </form>
 </div>

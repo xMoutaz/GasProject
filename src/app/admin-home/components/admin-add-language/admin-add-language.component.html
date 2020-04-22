@@ -1,20 +1,20 @@
 <div class="panel panel-default">
     <div class="panel-body">   
-        <h3>Manage Language</h3>
+        <h3>{{ 'MANAGE_LANGUAGE' | translate}}</h3>
 
         <div class="well">
             <form>
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Word</label> <input class="form-control" type="text" name="id" [(ngModel)]="searchedWord.id">
+                        <label>{{'WORD' | translate}}</label> <input class="form-control" type="text" name="id" [(ngModel)]="searchedWord.id">
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>Trans</label> <input class="form-control" type="text" name="word" [(ngModel)]="searchedWord.word">
+                        <label>{{'TRANS' | translate}}</label> <input class="form-control" type="text" name="word" [(ngModel)]="searchedWord.word">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="button btn btn-primary pull-right" (click)="search()">search</button>
+                        <button class="button btn btn-primary pull-right" (click)="search()">{{'SEARCH' | translate}}</button>
                     </div>
                 </div>
             </form>
@@ -23,17 +23,17 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-3" >
-                        <label>Select Language</label>
+                        <label>{{'SELECT_LANGUAGE' | translate}}</label>
                         <select class="form-control" [(ngModel)]="selectedProject" (change)="onLangChange($event)">
                             <option *ngFor="let language of languages$ | async" [value]="language">
-                                {{language}}
+                                {{language | translate}}
                             </option>
                         </select>
                     </div>
                     <div class="col-md-9">
                         <div class="pull-right" style="padding-top:23px;">
-                            <button class="btn btn-default" (click)="AddLanguage()">Add Language</button>
-                            <button class="btn btn-primary" (click)="addNewWord()">Add New Word</button>
+                            <button class="btn btn-default" (click)="AddLanguage()">{{'ADD_LANGUAGE' | translate}}</button>
+                            <button class="btn btn-primary" (click)="addNewWord()">{{'ADD_NEW_WORD' | translate}}</button>
                         </div>
                     </div>
                 </div>

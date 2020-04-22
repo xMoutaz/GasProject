@@ -21,7 +21,6 @@ export class AddressMdbService {
     return this.http.post<Address>(this.baseURL , address);
   }
 
-  // GET specific user's address
   get(_id) {
     return this.http.get(this.baseURL +`/${_id}`);
   }

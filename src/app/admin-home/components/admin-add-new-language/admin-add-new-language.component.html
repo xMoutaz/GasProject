@@ -2,22 +2,15 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <form #f="ngForm" (ngSubmit)="addNewKaLanguage()">
-                <h3 class='data_grid_center_align'>Add New Language</h3>
+                <h3 class='data_grid_center_align'>{{'ADD_LANGUAGE' | translate}}</h3>
                 <div>
-                    <label for="word"><b>Language</b></label><br>
-                    <input
-                    class="form-control" 
-                    #name="ngModel"
-                    [(ngModel)]="language.language"
-                    name="language"
-                    type="text"  
-                    id="language"
-                    required>
+                    <label for="word"><b>{{'LANGUAGE' | translate}}</b></label><br>
+                    <input class="form-control" #name="ngModel" [(ngModel)]="language.language" name="language" type="text" id="language" required>
                     <br>
                 </div>
                 <hr/>
-                <button type="button" class="btn btn-default pull-left" (click)="backButton()">cancel</button>
-                <button type="submit" class="button btn btn-primary pull-right" [disabled]="!f.valid">Submit</button>
+                <button type="button" class="btn btn-default pull-left" (click)="backButton()">{{'CANCEL' | translate}}</button>
+                <button type="submit" class="button btn btn-primary pull-right" [disabled]="!f.valid">{{'SUBMIT' | translate}}</button>
             </form>
         </div>
     </div>

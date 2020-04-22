@@ -2,22 +2,22 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <h3>Manage Users</h3>
+        <h3>{{'MANAGE_USERS' | translate}}</h3>
         <div class="well">
             <form #f="ngForm" (ngSubmit)="search()">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Name</label>
+                        <label>{{'NAME' | translate}}</label>
                         <input type="text" class="form-control" name="name" [(ngModel)]="searchedUser.name">
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>User Id</label>
+                        <label>{{'USER_ID' | translate}}</label>
                         <input type="text"  class="form-control" name="_id" [(ngModel)]="searchedUser._id">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="button btn btn-primary pull-right" (click)="search()">search</button>
+                        <button type="submit" class="button btn btn-primary pull-right" (click)="search()">{{'SEARCH' | translate}}</button>
                     </div>
                 </div>
             </form>

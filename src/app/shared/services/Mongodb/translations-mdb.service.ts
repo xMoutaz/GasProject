@@ -20,31 +20,23 @@ export class TranslationsMdbService {
     return this.http.post<NewWord>(this.baseURL + '/addNewWord/', word);
   }
 
-  // http://localhost:3000/translations/dataTble/en?pg=0&&pgS=5
   getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {
     return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
   }
 
-  // Get how many translations languages
   getTranslationLanguages(): Observable<Language> {
     return this.http.get<Language>(this.baseURL +'/TranslationsLanguage');
   }
 
   getTotalRecord(language: Language, word: Word) {
     return this.http.get(this.baseURL +`/dataTable/totalRecord/${language.language}?wordId=${word.id}&Word=${word.word}`)
-    // return this.http.get(`${this.baseURL}/dataTable/totalRecords`);
   }
 
   addNewLanguage(language: Language ) {
     return this.http.patch<Language>(this.baseURL + '/AddLanguage', language);
   }
 
-  // // http://localhost:3000/translations/EditArabicTranslation/en?translationId=ARABIC
   updateTranslation( lang, word: NewWord): Observable<Word> {
-    // console.log(_id);
-    console.log(lang);
-    console.log(word);    
-    // http://localhost:3000/translations/EditTranslation/ar?translationId=DELETE
     return this.http.patch<Word>(`${this.baseURL}/EditTranslation/${lang}`, word);
   }
 
@@ -53,7 +45,6 @@ export class TranslationsMdbService {
    }
 
    searchWord(language: Language, word: Word): Observable<Word[]> {
-     // http://localhost:8081/translations/dataTable/search/ar?wordId=ENGLISH&&Word=
     return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${language.language}?wordId=${word.id}&&Word=${word.word}`);
    }
   }

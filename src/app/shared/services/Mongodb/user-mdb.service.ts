@@ -18,7 +18,6 @@ export class UserMdbService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  // Getting all user
   get(_id) {
     return this.http.get(this.baseURL +`/${_id}`);
   }
@@ -29,7 +28,6 @@ export class UserMdbService {
 
   getTotalRecord(user?:User) {
     return this.http.get(this.baseURL +`/search/count?_id=${user._id}&&userName=${user.name}`)
-    // return this.http.get(this.baseURL +'/dataTable/totalRecords')
   }
 
   getDatatable(pg, pgS): Observable<User[]> {
@@ -44,7 +42,6 @@ export class UserMdbService {
     });
   }
 
-  // After Login check if the user have entered his Address data
   checkUserInfo(_id):Observable<User> {
     return this.http.get<User>(this.baseURL +`/${_id}`)
   }

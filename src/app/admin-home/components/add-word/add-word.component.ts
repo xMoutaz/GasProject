@@ -4,7 +4,7 @@ import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translat
 import { NewWord } from 'src/app/shared/models/newWord';
 import { Language } from 'src/app/shared/models/language';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
-import {  Observable } from 'rxjs';
+import {  Observable, Subscription } from 'rxjs';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
 import { Location } from '@angular/common';
@@ -14,10 +14,11 @@ import { Location } from '@angular/common';
   templateUrl: './add-word.component.html',
   styleUrls: ['./add-word.component.css']
 })
-export class AddWordComponent implements OnInit {
+export class AddWordComponent implements OnInit, OnDestroy {
   newWord: NewWord = <any>{};
   language = new Language();
   languages$: Observable<Array<any>>;
+  subscription: Subscription;
   
   constructor(private store: Store<AppState>, private translationServiceMdb: TranslationsMdbService, 
     private _location: Location, private router: Router) {
@@ -31,7 +32,7 @@ export class AddWordComponent implements OnInit {
   ngOnInit() {
     this.newWord.word = {};
     this.languages$ = this.store.select(store => store.language.list);
-    this.store.select(store => store.language.list)
+    this.subscription =  this.store.select(store => store.language.list)
       .subscribe((data: any) => {
         this.languages$ = data;
         data.forEach(data => {
@@ -51,4 +52,7 @@ export class AddWordComponent implements OnInit {
     this._location.back();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
