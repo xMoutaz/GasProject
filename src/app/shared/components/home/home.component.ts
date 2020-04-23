@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   sendToAPIXU(location) {
     this.apixuService
       .getWeather(location)
-      .subscribe(data => {this.weatherData = data; console.log(data)});
+      .subscribe(data => {this.weatherData = data;});
   }
 
 

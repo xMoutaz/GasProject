@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from 'src/lib/http-loader';
-import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 import { DataTableModule } from '../modules/dataTables.module';
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
@@ -26,6 +25,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ApixuService } from './components/services/apixu.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

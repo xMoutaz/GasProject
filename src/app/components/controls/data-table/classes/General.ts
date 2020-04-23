@@ -41,9 +41,6 @@ export class GeneralSettingsHelper{
     }
 
     UpdateRow(rowInfo: {id, propertyName: string} | DataTables.RowMethods | number, record){
-        console.log('rowInfo: ', rowInfo);
-        console.log('record: ', record);
-        
         let tableRecord = GeneralSettingsHelper.getDataTableRowObject(rowInfo, this._tableApi);
 
         if (tableRecord.data() == null) {

@@ -27,7 +27,6 @@ export class AddWordComponent implements OnInit {
     this.store.select(store => store).pipe(take(1))
       .subscribe(state => {
         this.language.language = state.routerReducer.state.root.firstChild.firstChild.params.lang;
-        console.log(this.language);
       });
   }
 
@@ -45,7 +44,9 @@ export class AddWordComponent implements OnInit {
 
   addWord() {
     this.translationServiceMdb.saveWord(this.newWord).subscribe(
-      (word: NewWord) => { console.log(word); this.router.navigate(['admin/add-lang']); },
+      (word: NewWord) => { 
+        this.router.navigate(['admin/add-lang']);
+       },
       err => { console.log(err); }
     );
   }

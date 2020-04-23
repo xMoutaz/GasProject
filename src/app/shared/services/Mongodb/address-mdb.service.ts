@@ -16,8 +16,6 @@ export class AddressMdbService {
   constructor(private http: HttpClient) { }
 
   saveAddress(address: Address): Observable<Address> {
-    console.log(address);
-    
     return this.http.post<Address>(this.baseURL , address);
   }
 

@@ -4,6 +4,8 @@ import { LanguageAction, LanguageActionTypes } from '../state/language.actions';
 import * as fromRouter from '@ngrx/router-store';
 import { Params, RouterStateSnapshot } from '@angular/router';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { User } from '../shared/models/user';
+import { UserActions, UserActionsTypes } from '../state/user-actions';
 
 export interface LanguageState {
   list: string[],
@@ -81,3 +83,22 @@ export function SelelectLanguageReducer(
       return state;
     }
 }
+
+export interface UserState {
+  user: User
+}
+
+export const UserInitialState: UserState = {
+  user: null
+}
+export function UserReducer(
+  state: UserState= UserInitialState,
+  action: UserActions) 
+  {
+  switch(action.type) {    
+    case UserActionsTypes.SETCURRENTUSER:
+      return { user: action.payload};
+    default:
+    return state;
+    }
+  }

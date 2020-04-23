@@ -29,8 +29,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   EditUserAddInfo() {
-    this.addressMdbService.updateAddress(this.userUid, this.userAddressInfo).subscribe((data) =>
-      console.log(data));
+    this.addressMdbService.updateAddress(this.userUid, this.userAddressInfo).subscribe((data) => console.log(data));
   }
 
   backButton() {

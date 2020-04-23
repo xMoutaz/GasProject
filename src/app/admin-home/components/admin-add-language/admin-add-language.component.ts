@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
-import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
-import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
-import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { Language } from 'src/app/shared/models/language';
 import { NewWord } from 'src/app/shared/models/newWord';
 import { Word } from 'src/app/shared/models/wordTrans';
@@ -14,9 +11,12 @@ import { TranslationsMdbService } from 'src/app/shared/services/Mongodb/translat
 import { LoadLanguages } from 'src/app/state/language.actions';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectLanguage } from 'src/app/state/select-language.actions';
-import { ActionButton, ActionMenuComponent } from '../../../components/controls/action-menu/action-menu.component';
-import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
 import { EditWordComponent } from '../edit-word/edit-word.component';
+import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
+import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
+import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
+import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -144,7 +144,7 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
-      this.data.next(data)
+      this.data.next(data);
     });
   }
 
@@ -190,8 +190,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, this.pageSettings.currentPage - 1, this.pageSettings.pageSize, this.searchedWord))
     ).subscribe(
       (data) => {
-        console.log(data);
-
         this.data.next(data);
       },
       err => { console.log(err) }

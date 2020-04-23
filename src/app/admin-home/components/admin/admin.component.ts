@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { concatMap, mergeMap, filter, switchMap, tap } from 'rxjs/operators';
-import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
 import { Address } from 'src/app/shared/models/address';
 import { User } from 'src/app/shared/models/user';
 import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
-import { ActionButton, ActionMenuComponent } from '../../../components/controls/action-menu/action-menu.component';
-import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
 import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
+import * as $ from 'jquery';
+import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
+import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 
 @Component({
@@ -140,7 +141,10 @@ export class AdminComponent {
         concatMap(id => this.userMdbService.deleteUser(id).pipe(
           mergeMap(() => this.addressMdbService.deleteAddress(id))))
       ).subscribe(
-        success => { console.log(success); },
+        success => { 
+          this.generalSettings.DeleteRow({ _id: uid, propertyName: "_id" });
+        console.log(success); 
+      },
         err => { console.log(err); }
       );
       // Todo: update the table

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 import { MessageService } from './message.service';
+import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 
 @Injectable()
 

@@ -20,7 +20,7 @@ export class TranslationsMdbService {
     return this.http.post<NewWord>(this.baseURL + '/addNewWord/', word);
   }
 
-  getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {
+  getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {    
     return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
   }
 

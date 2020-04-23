@@ -4,13 +4,16 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
+import { switchMap, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { MessageService } from './message.service';
 import { UserMdbService } from './Mongodb/user-mdb.service';
 import { AddressMdbService } from './Mongodb/address-mdb.service';
 import { Address } from '../models/address';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { SelectCurrentUser } from 'src/app/state/user-actions';
+import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +25,11 @@ export class AuthService {
   signedUpUser: User= new User();
   signedUpAddress: Address = new Address();
 
-  constructor(
-    private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
+  constructor(private store: Store<AppState>, private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
     private userMDBService: UserMdbService, private addressMdbService: AddressMdbService) {
     this.user$ = afAuth.authState;
   }
-
+  // this.store.dispatch(new SelectCurrentUser(data)
   async signup(value) {
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then(result => {
@@ -35,8 +37,8 @@ export class AuthService {
         this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
         this.signedUpUser.email = result.user.email;
         this.userMDBService.saveUser(this.signedUpUser).pipe(
-          switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
-        ).subscribe();
+          switchMap((data) => this.addressMdbService.saveAddress(this.signedUpAddress))
+        ).subscribe(data => console.log(data));
 
         this.statusMessageService.ClearMessage();
         this.router.navigate(['userDetails']);
@@ -84,7 +86,7 @@ export class AuthService {
           this.userMDBService.saveUser(this.signedUpUser).pipe(
             switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
           ).subscribe();
-
+          
           this.router.navigate(['userDetails']);
         } else {
           this.router.navigate(['']);
