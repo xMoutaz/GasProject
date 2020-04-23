@@ -144,7 +144,9 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
-      this.data.next(data)
+      this.data.next(data);
+      console.log(data);
+      
     });
   }
 

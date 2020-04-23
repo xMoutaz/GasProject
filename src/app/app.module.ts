@@ -27,7 +27,7 @@ import { MessageComponent } from './components/controls/message/message.componen
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
-import { LanguageReducer, SelelectLanguageReducer } from './reducers/language.reducers';
+import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
 import { ErrorIntercept } from './shared/services/error.interceptor';
 import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
 import { MessageService } from './shared/services/message.service';
@@ -68,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StoreModule.forRoot({
       selectLang: SelelectLanguageReducer,
       language: LanguageReducer,
-      routerReducer: routerReducer
+      routerReducer: routerReducer,
+      User: UserReducer
     }),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([LanguageEffects]),

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, pipe } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Language } from '../../models/language';
 import { Store } from '@ngrx/store';
@@ -26,6 +26,9 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   check = 'en';
 
   constructor(private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
+    translate.setDefaultLang('en');
+
+   
   }
 
   ngOnInit() {
@@ -35,13 +38,20 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.store.select(store => this.selectedLanguage = store.selectLang.selectedLang)
       .subscribe(data => console.log(data));
 
-    this.auth.user$.subscribe((user: User) => this.appUser = user);
-    this.auth.appUser$.pipe(filter((data) => !!data))
-    .subscribe((data) =>{
-          console.log(data);
-          this.btnWord = data.name.slice(0,1);
-          this.appUser.isAdmin = data.isAdmin;
-    });
+      this.store.select(store => store.User.user)
+      .pipe(filter((data) => !!data))
+      .subscribe(data => {
+        this.appUser = data;
+        this.btnWord = data.name.slice(0,1);
+      });
+    
+    // this.auth.user$.subscribe((user: User) => this.appUser = user);
+    // this.auth.appUser$.pipe(filter((data) => !!data))
+    // .subscribe((data) =>{
+    //       console.log(data);
+    //       this.btnWord = data.name.slice(0,1);
+    //       this.appUser.isAdmin = data.isAdmin;
+    // });
   }
 
   ngOnDestroy() {

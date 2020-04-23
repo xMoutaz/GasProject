@@ -21,6 +21,8 @@ export class TranslationsMdbService {
   }
 
   getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {
+    console.log(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
+    
     return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
   }
 
