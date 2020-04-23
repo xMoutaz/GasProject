@@ -1,13 +1,8 @@
-FROM node:12
-
-WORKDIR /app
-
-
-COPY package*.json ./
+FROM node:alpine
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package*.json ./ /usr/src/app/
 RUN npm install
-
-COPY . .
-
-CMD node MongoDbindex.js
-
+COPY . /usr/src/app
 EXPOSE 8081
+CMD ng serve

@@ -145,8 +145,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     let pgS = this.pageSettings.pageSize;
     this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
       this.data.next(data);
-      console.log(data);
-      
     });
   }
 
@@ -192,8 +190,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, this.pageSettings.currentPage - 1, this.pageSettings.pageSize, this.searchedWord))
     ).subscribe(
       (data) => {
-        console.log(data);
-
         this.data.next(data);
       },
       err => { console.log(err) }

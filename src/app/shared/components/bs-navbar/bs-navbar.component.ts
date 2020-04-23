@@ -36,7 +36,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => this.selectedLanguage = store.selectLang.selectedLang)
-      .subscribe(data => console.log(data));
+      .subscribe();
 
       this.store.select(store => store.User.user)
       .pipe(filter((data) => !!data))
@@ -63,7 +63,6 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   selectLanguage(language) {
-    console.log(language);
     this.translate.use(language)
     this.translate.getTranslation(language);
   }

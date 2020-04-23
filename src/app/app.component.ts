@@ -18,7 +18,6 @@ export class AppComponent {
 
     this.auth.appUser$.pipe(filter((data) => !!data))
     .subscribe((user) =>{
-          console.log(user);
           this.store.dispatch(new SelectCurrentUser(user))
     });
   }
