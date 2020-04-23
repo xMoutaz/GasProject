@@ -26,13 +26,13 @@ import { LoaderInterceptor, LoaderService } from './shared/services/loader.servi
 import { MessageService } from './shared/services/message.service';
 import { SharedModule } from './shared/shared.module';
 import { LanguageEffects } from 'src/app/state/language.effects';
-import { ActionMenuComponent } from 'src/app/components/controls/action-menu/action-menu.component';
-import { ConfirmationBoxComponent } from 'src/app/components/controls/confirmation-box/confirmation-box.component';
-import { GpfiModalComponent } from 'src/app/components/controls/gpfi-modal/gpfi-modal.component';
-import { MessageComponent } from 'src/app/components/controls/message/message.component';
-import { OperationButtonsComponent } from 'src/app/components/controls/operation-buttons/operation-buttons.component';
-import { OverlayComponent } from 'src/app/components/controls/overlay/overlay.component';
-import { LoaderComponent } from 'src/app/components/helpers/loader/loader.component';
+import { ActionMenuComponent } from './components/controls/action-menu/action-menu.component';
+import { ConfirmationBoxComponent } from './components/controls/confirmation-box/confirmation-box.component';
+import { GpfiModalComponent } from './components/controls/gpfi-modal/gpfi-modal.component';
+import { MessageComponent } from './components/controls/message/message.component';
+import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
+import { OverlayComponent } from './components/controls/overlay/overlay.component';
+import { LoaderComponent } from './components/helpers/loader/loader.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

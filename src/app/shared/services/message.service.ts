@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
-import { MessageStatus } from 'src/app/components/controls/message/messageStatus';
+import { MessageStatus } from '../../components/controls/message/messageStatus';
 
 @Injectable({
   providedIn: 'root'

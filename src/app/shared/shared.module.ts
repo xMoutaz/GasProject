@@ -25,7 +25,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ApixuService } from './components/services/apixu.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { ActionMenuComponent } from 'src/app/components/controls/action-menu/action-menu.component';
+import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
