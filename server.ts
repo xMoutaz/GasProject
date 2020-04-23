@@ -12,4 +12,4 @@ res.sendFile(path.join(__dirname+'/dist/GasProject/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080, () => console.log('Server started at port: '+ 8081));
+app.listen(process.env.PORT || 8080, () => console.log('Server started at port: '+ 8080));

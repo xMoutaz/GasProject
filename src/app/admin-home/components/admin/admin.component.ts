@@ -11,6 +11,7 @@ import { ActionButton, ActionMenuComponent } from '../../../components/controls/
 import { ColumnDefs } from '../../../components/controls/data-table/classes/Columns';
 import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-admin',
