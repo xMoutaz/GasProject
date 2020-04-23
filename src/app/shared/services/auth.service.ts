@@ -5,7 +5,6 @@ import * as firebase from 'firebase';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 import { User } from '../models/user';
 import { MessageService } from './message.service';
 import { UserMdbService } from './Mongodb/user-mdb.service';
@@ -14,6 +13,7 @@ import { Address } from '../models/address';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectCurrentUser } from 'src/app/state/user-actions';
+import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 
 @Injectable({
   providedIn: 'root'

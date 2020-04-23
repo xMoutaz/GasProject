@@ -20,6 +20,12 @@ import { TranslateHttpLoader } from 'src/lib/http-loader';
 import { AdminHomeModule } from './admin-home/admin-home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
+import { ErrorIntercept } from './shared/services/error.interceptor';
+import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
+import { MessageService } from './shared/services/message.service';
+import { SharedModule } from './shared/shared.module';
+import { LanguageEffects } from './state/language.effects';
 import { ActionMenuComponent } from './components/controls/action-menu/action-menu.component';
 import { ConfirmationBoxComponent } from './components/controls/confirmation-box/confirmation-box.component';
 import { GpfiModalComponent } from './components/controls/gpfi-modal/gpfi-modal.component';
@@ -27,12 +33,6 @@ import { MessageComponent } from './components/controls/message/message.componen
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
-import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
-import { ErrorIntercept } from './shared/services/error.interceptor';
-import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
-import { MessageService } from './shared/services/message.service';
-import { SharedModule } from './shared/shared.module';
-import { LanguageEffects } from './state/language.effects';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
