@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from 'src/lib/http-loader';
-import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
+import { ActionMenuComponent } from 'src/app/components/controls/action-menu/action-menu.component';
 import { DataTableModule } from '../modules/dataTables.module';
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
