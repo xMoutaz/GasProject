@@ -140,7 +140,10 @@ export class AdminComponent {
         concatMap(id => this.userMdbService.deleteUser(id).pipe(
           mergeMap(() => this.addressMdbService.deleteAddress(id))))
       ).subscribe(
-        success => { console.log(success); },
+        success => { 
+          this.generalSettings.DeleteRow({ _id: uid, propertyName: "_id" });
+        console.log(success); 
+      },
         err => { console.log(err); }
       );
       // Todo: update the table
