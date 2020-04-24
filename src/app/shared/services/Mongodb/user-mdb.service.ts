@@ -20,7 +20,7 @@ export class UserMdbService {
   constructor(private http: HttpClient, private router: Router) { }
 
   get(_id) {
-    return this.http.get<ApiResponse<User>>(this.baseURL +`/${_id}`);
+    return this.http.get<User>(this.baseURL +`/${_id}`);
   }
 
   getTotalRecord(user?:User) {

@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(private store: Store<AppState>, public auth: AuthService) {
     this.auth.appUser$.pipe(filter(data => !!data))
     .subscribe((data) =>{
-          this.store.dispatch(new SelectCurrentUserInfo(data.data))
+          this.store.dispatch(new SelectCurrentUserInfo(data))
     });
   }
 }
