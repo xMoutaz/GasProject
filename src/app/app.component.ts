@@ -20,5 +20,4 @@ export class AppComponent {
           this.store.dispatch(new SelectCurrentUserInfo(data.data))
     });
   }
-
 }

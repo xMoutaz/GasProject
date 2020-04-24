@@ -25,6 +25,7 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.appUser$.pipe(
+      filter(data => !!data),
       tap(data => this.appUser = data.data),
       switchMap(data =>
         this.addressMdbService.get(data.data._id))
