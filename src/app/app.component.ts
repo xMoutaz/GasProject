@@ -15,7 +15,7 @@ import { SelectCurrentUserInfo } from './state/user-actions';
 export class AppComponent {
 
   constructor(private store: Store<AppState>, public auth: AuthService) {
-    this.auth.appUser$.pipe(filter(data => !!data))
+    this.auth.appUser$
     .subscribe((data) =>{
           this.store.dispatch(new SelectCurrentUserInfo(data))
     });

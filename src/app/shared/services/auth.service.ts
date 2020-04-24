@@ -85,13 +85,13 @@ export class AuthService {
           this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
           this.signedUpUser.email = result.user.email;
           this.userMDBService.saveUser(this.signedUpUser).pipe(
-            concatMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
+            switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
           ).subscribe(success =>{
             this.statusMessageService.ClearMessage();
             })
             this.ngZone.run(() => this.router.navigate(['userDetails']));
         } else {
-          this.router.navigate(['']);
+          this.ngZone.run(() => this.router.navigate(['userDetails']));
         }
       })
       .catch(function (error) {
@@ -118,7 +118,7 @@ export class AuthService {
     );
   }
 
-  get appUser$() {
+  get appUser$(): Observable<User> {
     return this.user$
       .pipe(switchMap(user => {
         if (user) {
