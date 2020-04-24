@@ -49,6 +49,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   selectLanguage(language) {
+    
     this.translate.use(language);
   }
 
