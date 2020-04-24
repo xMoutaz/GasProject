@@ -5,7 +5,7 @@ import { AppState } from './state/models/app-state-models';
 import { Store } from '@ngrx/store';
 import { AuthService } from './shared/services/auth.service';
 import { filter } from 'rxjs/operators';
-import { SelectCurrentUser } from './state/user-actions';
+import { SelectCurrentUserInfo } from './state/user-actions';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent {
 
     this.auth.appUser$.pipe(filter((data) => !!data))
     .subscribe((user) =>{
-          this.store.dispatch(new SelectCurrentUser(user))
+          this.store.dispatch(new SelectCurrentUserInfo(user))
     });
   }
 

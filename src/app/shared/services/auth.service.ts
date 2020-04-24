@@ -12,7 +12,7 @@ import { AddressMdbService } from './Mongodb/address-mdb.service';
 import { Address } from '../models/address';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
-import { SelectCurrentUser } from 'src/app/state/user-actions';
+import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 
 @Injectable({

@@ -17,18 +17,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class BsNavbarComponent implements OnInit, OnDestroy {
 
   appUser: any;
-  HOME = 'HOME';
   id: string = '';
   btnWord = '';
   subscription: Subscription;
   languages$: Observable<Array<any>>;
   selectedLanguage; 
-  check = 'en';
 
   constructor(private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
-    translate.setDefaultLang('en');
-
-   
   }
 
   ngOnInit() {
@@ -37,21 +32,12 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => this.selectedLanguage = store.selectLang.selectedLang)
       .subscribe();
-
       this.store.select(store => store.User.user)
       .pipe(filter((data) => !!data))
       .subscribe(data => {
         this.appUser = data;
         this.btnWord = data.name.slice(0,1);
       });
-    
-    // this.auth.user$.subscribe((user: User) => this.appUser = user);
-    // this.auth.appUser$.pipe(filter((data) => !!data))
-    // .subscribe((data) =>{
-    //       console.log(data);
-    //       this.btnWord = data.name.slice(0,1);
-    //       this.appUser.isAdmin = data.isAdmin;
-    // });
   }
 
   ngOnDestroy() {
@@ -63,8 +49,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   selectLanguage(language) {
-    this.translate.use(language)
-    this.translate.getTranslation(language);
+    this.translate.use(language);
   }
 
 }
