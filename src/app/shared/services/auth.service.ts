@@ -89,11 +89,11 @@ export class AuthService {
             switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
           ).subscribe(success =>{
             this.statusMessageService.ClearMessage();
-            })
             this.ngZone.run(() => this.router.navigate(['userDetails']));
+            })
           }
         } else {
-          this.ngZone.run(() => this.router.navigate(['userDetails']));
+          this.ngZone.run(() => this.router.navigate(['']));
         }
       })
       .catch(function (error) {
