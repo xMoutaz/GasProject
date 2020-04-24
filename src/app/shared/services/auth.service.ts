@@ -101,7 +101,6 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut();
-    this.router.navigate(['']);
   }
 
 
@@ -116,7 +115,7 @@ export class AuthService {
     );
   }
 
-  get appUser$(): Observable<User> {
+  get appUser$() {
     return this.user$
       .pipe(switchMap(user => {
         if (user) {

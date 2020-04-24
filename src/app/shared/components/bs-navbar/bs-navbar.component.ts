@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { LoadLanguages } from 'src/app/state/language.actions';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bs-navbar',
@@ -23,7 +24,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   languages$: Observable<Array<any>>;
   selectedLanguage; 
 
-  constructor(private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
+  constructor(private router: Router, private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -44,12 +45,12 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.router.navigate(['']);
     this.auth.logout();
     this.appUser = null;
   }
 
   selectLanguage(language) {
-    
     this.translate.use(language);
   }
 

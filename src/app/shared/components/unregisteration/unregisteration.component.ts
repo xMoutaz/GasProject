@@ -24,12 +24,12 @@ export class UnregisterationComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.appUser$.pipe(
-      tap(appUser => this.appUser = appUser),
-      switchMap(appUser =>
-        this.addressMdbService.get(appUser._id))
+      tap(data => this.appUser = data.data),
+      switchMap(data =>
+        this.addressMdbService.get(data.data._id))
     ).subscribe(
-      (address: Address) => {
-        this.address = address
+      (data: any) => {
+        this.address = data;
       },
       err => { console.log(err) }
     );
