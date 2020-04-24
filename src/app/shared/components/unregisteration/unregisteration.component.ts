@@ -26,34 +26,22 @@ export class UnregisterationComponent implements OnInit {
     private adminFBUser: AdminFirebasaeService, private router: Router, private _location: Location, private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    // ----------------------
     this.store.select(store => store.User.user)
       .subscribe(data => {
         console.log(data);
         
         this.appUser = data;
       });
-    // ----------------------
-    this.auth.appUser$.pipe(
-      tap(data => this.appUser = data),
-      switchMap(data =>
-        this.addressMdbService.get(data._id))
-    ).subscribe(
-      (data: any) => {
-        this.address = data;
-      },
-      err => { console.log(err) }
-    );
   }
 
   deleteAccount() {
     if (confirm('Are you sure want to delte this user?')) {
-      this.ngZone.run(() => this.router.navigate(['']));
       this.adminFBUser.deleteFBUser(this.appUser._id).pipe(
         concatMap(id => this.userMdbServices.deleteUser(id).pipe(
           mergeMap(() => this.addressMdbService.deleteAddress(id))))
       ).subscribe(
         success => {
+          this.ngZone.run(() => this.router.navigate(['']));
           this.store.dispatch(new SelectCurrentUserInfo(null));
         },
         err => { console.log(err); }

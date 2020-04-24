@@ -84,12 +84,14 @@ export class AuthService {
           this.signedUpUser.name = result.user.displayName;
           this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
           this.signedUpUser.email = result.user.email;
+          if(this.signedUpUser._id && this.signedUpUser.email && this.signedUpUser.name){
           this.userMDBService.saveUser(this.signedUpUser).pipe(
             switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
           ).subscribe(success =>{
             this.statusMessageService.ClearMessage();
             })
             this.ngZone.run(() => this.router.navigate(['userDetails']));
+          }
         } else {
           this.ngZone.run(() => this.router.navigate(['userDetails']));
         }
