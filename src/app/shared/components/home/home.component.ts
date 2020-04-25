@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   makeClaim(){
-    this.router.navigate(['claims']);
+    this.router.navigate(['makeClaim']);
   }
 
 

@@ -46,6 +46,14 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
+  viewClaims(){
+    this.router.navigate(['viewClaims']);
+  }
+
+  viewOffenders(){
+    this.router.navigate(['viewOffenders']);
+  }
+
   logout() {
     this.router.navigate(['']);
     this.auth.logout();

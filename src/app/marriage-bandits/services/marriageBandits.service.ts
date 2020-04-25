@@ -6,7 +6,7 @@ import { Offender } from '../models/offender';
 @Injectable({
   providedIn: 'root'
 })
-export class AddressService {
+export class MarriageBanditService {
 
   constructor() { }
 
@@ -14,8 +14,8 @@ export class AddressService {
     return of([
         {
             id: 1,
-            name:"Ahmed",
-            last: "Raza",
+            firstName:"Ahmed",
+            lastName: "Raza",
             alsoKnownAs:"AR",
             address:"236 Drakefell road",
             dateOfBirth: "24-09-1988",
@@ -25,8 +25,8 @@ export class AddressService {
         },
         {
             id: 2,
-            name:"Mike",
-            last: "Smith",
+            firstName:"Mike",
+            lastName: "Smith",
             alsoKnownAs: "Abdul Hakeem",
             address:"2 Friendfield road",
             dateOfBirth: "28-01-1980",
@@ -36,8 +36,8 @@ export class AddressService {
         },
         {
             id: 3,
-            name:"Jane",
-            last: "Goodright",
+            firstName:"Jane",
+            lastName: "Goodright",
             alsoKnownAs: "Khadeejah",
             address:"n/a",
             dateOfBirth: "31-01-1990",
@@ -47,8 +47,8 @@ export class AddressService {
         },
         {
             id: 4,
-            name:"Jordan",
-            last: "Lindo",
+            firstName:"Jordan",
+            lastName: "Lindo",
             alsoKnownAs: "Abdul Haqq",
             address:"n/a",
             dateOfBirth: "09-05-1986",
@@ -64,8 +64,8 @@ export class AddressService {
         {
             claiment_id:1,
             offender_id:2,
-            name:"Jordan",
-            last: "Lindo",
+            firstName:"Jordan",
+            lastName: "Lindo",
             address:"",
             claiment:"Jane",
             loggedTime: "25-4-2020 18:00"

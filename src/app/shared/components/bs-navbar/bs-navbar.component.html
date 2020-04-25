@@ -23,9 +23,9 @@
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
           </a>
           <ul class="dropdown-menu">
-            <ng-container *ngIf="appUser.isAdmin">
-              <li><a routerLink="admin">{{'MANAGE_USERS' | translate}}</a></li>
-            </ng-container>
+            <li><a (click)="viewClaims()">View Claims</a></li>
+            <li><a (click)="viewOffenders()">View Offenders</a></li>
+            <li *ngIf="appUser.isAdmin"><a routerLink="admin">{{'MANAGE_USERS' | translate}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a routerLink="#" (click)="logout()">{{'LOG_OUT' | translate}}</a></li>
           </ul>

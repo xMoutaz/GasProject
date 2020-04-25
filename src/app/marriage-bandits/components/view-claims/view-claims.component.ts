@@ -1,0 +1,66 @@
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ColumnDefs, GPFIButton } from 'src/app/components/controls/data-table/classes/Columns';
+import { MarriageBanditService } from '../../services/marriageBandits.service';
+
+@Component({
+  selector: 'app-view-claims',
+  templateUrl: './view-claims.component.html',
+  styleUrls: ['./view-claims.component.css']
+})
+export class ViewClaimsComponent implements OnInit {
+
+  data = new BehaviorSubject<Array<any>>([]);
+  colDefinitions: Array<ColumnDefs>;
+
+  constructor(private banditService: MarriageBanditService) {
+    this.setUpColumnDefintion();
+   }
+
+  ngOnInit(): void {
+    this.banditService.getClaimsView().subscribe(claims => {
+      this.data.next(claims);
+    });
+  }
+
+  setUpColumnDefintion() {
+    this.colDefinitions = [
+      {
+        key: 'firstName',
+        className: 'data_grid_left_align',
+        header: 'First Name'
+      },
+      {
+        key: 'lastName',
+        className: 'data_grid_left_align',
+        header: 'Last Name',
+        responsivePriority: true
+      },
+      {
+        key: 'address',
+        className: 'data_grid_left_align',
+        header: 'Adress',
+        responsivePriority: true
+      },
+      {
+        key: 'claiment',
+        className: 'data_grid_center_align',
+        header: 'claiment',
+        responsivePriority: true
+      },
+      {
+        key: 'loggedTime',
+        className: 'data_grid_center_align',
+        header: 'loggedTime'
+      },
+      {
+        cellElement: (cellData, rowData, row) => {
+          return new GPFIButton('view',()=>{
+
+          });
+        }, className: 'data_grid_center_align', responsivePriority: true
+      }
+    ];
+  }
+
+}
