@@ -5,9 +5,9 @@ export enum UserActionsTypes {
     SETCURRENTUSER="SETCURRENTUSER",
 }
 
-export class SelectCurrentUser implements Action {
+export class SelectCurrentUserInfo implements Action {
     type = UserActionsTypes.SETCURRENTUSER;
     constructor(public payload: any) {}
 }
 
-export type UserActions = SelectCurrentUser;
+export type UserActions = SelectCurrentUserInfo;

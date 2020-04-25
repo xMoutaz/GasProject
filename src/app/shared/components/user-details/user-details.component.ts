@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, filter } from 'rxjs/operators';
 import { Address } from 'src/app/shared/models/address';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { Store } from '@ngrx/store';
+import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 
 @Component({
   selector: 'app-user-details',
@@ -16,21 +19,23 @@ export class UserDetailsComponent implements OnInit {
   newUser = new User();
   newAddress = new Address();
 
-
-  constructor(private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private auth: AuthService) {
-    this.auth.appUser$.pipe(
-      tap(appUser => this.newUser = appUser),
-      switchMap(appUser =>
-        this.mDBUserService.get(appUser._id))
-    ).subscribe(
-      (address: Address) => {
-        this.newAddress = address
-      },
-      err => { console.log(err) }
-    );
+  constructor(private store: Store<AppState>,private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private auth: AuthService) {
   }
 
   ngOnInit() {
+    this.auth.appUser$.pipe(
+      filter(data => !!data),
+      tap(data => {
+        this.store.dispatch(new SelectCurrentUserInfo(data));
+         this.newUser = data;}),
+      switchMap(data =>
+        this.mDBAddressService.get(data._id))
+    ).subscribe(
+      (data: any) => {
+        this.newAddress = data;
+      },
+      err => { console.log(err) }
+    );
   }
 
   addUserInfo() {

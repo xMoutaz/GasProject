@@ -2,21 +2,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <h4>Welcome [PUT USER NAME HERE]</h4>
+                <h4 *ngIf="appUser">{{'WELCOME'}} {{appUser?.name}}</h4>
             </div>
             <div class="pull-right  col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h4 style="text-align: left;"><span class="glyphicon glyphicon-cloud pull-right"></span>Weather</h4></div>
+                    <div class="panel-heading"><h4 style="text-align: left;"><span class="glyphicon glyphicon-cloud pull-right"></span>{{'WEATHER'}}</h4></div>
                     <div class="panel-body">
 
                         <div style="display: inline-block;">
                             <p class="degree">
-                                <img [src]="weatherData?.current.weather_icons">
-                                {{weatherData?.current.temperature}}<span>&#176;</span>
+                                <img [src]="weatherData?.current.condition.icon">
+                                {{weatherData?.current.temp_c}}<span>&#176;</span>
                             </p>
                         </div>
                         <div style="display: inline-block; margin-left: 15px;">
-                            <h3 style="color: grey;">{{weatherData?.current.weather_descriptions}} </h3>
+                            <h3 style="color: grey;">{{weatherData?.current.condition.text}} </h3>
                             <p>{{weatherData?.location.name}}, {{weatherData?.location.country}}</p>
                         </div>                     
 

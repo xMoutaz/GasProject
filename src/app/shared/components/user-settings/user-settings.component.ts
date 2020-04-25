@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, filter } from 'rxjs/operators';
 import { Address } from '../../models/address';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
@@ -7,6 +7,8 @@ import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { UserMdbService } from '../../services/Mongodb/user-mdb.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-user-settings',
@@ -17,28 +19,29 @@ export class UserSettingsComponent implements OnInit {
 
   appUser: User;
   address: Address;
-  constructor(public auth: AuthService, private userMdbServices: UserMdbService,
+  constructor(public auth: AuthService, private userMdbServices: UserMdbService, private store: Store<AppState>,
      private addressMdbService: AddressMdbService, private _location: Location, private router: Router) {
   }
 
   ngOnInit(): void {
     this.auth.appUser$.pipe(
-      tap(appUser => this.appUser = appUser),
-      switchMap(appUser =>
-        this.addressMdbService.get(appUser._id))
+      filter(data => !!data),
+      tap(data => this.appUser = data),
+      switchMap(data =>
+        this.addressMdbService.get(data._id))
     ).subscribe(
-      (address: Address) => {
-        this.address = address
+      (data: any) => {
+        this.address = data;
       },
       err => { console.log(err) }
     );
   }
-
+  
   updateUserInfo() {
     this.userMdbServices.updateUserInfo(this.appUser).pipe(
       switchMap(() => this.addressMdbService.updateAddress(this.appUser._id, this.address))
     ).subscribe(success => { this.router.navigate(['']); console.log(success); },
-      err => { console.log(err); }
+      error => { console.log(error); }
     );
   }
 

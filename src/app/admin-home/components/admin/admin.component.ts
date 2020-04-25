@@ -12,6 +12,7 @@ import { GeneralSettings } from 'src/app/components/controls/data-table/classes/
 import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
 import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
+import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 
 @Component({
   selector: 'app-admin',
@@ -102,8 +103,8 @@ export class AdminComponent {
   }
 
   getTotalRecord() {
-    this.userMdbService.getTotalRecord(this.searchedUser).subscribe((data: number) => {
-      this.pageSettings.setTotalRecords(data);
+    this.userMdbService.getTotalRecord(this.searchedUser).subscribe((data) => {
+      this.pageSettings.setTotalRecords(data.data);
     });
   }
 
@@ -111,7 +112,7 @@ export class AdminComponent {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     this.userMdbService.searchUser(pg, pgS, this.searchedUser).subscribe(
-      data => { this.data.next(data) },
+      data => { this.data.next(data.data) },
       err => { console.log(err); }
     );
   }
@@ -153,11 +154,11 @@ export class AdminComponent {
 
   search() {
     this.userMdbService.getTotalRecord(this.searchedUser).pipe(
-      tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
+      tap(data => this.pageSettings.setTotalRecords(data.data)),
       switchMap(() => this.userMdbService.searchUser(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedUser))
     ).subscribe(
-      (data) => {
-        this.data.next(data);
+      (data: ApiResponse<User[]>) => {
+        this.data.next(data.data);
       },
       err => { console.log(err) }
     );
@@ -165,7 +166,7 @@ export class AdminComponent {
 
   makeAdmin(data) {
     this.userMdbService.setAdmin(data)
-    .pipe(filter((data:any) => data.ok ===1))
+    .pipe(filter((data:any) => data.success ===true))
     .subscribe();
   }
 

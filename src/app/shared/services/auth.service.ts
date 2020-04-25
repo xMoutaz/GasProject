@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, concatMap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { MessageService } from './message.service';
 import { UserMdbService } from './Mongodb/user-mdb.service';
@@ -12,7 +12,7 @@ import { AddressMdbService } from './Mongodb/address-mdb.service';
 import { Address } from '../models/address';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
-import { SelectCurrentUser } from 'src/app/state/user-actions';
+import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 
 @Injectable({
@@ -25,8 +25,8 @@ export class AuthService {
   signedUpUser: User= new User();
   signedUpAddress: Address = new Address();
 
-  constructor(private store: Store<AppState>, private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
-    private userMDBService: UserMdbService, private addressMdbService: AddressMdbService) {
+  constructor(private ngZone: NgZone, private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
+    private userMDBService: UserMdbService, private addressMdbService: AddressMdbService, private store: Store<AppState>) {
     this.user$ = afAuth.authState;
   }
   // this.store.dispatch(new SelectCurrentUser(data)
@@ -38,10 +38,11 @@ export class AuthService {
         this.signedUpUser.email = result.user.email;
         this.userMDBService.saveUser(this.signedUpUser).pipe(
           switchMap((data) => this.addressMdbService.saveAddress(this.signedUpAddress))
-        ).subscribe(data => console.log(data));
+        ).subscribe(data => this.statusMessageService.ClearMessage());
 
-        this.statusMessageService.ClearMessage();
-        this.router.navigate(['userDetails']);
+        
+        this.ngZone.run(() => this.router.navigate(['userDetails']));
+        // this.router.navigate(['userDetails']);
         { return auth; }
       })
       .catch(err => {
@@ -83,13 +84,16 @@ export class AuthService {
           this.signedUpUser.name = result.user.displayName;
           this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
           this.signedUpUser.email = result.user.email;
+          if(this.signedUpUser._id && this.signedUpUser.email && this.signedUpUser.name){
           this.userMDBService.saveUser(this.signedUpUser).pipe(
             switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))
-          ).subscribe();
-          
-          this.router.navigate(['userDetails']);
+          ).subscribe(success =>{
+            this.statusMessageService.ClearMessage();
+            this.ngZone.run(() => this.router.navigate(['userDetails']));
+            })
+          }
         } else {
-          this.router.navigate(['']);
+          this.ngZone.run(() => this.router.navigate(['']));
         }
       })
       .catch(function (error) {
@@ -100,8 +104,8 @@ export class AuthService {
 
 
   logout() {
-    this.afAuth.auth.signOut();
     this.router.navigate(['']);
+    this.afAuth.auth.signOut();
   }
 
 

@@ -8,7 +8,7 @@ export class ApixuService {
 
   constructor(private http: HttpClient) { }
 
-  getWeather(location){
-    return this.http.get('http://api.weatherstack.com/current?access_key=9bac0cda3ab951f95f64bd8c41a76b96&query='+location);
+  getWeather(){
+    return this.http.get('https://api.weatherapi.com/v1/current.json?key=d81fa446d9bb4d99815111105202404&q=Tetouan');
   }
 }

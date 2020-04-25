@@ -5,6 +5,7 @@ import { LoginComponent } from '../../components/login/login.component';
 import { Router } from '@angular/router';
 import { throwError, Observable } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { ApiResponse } from './api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,47 +19,39 @@ export class UserMdbService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  get(_id) {
-    return this.http.get(this.baseURL +`/${_id}`);
-  }
-
-  getAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseURL);
+  get(_id): Observable<User> {
+    return this.http.get<User>(this.baseURL +`/${_id}`);
   }
 
   getTotalRecord(user?:User) {
-    return this.http.get(this.baseURL +`/search/count?_id=${user._id}&&userName=${user.name}`)
+    return this.http.get<ApiResponse<number>>(this.baseURL +`/search/count?_id=${user._id}&&userName=${user.name}`)
   }
 
-  getDatatable(pg, pgS): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseURL}/dataTable/users?pg=${pg}&&pgS=${pgS}`)
-  }
-
-  saveUser(newUser: User): Observable<User> {
-    return this.http.post<User>(this.baseURL, newUser, {
+  saveUser(newUser: User) {
+    return this.http.post<ApiResponse<User>>(this.baseURL, newUser, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
   }
 
-  checkUserInfo(_id):Observable<User> {
-    return this.http.get<User>(this.baseURL +`/${_id}`)
+  checkUserInfo(_id) {
+    return this.http.get<ApiResponse<User>>(this.baseURL +`/${_id}`)
   }
 
   deleteUser(_id) {
-   return this.http.delete<void>(this.baseURL+ `/${_id}`)
+   return this.http.delete<ApiResponse<void>>(this.baseURL+ `/${_id}`)
   }
 
-  searchUser(pg: number,pgS:number, user?: User): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseURL}/search/user/?pg=${pg}&&pgS=${pgS}&&_id=${user._id}&&userName=${user.name}`)
+  searchUser(pg: number,pgS:number, user?: User) {
+    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user/?pg=${pg}&&pgS=${pgS}&&_id=${user._id}&&userName=${user.name}`)
   }
 
   setAdmin(data) {
-    return this.http.patch(`${this.baseURL}/setAdmin/${data._id}`, data)
+    return this.http.patch<ApiResponse<any>>(`${this.baseURL}/setAdmin/${data._id}`, data)
   }
 
   updateUserInfo(user: User) {
-    return this.http.patch(`${this.baseURL}/${user._id}` , user);
+    return this.http.patch<ApiResponse<any>>(`${this.baseURL}/${user._id}` , user);
   }
 }

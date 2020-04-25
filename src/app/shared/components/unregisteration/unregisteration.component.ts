@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { UserMdbService } from '../../services/Mongodb/user-mdb.service';
 import { AuthService } from '../../services/auth.service';
 import { AdminFirebasaeService } from 'src/app/admin-home/services/admin-firebasae.service';
-import { Router } from '@angular/router';
-import { concatMap, mergeMap, tap, switchMap } from 'rxjs/operators';
+import { concatMap, mergeMap, tap, switchMap, filter } from 'rxjs/operators';
 import { User } from '../../models/user';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { Address } from '../../models/address';
 import { Location } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unregisteration',
@@ -19,20 +22,16 @@ export class UnregisterationComponent implements OnInit {
   appUser: User;
   address: Address;
 
-  constructor(public auth: AuthService, private userMdbServices: UserMdbService, private addressMdbService: AddressMdbService,
-    private adminFBUser: AdminFirebasaeService, private router: Router, private _location: Location) { }
+  constructor(public auth: AuthService, private userMdbServices: UserMdbService, private addressMdbService: AddressMdbService,private ngZone: NgZone,
+    private adminFBUser: AdminFirebasaeService, private router: Router, private _location: Location, private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.auth.appUser$.pipe(
-      tap(appUser => this.appUser = appUser),
-      switchMap(appUser =>
-        this.addressMdbService.get(appUser._id))
-    ).subscribe(
-      (address: Address) => {
-        this.address = address
-      },
-      err => { console.log(err) }
-    );
+    this.store.select(store => store.User.user)
+      .subscribe(data => {
+        console.log(data);
+        
+        this.appUser = data;
+      });
   }
 
   deleteAccount() {
@@ -42,13 +41,11 @@ export class UnregisterationComponent implements OnInit {
           mergeMap(() => this.addressMdbService.deleteAddress(id))))
       ).subscribe(
         success => {
-          console.log(success);
-          this.auth.logout();
-          this.router.navigate[('')];
+          this.ngZone.run(() => this.router.navigate(['']));
+          this.store.dispatch(new SelectCurrentUserInfo(null));
         },
         err => { console.log(err); }
       );
-      // Todo: update the table
     }
   }
 
