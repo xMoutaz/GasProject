@@ -27,8 +27,6 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
 
   constructor(private translate: TranslateService, public auth: AuthService, private store: Store<AppState>) {
     translate.setDefaultLang('en');
-
-   
   }
 
   ngOnInit() {
@@ -44,14 +42,6 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
         this.appUser = data;
         this.btnWord = data.name.slice(0,1);
       });
-    
-    // this.auth.user$.subscribe((user: User) => this.appUser = user);
-    // this.auth.appUser$.pipe(filter((data) => !!data))
-    // .subscribe((data) =>{
-    //       console.log(data);
-    //       this.btnWord = data.name.slice(0,1);
-    //       this.appUser.isAdmin = data.isAdmin;
-    // });
   }
 
   ngOnDestroy() {
