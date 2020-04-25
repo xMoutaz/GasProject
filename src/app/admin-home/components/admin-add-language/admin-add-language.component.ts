@@ -68,13 +68,13 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       {
         key: 'id',
         className: 'data_grid_left_align',
-        header: "Word",
+        header: "Id",
         responsivePriority: true
       },
       {
         key: 'trans',
         className: 'data_grid_left_align',
-        header: "trans",
+        header: "Translation",
         responsivePriority: true
       },
       {
