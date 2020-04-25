@@ -33,6 +33,7 @@ import { MessageComponent } from './components/controls/message/message.componen
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
+import { MarriageBanditsModule } from './marriage-bandits/marriageBandits.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     SharedModule,
     AdminHomeModule,
+    MarriageBanditsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

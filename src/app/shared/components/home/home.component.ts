@@ -4,6 +4,7 @@ import { ApixuService } from '../services/apixu.service';
 import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,11 @@ import { AppState } from 'src/app/state/models/app-state-models';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public weatherSearchForm: FormGroup;
-  public weatherData: any;
   appUser: any;
 
-  constructor(private apixuService: ApixuService, private store: Store<AppState>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.sendToAPIXU();
     // TODO: -Access user from store here and display user name in welcome message
     this.store.select(store => store.User.user)
       .pipe(filter((data) => !!data))
@@ -27,10 +25,8 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  sendToAPIXU() {
-    this.apixuService
-      .getWeather()
-      .subscribe(data => {this.weatherData = data;});
+  makeClaim(){
+    this.router.navigate(['claims']);
   }
 
 
