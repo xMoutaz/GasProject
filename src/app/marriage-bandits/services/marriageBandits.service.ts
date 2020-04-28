@@ -2,14 +2,20 @@ import { Injectable } from '@angular/core';
 import { Claimant } from '../models/claimant';
 import { of } from 'rxjs';
 import { Offender } from '../models/offender';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarriageBanditService {
+  readonly url = 'http://localhost:8081/users';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  // getOffenders() {
+  //   this.http.get<ApiResponse<Offender>>(this.url);
+  // }
   getOffenders(){
     return of([
         {

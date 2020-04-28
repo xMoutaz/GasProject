@@ -34,6 +34,7 @@ import { OperationButtonsComponent } from './components/controls/operation-butto
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
 import { MarriageBanditsModule } from './marriage-bandits/marriageBandits.module';
+import { AppHttpInterceptor } from './shared/services/auth-guard.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -88,15 +89,18 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: 
   [ 
     MessageService, ErrorIntercept, 
-    {
-    provide: HTTP_INTERCEPTORS,
+    { provide: HTTP_INTERCEPTORS,
       useClass: ErrorIntercept,
       multi: true
   },
     LoaderService, LoaderInterceptor,
     { provide: HTTP_INTERCEPTORS, 
       useClass: LoaderInterceptor, 
-      multi: true }
+      multi: true
+    },
+    {provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptor,
+      multi: true}
     ],
   bootstrap: [AppComponent],
   entryComponents: [ActionMenuComponent]

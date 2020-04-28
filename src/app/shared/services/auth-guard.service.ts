@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs/operators';
+import { map, share } from 'rxjs/operators';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import * as _ from 'lodash';
+import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +25,38 @@ export class AuthGuardService implements CanActivate{
       return false 
     }));
   }
+}
+
+@Injectable()
+export class AppHttpInterceptor implements HttpInterceptor {
+
+  constructor(private auth: AuthService, private statusMessageService: MessageService,private  translate: TranslateService) {
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+    if (!!this.auth.getJwtToken()) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: 'Bearer ' + this.auth.getJwtToken()
+        }
+      });
+    }
+    let subscription = next.handle(req).pipe(share());
+    subscription.subscribe(null, (resp) =>{
+      if (resp instanceof HttpErrorResponse){
+        if(_.has([500,404,0],resp.status)){
+          const transSub = this.translate.get(["unexpectedServerError","errorReferenceCodeExplanation"]).subscribe((trans) => {
+            this.statusMessageService.SetMessage(new MessageStatus(MessageType.Error, "", [trans.unexpectedServerError + ":" + resp.status,
+             trans.errorReferenceCodeExplanation]));
+          });
+          transSub.unsubscribe();
+        }else{
+          this.statusMessageService.ClearMessage();
+        }
+      }
+    });
+    return subscription;
+  }
+
 }

@@ -9,12 +9,14 @@ import { MarriageBanditService } from './services/marriageBandits.service';
 import { ViewClaimsComponent } from './components/view-claims/view-claims.component';
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
 import { ClaimViewComponent } from './components/claim-view/claim-view.component';
+import { PrivilegeComponent } from './components/privilege/privilege.component';
 
 @NgModule({
   declarations: [
   MakeClaimComponent,
   ViewClaimsComponent,
   ViewOffendersComponent,
+  PrivilegeComponent,
   ClaimViewComponent],
   imports: [
     SharedModule,
