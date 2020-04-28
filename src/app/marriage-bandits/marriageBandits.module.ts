@@ -8,18 +8,21 @@ import {MatNativeDateModule} from '@angular/material/core'
 import { MarriageBanditService } from './services/marriageBandits.service';
 import { ViewClaimsComponent } from './components/view-claims/view-claims.component';
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
+import { ClaimViewComponent } from './components/claim-view/claim-view.component';
 
 @NgModule({
   declarations: [
   MakeClaimComponent,
   ViewClaimsComponent,
-  ViewOffendersComponent],
+  ViewOffendersComponent,
+  ClaimViewComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
       { path: 'viewClaims', component: ViewClaimsComponent},
-      { path: 'viewOffenders', component: ViewOffendersComponent}
+      { path: 'viewOffenders', component: ViewOffendersComponent},
+      { path: 'claimView/:id', component: ClaimViewComponent}
     ]),
     MatStepperModule,
     MatDatepickerModule,
