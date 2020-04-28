@@ -1,5 +1,5 @@
 export interface Offender{
-    id:number;
+    _id:number;
     firstName:string;
     lastName:string;
     alsoKnownAs:string;
@@ -7,4 +7,6 @@ export interface Offender{
     dateOfBirth:string;
     description:string;
     masjid:string;
+    // added verified
+    verified: boolean;
 }

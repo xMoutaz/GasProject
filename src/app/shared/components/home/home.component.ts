@@ -5,6 +5,9 @@ import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Router } from '@angular/router';
+import { MarriageBanditsUserService } from '../../services/Mongodb/marriage-bandits-user.service';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,8 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   appUser: any;
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(private auth: AuthService, private mbS : MarriageBanditsUserService, private router: Router, private store: Store<AppState>) { }
+
 
   ngOnInit() {
     // TODO: -Access user from store here and display user name in welcome message
@@ -30,4 +34,8 @@ export class HomeComponent implements OnInit {
   }
 
 
+  testAuth() {
+    console.log(this.auth.getJwtToken());
+   this.mbS.testUser().subscribe(data => console.log(data));
+  }
 }

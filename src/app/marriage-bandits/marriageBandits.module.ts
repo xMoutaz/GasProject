@@ -8,12 +8,14 @@ import {MatNativeDateModule} from '@angular/material/core'
 import { MarriageBanditService } from './services/marriageBandits.service';
 import { ViewClaimsComponent } from './components/view-claims/view-claims.component';
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
+import { PrivilegeComponent } from './components/privilege/privilege.component';
 
 @NgModule({
   declarations: [
   MakeClaimComponent,
   ViewClaimsComponent,
-  ViewOffendersComponent],
+  ViewOffendersComponent,
+  PrivilegeComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
