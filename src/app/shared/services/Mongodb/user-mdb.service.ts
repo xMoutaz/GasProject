@@ -14,7 +14,7 @@ export class UserMdbService {
   
   selectedUser: User;
   users: User[];
-  readonly baseURL = 'http://localhost:8081/users';
+  readonly baseURL = 'https://marriage-bandits.herokuapp.com/users';
   commingUser: User;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -55,5 +55,8 @@ export class UserMdbService {
   }
   updateUserInfo(user: User) {
     return this.http.patch<ApiResponse<any>>(`${this.baseURL}/${user._id}` , user);
+  }
+  getUserRoles() {
+    return this.http.get('https://marriage-bandits.herokuapp.com/roles/getAllRoles');
   }
 }

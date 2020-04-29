@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OffendersService {
-  readonly url = 'http://localhost:8081/offenders';
+  readonly url = 'https://marriage-bandits.herokuapp.com/offenders';
 
   constructor(private http: HttpClient) { }
 

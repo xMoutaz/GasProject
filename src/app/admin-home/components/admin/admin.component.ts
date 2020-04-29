@@ -33,6 +33,7 @@ export class AdminComponent {
   pageSettings: PageSettings;
   generalSettings = new GeneralSettings();
   expansionSettings: ExpansionSettings;
+  Roles: any;
 
   constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private router: Router) {
     this.searchedUser.name = "";
@@ -41,6 +42,7 @@ export class AdminComponent {
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
+    this.getUserRoles();
   }
 
   ngOnInit() {
@@ -91,7 +93,9 @@ export class AdminComponent {
       this.onPageChange();
     });
   }
-
+  getUserRoles() {
+    this.userMdbService.getUserRoles().subscribe((data :any) => {this.Roles = data.roles});    
+  }
   getTotalRecord() {
     this.userMdbService.getTotalRecord(this.searchedUser).subscribe((data) => {
       this.pageSettings.setTotalRecords(data.data);
@@ -131,10 +135,12 @@ export class AdminComponent {
         const componentResolve =
           this.CFR.resolveComponentFactory(PrivilegeComponent);
         let component = viewContainerRef.createComponent(componentResolve);
-        component.instance.roles = rowData.roles;
-        let privileges= {"admin":component.instance.admin, "masjid": component.instance.masjid, "verifier": component.instance.verifier};
+        component.instance.roles = this.Roles;
+        console.log(this.Roles);
+        
+        component.instance.userlRoles = rowData.roles;
         component.instance.assign.subscribe(event => {
-          this.userMdbService.assignPrivileges(privileges, rowData._id)
+          this.userMdbService.assignPrivileges(component.instance.userlRoles, rowData._id)
             .pipe(filter((data: any) => data.success === true))
             .subscribe(() => { this.generalSettings.UpddateRow({ id: rowData._id, propertyName: "_id" }, rowData); });
           this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id" });

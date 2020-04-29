@@ -8,7 +8,7 @@ import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
   providedIn: 'root'
 })
 export class ClaimsService {
-  readonly url = 'http://localhost:8081/claims';
+  readonly url = 'https://marriage-bandits.herokuapp.com/claims';
 
   constructor(private http: HttpClient) { }
 

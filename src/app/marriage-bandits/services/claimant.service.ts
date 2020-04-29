@@ -8,7 +8,7 @@ import { Claimant } from '../models/claimant';
 })
 export class ClaimantService {
 
-  readonly url = 'http://localhost:8081/claimants';
+  readonly url = 'https://marriage-bandits.herokuapp.com/claimants';
 
   constructor(private http: HttpClient) { }
   getClaimnts() {
