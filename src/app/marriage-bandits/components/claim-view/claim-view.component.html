@@ -1,8 +1,41 @@
 <div class="container-fluid">
     <div class="panel panel-default">
         <div class="panel-body">
+            <h4>Claim</h4>
             <div class="row">
-                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-user pull-left"></span>Ofender<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
+                        <li class="list-group-item"><label>First name</label> {{claim.offender.firstName}}</li>
+                        <li class="list-group-item"><label>Last name</label> {{claim.offender.lastName}}</li>
+                        <li class="list-group-item"> <label>AKA</label> {{claim.offender.alsoKnownAs}}</li>
+                        <li class="list-group-item">  <label>Address</label> {{claim.offender.address}}</li>
+                        <li class="list-group-item">  <label>Date of birth</label> {{claim.offender.dateOfBirth}}</li>
+                        <li class="list-group-item">  <label>Description</label> {{claim.offender.description}}</li>
+                        <li class="list-group-item">  <label>Masjid</label> {{claim.offender.masjid}}</li>
+                        <li class="list-group-item">   <label>Verified</label> {{claim.offender.verified}}</li>
+                      </ul>   
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-user pull-left"></span>Claimaint<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
+                        <li class="list-group-item"><label>First name</label> {{claim.claimaint.firstName}}</li>
+                        <li class="list-group-item"><label>Last name</label> {{claim.claimaint.lastName}}</li>
+                        <li class="list-group-item"> <label>Contact</label> {{claim.claimaint.phoneNumber}}</li>
+                        <li class="list-group-item"> <label>Email</label> {{claim.claimaint.email}}</li>
+                      </ul>
+                      <ul class="list-group">
+                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-envelope pull-left"></span>Details<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
+                        <li class="list-group-item"><label>Further information</label> {{claim.claim.extraDetails}}</li>
+                        <li class="list-group-item"><label>LoggedTime</label> {{claim.claim.loggedTime}}</li>
+                      </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-default pull-left">Back</button>
+                    <button class="btn btn-primary pull-right">Verify</button>
+                </div>
             </div>
         </div>
     </div>

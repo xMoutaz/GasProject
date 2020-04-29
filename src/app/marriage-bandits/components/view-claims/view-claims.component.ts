@@ -28,30 +28,30 @@ export class ViewClaimsComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: 'firstName',
+        key: 'offender.firstName',
         className: 'data_grid_left_align',
         header: 'First Name'
       },
       {
-        key: 'lastName',
+        key: 'offender.lastName',
         className: 'data_grid_left_align',
         header: 'Last Name',
         responsivePriority: true
       },
       {
-        key: 'address',
+        key: 'offender.address',
         className: 'data_grid_left_align',
         header: 'Adress',
         responsivePriority: true
       },
       {
-        key: 'claiment',
+        key: 'claimaint.firstName',
         className: 'data_grid_center_align',
         header: 'claiment',
         responsivePriority: true
       },
       {
-        key: 'loggedTime',
+        key: 'claim.loggedTime',
         className: 'data_grid_center_align',
         header: 'loggedTime'
       },
@@ -69,7 +69,7 @@ export class ViewClaimsComponent implements OnInit {
     editAddressInfo.label = "View Claim";
     editAddressInfo.data = rowData;
     editAddressInfo.action = (data) => {
-      this.router.navigate([`admin/admin-user/` + `${data._id}`]);
+      this.router.navigate([`claimView/` + `${data._id}`]);
     };
     let viewRecord = new ActionButton();
     viewRecord.label = "View Record";

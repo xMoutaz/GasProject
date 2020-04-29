@@ -65,16 +65,41 @@ export class MarriageBanditService {
     ]);
   }
 
+ getClaim(){
+   return of([
+     {
+      claiment_id:1,
+      offender_id:2,
+      extraDetails: "Consumated the marriage and then ran away.",
+      loggedTime: "25-4-2020 18:00"
+     }
+   ]);
+ }
+
   getClaimsView(){
       return of([
         {
-            claiment_id:1,
-            offender_id:2,
-            firstName:"Jordan",
-            lastName: "Lindo",
-            address:"",
-            claiment:"Jane",
+          id:0,
+          offender:{
+            firstName:"Ahmed",
+            lastName: "Raza",
+            alsoKnownAs:"AR",
+            address:"236 Drakefell road",
+            dateOfBirth: "24-09-1988",
+            description: "Asian, Gold tooth",
+            masjid:"Masjid Bilal",
+            verified:true
+          },
+          claimaint:{
+            firstName:"Clair",
+            lastName: "Barne",
+            phoneNumber:"",
+            email:"email@email.com"
+          },
+          claim:{
+            extraDetails: "Consumated the marriage and then ran away.",
             loggedTime: "25-4-2020 18:00"
+          }
         }
       ])
   }

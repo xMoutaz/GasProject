@@ -2,11 +2,11 @@
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-body">
-  
+            <h4>Make Claim</h4>
             <mat-horizontal-stepper [linear]="isLinear" #stepper>
                 <mat-step [stepControl]="firstFormGroup">
                 <form [formGroup]="firstFormGroup">
-                    <ng-template matStepLabel>Fill out your information</ng-template>
+                    <ng-template matStepLabel>Your information</ng-template>
                     <div class="row">
                         <div class="form-group col-md-4 required">
                             <label class="control-label">First Name</label>
@@ -52,7 +52,7 @@
                 </mat-step>
                 <mat-step [stepControl]="secondFormGroup">
                 <form [formGroup]="secondFormGroup">
-                    <ng-template matStepLabel>Fill out your address</ng-template>
+                    <ng-template matStepLabel>Offender information</ng-template>
                     <div class="row">
                         <div class="form-group col-md-4 required">
                             <label class="control-label">First Name</label>
@@ -126,12 +126,29 @@
                     </div>
                 </form>
                 </mat-step>
+                <mat-step [stepControl]="thirdFormGroup">
+                    <form [formGroup]="thirdFormGroup">
+                        <ng-template matStepLabel>Fill out details</ng-template>
+                        <div class="row">
+                            <div class="form-group col-md-4 required">
+                                <label class="control-label">First Name</label>
+                                <textarea  name="extraDetails" formControlName="extraDetails" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" matStepperPrevious>Back</button>
+                                <button class="btn btn-primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
                 <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
-                <p>Your claim has been submitted, and will be processed.</p>
+                <p>Your claim is complete please press submit button to submit information, or press back to adjust claim </p>
                 <div>
                     <button class="btn btn-default" matStepperPrevious>Back</button>
-                    <button class="btn btn-primary" matStepperPrevious>Complete</button>
+                    <button class="btn btn-primary" matStepperPrevious>Submit</button>
                 </div>
                 </mat-step>
             </mat-horizontal-stepper>

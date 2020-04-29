@@ -10,6 +10,7 @@ export class MakeClaimComponent implements OnInit {
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -29,6 +30,9 @@ export class MakeClaimComponent implements OnInit {
       description:[''],
       masjid:[''],
       phoneNumber:['']
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      extraDetails: [''],
     });
   }
 }
