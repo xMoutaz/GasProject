@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { concatMap, mergeMap, filter, switchMap, tap } from 'rxjs/operators';
@@ -13,6 +13,8 @@ import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/a
 import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
+import { PrivilegeComponent } from 'src/app/marriage-bandits/components/privilege/privilege.component';
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +22,7 @@ import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-
+  
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
   newUser = new User();
@@ -30,14 +32,14 @@ export class AdminComponent {
   searchedUser = new User();
   pageSettings: PageSettings;
   generalSettings = new GeneralSettings();
-  
-  constructor(
-    private userMdbService: UserMdbService, private addressMdbService: AddressMdbService, private adminFBUser: AdminFirebasaeService, private router: Router) {
+  expansionSettings: ExpansionSettings;
+
+  constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private router: Router) {
     this.searchedUser.name = "";
     this.searchedUser._id = "";
-    
     this.getTotalRecord();
     this.setUpColumnDefintion();
+    this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
   }
 
@@ -53,15 +55,21 @@ export class AdminComponent {
         header: 'Id'
       },
       {
+        key: 'email',
+        className: 'data_grid_left_align',
+        header: 'Email',
+        responsivePriority: true
+      },
+      {
         key: 'name',
         className: 'data_grid_left_align',
         header: 'Name',
         responsivePriority: true
       },
       {
-        key: 'email',
+        key: 'roles',
         className: 'data_grid_left_align',
-        header: 'Email',
+        header: 'Roles',
         responsivePriority: true
       },
       {
@@ -70,26 +78,8 @@ export class AdminComponent {
         header: 'Phone Number',
         responsivePriority: true
       },
-      {
-        key: 'isAdmin',
-        className: 'data_grid_center_align',
-        header: 'Admin',
-        cellElement: (cellData, rowData, row, col, td) => {
-          let checkBox = $("<input style='form-control' type='checkbox'/>");
-          checkBox.prop("checked", !!cellData);
-          checkBox.change(rowData, (e) => {
-            let isChecked = (e.currentTarget as any).checked;
-            let data = e.data;
-            data.isAdmin = isChecked;
-            this.makeAdmin(data);
-          });
-          $(td).html('');
-          $(td).append(checkBox);
-        }
-
-      },
-      {
-        cellElement: (cellData, rowData, row) => {
+      
+      { cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
         }, className: 'data_grid_center_align', responsivePriority: true
       }
@@ -119,12 +109,11 @@ export class AdminComponent {
 
   generateActionMenuForRfr(cellData, rowData, row) {
     let menu = new ActionMenuComponent();
-    let editAddressInfo = new ActionButton();
-    editAddressInfo.label = "edit address information";
-    editAddressInfo.data = rowData;
-    editAddressInfo.action = (data) => {
-      // stoped here
-      this.router.navigate([`admin/admin-user/` + `${data._id}`]);
+    let assignPrivileges = new ActionButton();
+    assignPrivileges.label = "Assign privileges";
+    assignPrivileges.data = rowData;
+    assignPrivileges.action = (data) => {
+      this.expansionSettings.ExpandGrid({ id: data._id, propertyName: "_id" });
     };
     let deleteButton = new ActionButton();
     deleteButton.label = "delete";
@@ -132,16 +121,35 @@ export class AdminComponent {
     deleteButton.action = (data => {
       this.deleteUserInfo(data._id);
     });
-    menu.buttons.push(editAddressInfo, deleteButton);
+    menu.buttons.push(assignPrivileges, deleteButton);
     return menu;
   };
 
+  setupExpansionSettings() {
+    return new ExpansionSettings(false, (viewContainerRef, rowData, row) => {
+      return new Promise<any>((resolve) => {
+        const componentResolve =
+          this.CFR.resolveComponentFactory(PrivilegeComponent);
+        let component = viewContainerRef.createComponent(componentResolve);
+        component.instance.roles = rowData.roles;
+        let privileges= {"admin":component.instance.admin, "masjid": component.instance.masjid, "verifier": component.instance.verifier};
+        component.instance.assign.subscribe(event => {
+          this.userMdbService.assignPrivileges(privileges, rowData._id)
+            .pipe(filter((data: any) => data.success === true))
+            .subscribe(() => { this.generalSettings.UpddateRow({ id: rowData._id, propertyName: "_id" }, rowData); });
+          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id" });
+        });
+        component.instance.cancel.subscribe(event => {
+          this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id"});
+        });
+        resolve(component);
+      });
+    });
+  }
+
   deleteUserInfo(uid) {
     if (confirm('Are you sure want to delte this user?')) {
-      this.adminFBUser.deleteFBUser(uid).pipe(
-        concatMap(id => this.userMdbService.deleteUser(id).pipe(
-          mergeMap(() => this.addressMdbService.deleteAddress(id))))
-      ).subscribe(
+        this.userMdbService.deleteUser(uid).subscribe(
         success => { 
           this.generalSettings.DeleteRow({ _id: uid, propertyName: "_id" });
         console.log(success); 

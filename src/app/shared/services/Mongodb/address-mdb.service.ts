@@ -11,7 +11,7 @@ export class AddressMdbService {
   
   selectedUser: Address;
   Addresses: Address[];
-  readonly baseURL = 'https://gas-apiv0.herokuapp.com/addresses';
+  readonly baseURL = '';
   
   constructor(private http: HttpClient) { }
 
