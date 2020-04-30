@@ -3,7 +3,7 @@ export interface User{
     name:string;
     email:string;
     phone:string;
-    role:Roles;
+    roles:[string];
 }
 export interface Roles {
     claimnt?: boolean;

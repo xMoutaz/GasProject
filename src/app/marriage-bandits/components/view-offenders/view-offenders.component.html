@@ -1,9 +1,35 @@
+ 
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{'MANAGE_USERS' | translate}}</h3>
+        <div class="well">
+            <form #f="ngForm" (ngSubmit)="search()">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>{{'Offender`s firstName' | translate}}</label>
+                        <input type="text" class="form-control" name="firstName" [(ngModel)]="searchedOffender.firstName">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>{{'Offender`s lastName' | translate}}</label>
+                        <input type="text"  class="form-control" name="lastName" [(ngModel)]="searchedOffender.lastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="button btn btn-primary pull-right" (click)="search()">{{'SEARCH' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 <div class="container-fluid">
     <div class="panel panel-default">
         <div class="panel-body">
             <h4>Offenders</h4>
               <app-data-table 
             [Columns]="colDefinitions" 
+            [(GeneralSettings)]="generalSettings"
+            [PageSettings]="pageSettings"
             [Data]='data'></app-data-table>
         </div>
     </div>

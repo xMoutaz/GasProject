@@ -4,6 +4,8 @@
             <h4>Claims</h4>
               <app-data-table 
             [Columns]="colDefinitions" 
+            [(GeneralSettings)]="generalSettings"
+            [PageSettings]="pageSettings"
             [Data]='data'></app-data-table>
         </div>
     </div>

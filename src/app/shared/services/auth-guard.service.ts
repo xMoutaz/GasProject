@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
-import { map, share } from 'rxjs/operators';
+import { map, share, filter } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 import { MessageService } from './message.service';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { Store } from '@ngrx/store';
+import { User } from 'src/app/marriage-bandits/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +29,19 @@ export class AuthGuardService implements CanActivate{
     }));
   }
 }
+@Injectable()
+export class RoleGaurdService {
+  userRoles= [];
+  constructor(private store: Store<AppState>){
+    this.store.select(store => store.User.user).pipe(filter((data) => !!data))
+      .subscribe((user: any)=> this.userRoles = user.roles);
+  }
 
+  canActivate(route: ActivatedRouteSnapshot) {
+    let roles = route.data.roles as Array<string>;
+    return roles.some(roles => this.userRoles.includes(roles));
+  }
+}
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { ClaimsService } from '../../services/claims.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-claim-view',
@@ -9,34 +12,52 @@ import { ActivatedRoute } from '@angular/router';
 export class ClaimViewComponent implements OnInit {
 
   claimId:string;
+  verified: boolean =  true;
   claim = {
     offender:{
-      firstName:"Ahmed",
-      lastName: "Raza",
-      alsoKnownAs:"AR",
-      address:"236 Drakefell road",
-      dateOfBirth: "24-09-1988",
-      description: "Asian, Gold tooth",
-      masjid:"Masjid Bilal",
+      firstName:"",
+      lastName: "",
+      alsoKnownAs:"",
+      address:"",
+      dateOfBirth: "",
+      description: "",
+      masjid:"",
       verified:true
     },
-    claimaint:{
-      firstName:"Clair",
-      lastName: "Barne",
+    claimant:{
+      firstName:"",
+      lastName: "",
       phoneNumber:"",
-      email:"email@email.com"
+      email:""
     },
     claim:{
-      extraDetails: "Consumated the marriage and then ran away.",
-      loggedTime: "25-4-2020 18:00"
+      extraDetails: "",
+      loggedTime: ""
     }
   }
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private claimService: ClaimsService, private route: ActivatedRoute, private _location: Location, private claimsService: ClaimsService) {
     this.claimId = this.route.snapshot.paramMap.get('id');
    }
 
   ngOnInit(): void {
+    this.claimService.searchClaimView(this.claimId).pipe(filter((data:any) => !!data.success)).subscribe((data: any) => {
+      console.log(data)
+      this.claim.claim.extraDetails = data.data[0].extraDetails;
+      this.claim.claim.loggedTime = data.data[0].dateOfEntry;
+      this.claim.claimant = data.data[0].claimant;
+      this.claim.offender = data.data[0].offender;
+    })
+    console.log(this.claim);
+    
   }
 
+  verifyButton() {
+    this.verified = true;
+    this.claimsService.verifyClaim( this.claimId ,this.verified).subscribe(data => console.log(data));
+  }
+
+  backButton(){
+    this._location.back();
+  }
 }

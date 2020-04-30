@@ -12,14 +12,23 @@ export class ClaimsService {
 
   constructor(private http: HttpClient) { }
 
-  getClaims() {
-    return this.http.get(`${this.url}/all`);
+  getClaims(pg, pgS) {
+    return this.http.get(`${this.url}/search/viewClaim?pg=${pg}&pgS=${pgS}`);
+  }
+  getTotalRecord() {
+    return this.http.get<ApiResponse<number>>(this.url +`/search/totalrecord`)
+  }
+  searchClaimView(claimId) {
+    return this.http.get(this.url+`/search/claimView/${claimId}?pg=0&pgS=5`);
   }
   getClaim(id) {
     return this.http.get(`${this.url}/${id}`);
   }
   makeClaime(claim) {
     return this.http.post<ApiResponse<any>>(`${this.url}/makeClaim`,  claim);
+  }
+  verifyClaim(claimId, value: boolean) {
+    return this.http.patch(`${this.url}/claims/claimverifying/${claimId}`, value)
   }
   deleteClaim(id) {
     return this.http.get(`${this.url}/deleteClaim/${id}`)

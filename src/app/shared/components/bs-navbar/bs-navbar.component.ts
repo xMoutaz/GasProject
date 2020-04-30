@@ -54,6 +54,10 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['viewOffenders']);
   }
 
+  manageUsers() {
+    this.router.navigate(['/admin']);
+  }
+
   logout() {
     this.router.navigate(['']);
     this.auth.logout();

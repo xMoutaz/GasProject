@@ -23,9 +23,9 @@
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
           </a>
           <ul class="dropdown-menu">
-            <li><a (click)="viewClaims()">View Claims</a></li>
-            <li><a (click)="viewOffenders()">View Offenders</a></li>
-            <li *ngIf="appUser.isAdmin"><a routerLink="admin">{{'MANAGE_USERS' | translate}}</a></li>
+            <li *ngIf="appUser.roles.includes('Verifier', 'Masjid')"><a (click)="viewClaims()">View Claims</a></li>
+            <li *ngIf="appUser.roles.includes('Verifier', 'Masjid')"><a (click)="viewOffenders()">View Offenders</a></li>
+            <li *ngIf="appUser.roles.includes('Admin')"> <a (click)="manageUsers()">{{'MANAGE_USERS' | translate}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a routerLink="#" (click)="logout()">{{'LOG_OUT' | translate}}</a></li>
           </ul>

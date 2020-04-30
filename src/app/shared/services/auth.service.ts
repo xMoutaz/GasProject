@@ -62,7 +62,6 @@ export class AuthService {
     this.MGBUser.createUser(value).pipe(filter((data: any ) => data.success === true)).subscribe(
       data => {
         this.router.navigate(['/login']);
-        console.log(data);
       }
     )}
 

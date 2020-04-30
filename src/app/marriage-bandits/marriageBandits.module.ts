@@ -11,6 +11,7 @@ import { ViewClaimsComponent } from './components/view-claims/view-claims.compon
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
 import { ClaimViewComponent } from './components/claim-view/claim-view.component';
 import { PrivilegeComponent } from './components/privilege/privilege.component';
+import { RoleGaurdService } from '../shared/services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -23,10 +24,9 @@ import { PrivilegeComponent } from './components/privilege/privilege.component';
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
-      { path: 'viewClaims', component: ViewClaimsComponent},
-      { path: 'viewOffenders', component: ViewOffendersComponent},
-      { path: 'claimView/:id', component: ClaimViewComponent},
-      { path: 'privileges', component: PrivilegeComponent}
+      { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
+      { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
+      { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
     ]),
     MatStepperModule,
     MatDatepickerModule,

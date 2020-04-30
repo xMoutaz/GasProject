@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   }
 
   emailLogin(value) {
-    console.log(value);
     this.auth.emailLogin(value.email, value.password);
   }
 

@@ -10,7 +10,7 @@ import { UserDetailsComponent } from '../shared/components/user-details/user-det
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { AdminHomeComponent } from './admin-home.component';
 import { RouterModule } from '@angular/router';
-import { AuthGuardService } from '../shared/services/auth-guard.service';
+import { AuthGuardService, RoleGaurdService } from '../shared/services/auth-guard.service';
 import { AdminAddNewLanguageComponent } from './components/admin-add-new-language/admin-add-new-language.component';
 import { AddWordComponent } from './components/add-word/add-word.component';
 
@@ -34,7 +34,8 @@ import { AddWordComponent } from './components/add-word/add-word.component';
       { 
         path: 'admin', 
         component:AdminHomeComponent,
-        // canActivate: [AdminAuthGuardService],
+        canActivate: [RoleGaurdService],
+        data: {roles: ['Admin']},
         children: [
           {
             path: '',
@@ -61,7 +62,8 @@ import { AddWordComponent } from './components/add-word/add-word.component';
   ],
   providers: [
     AdminAuthGuardService,
-    AuthGuardService
+    AuthGuardService,
+    RoleGaurdService
   ],
   entryComponents: [AdminUsersComponent, AdminAddLanguageComponent]
 })
