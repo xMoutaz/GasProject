@@ -11,6 +11,7 @@ import { ViewClaimsComponent } from './components/view-claims/view-claims.compon
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
 import { ClaimViewComponent } from './components/claim-view/claim-view.component';
 import { PrivilegeComponent } from './components/privilege/privilege.component';
+import { ClaimConfirmationComponent } from './components/claim-confirmation/claim-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PrivilegeComponent } from './components/privilege/privilege.component';
   ViewClaimsComponent,
   ViewOffendersComponent,
   PrivilegeComponent,
-  ClaimViewComponent],
+  ClaimViewComponent,
+  ClaimConfirmationComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
@@ -26,7 +28,8 @@ import { PrivilegeComponent } from './components/privilege/privilege.component';
       { path: 'viewClaims', component: ViewClaimsComponent},
       { path: 'viewOffenders', component: ViewOffendersComponent},
       { path: 'claimView/:id', component: ClaimViewComponent},
-      { path: 'privileges', component: PrivilegeComponent}
+      { path: 'privileges', component: PrivilegeComponent},
+      { path: 'claimConfirmation', component: ClaimConfirmationComponent}
     ]),
     MatStepperModule,
     MatDatepickerModule,

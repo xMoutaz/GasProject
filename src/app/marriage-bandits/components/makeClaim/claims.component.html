@@ -44,12 +44,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Pictures</label>
-                            <input type="file"  name="pictures" formControlName="pictures" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-primary" matStepperNext>Next</button>
                         </div>
@@ -113,6 +107,12 @@
                             <div *ngIf="(secondFormGroup.controls.phoneNumber.touched) && secondFormGroup.controls.phoneNumber.errors">
                             <span *ngIf="secondFormGroup.controls.phoneNumber.invalid" class="msg-error">Error</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Pictures</label>
+                            <input type="file"  name="pictures" formControlName="pictures" class="form-control"/>
                         </div>
                     </div>
                     <div class="row">

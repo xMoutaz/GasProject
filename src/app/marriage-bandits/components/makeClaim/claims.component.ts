@@ -5,6 +5,7 @@ import { OffendersService } from '../../services/offenders.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { Claim } from '../../models/claim';
 import { ClaimantService } from '../../services/claimant.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-claims',
@@ -18,15 +19,15 @@ export class MakeClaimComponent implements OnInit {
   thirdFormGroup: FormGroup;
   claim: Claim = {claimant_id: '', offender_id: '', evidence: null, dateOfEntry: new Date(), extraDetails: ''};
   
-  constructor(private claimsService: ClaimsService,private _formBuilder: FormBuilder, private claimntServer: ClaimantService,private offenderServer: OffendersService) {}
+  constructor(private claimsService: ClaimsService,private _formBuilder: FormBuilder, private router: Router,
+    private claimntServer: ClaimantService,private offenderServer: OffendersService) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailAddress:[''],
-      phoneNumber:[''],
-      pictures:['']
+      phoneNumber:['']
     });
     this.secondFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
@@ -36,7 +37,8 @@ export class MakeClaimComponent implements OnInit {
       dateOfBirth:[''],
       description:[''],
       masjid:[''],
-      phoneNumber:['']
+      phoneNumber:[''],
+      pictures:['']
     });
     this.thirdFormGroup = this._formBuilder.group({
       extraDetails: [''],
@@ -50,6 +52,8 @@ export class MakeClaimComponent implements OnInit {
       switchMap(() => this.offenderServer.createOffender(this.secondFormGroup.value)),
       (tap((data: any) => { this.claim.extraDetails = this.thirdFormGroup.value; this.claim.offender_id = data.data._id})),
       switchMap((data:any)=> this.claimsService.makeClaime(this.claim))
-    ).subscribe(data => console.log(data));
+    ).subscribe(data => {
+      this.router.navigate(["claimConfirmation"]);
+      console.log(data)});
   }
 }
