@@ -24,6 +24,7 @@ import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Colum
   styleUrls: ['./admin-add-language.component.css']
 })
 export class AdminAddLanguageComponent implements OnInit, OnDestroy {
+  
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
   selectedLanguage: any;

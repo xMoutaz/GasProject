@@ -14,7 +14,7 @@ export class UserMdbService {
   
   selectedUser: User;
   users: User[];
-  readonly baseURL = 'https://gas-apiv0.herokuapp.com/users';
+  readonly baseURL = 'https://marriage-bandits.herokuapp.com/users';
   commingUser: User;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -24,7 +24,7 @@ export class UserMdbService {
   }
 
   getTotalRecord(user?:User) {
-    return this.http.get<ApiResponse<number>>(this.baseURL +`/search/count?_id=${user._id}&&userName=${user.name}`)
+    return this.http.get<ApiResponse<number>>(this.baseURL +`/search/totalrecord?userName=${user.name}`)
   }
 
   saveUser(newUser: User) {
@@ -44,14 +44,19 @@ export class UserMdbService {
   }
 
   searchUser(pg: number,pgS:number, user?: User) {
-    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user/?pg=${pg}&&pgS=${pgS}&&_id=${user._id}&&userName=${user.name}`)
+    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user/?pg=${pg}&pgS=${pgS}&&&userName=${user.name}`)
   }
 
   setAdmin(data) {
     return this.http.patch<ApiResponse<any>>(`${this.baseURL}/setAdmin/${data._id}`, data)
   }
-
+  assignPrivileges(privileges, _id) {
+    return this.http.patch(`${this.baseURL}/assignPrivileges/${_id}`, privileges);
+  }
   updateUserInfo(user: User) {
     return this.http.patch<ApiResponse<any>>(`${this.baseURL}/${user._id}` , user);
+  }
+  getUserRoles() {
+    return this.http.get('https://marriage-bandits.herokuapp.com/roles/getAllRoles');
   }
 }

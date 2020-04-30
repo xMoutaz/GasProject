@@ -34,7 +34,7 @@ import { AddWordComponent } from './components/add-word/add-word.component';
       { 
         path: 'admin', 
         component:AdminHomeComponent,
-        canActivate: [AdminAuthGuardService],
+        // canActivate: [AdminAuthGuardService],
         children: [
           {
             path: '',

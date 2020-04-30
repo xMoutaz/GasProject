@@ -9,7 +9,7 @@ import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
   providedIn: 'root'
 })
 export class MarriageBanditService {
-  readonly url = 'http://localhost:8081/users';
+  readonly url = 'https://marriage-bandits.herokuapp.com/users';
 
   constructor(private http: HttpClient) { }
 

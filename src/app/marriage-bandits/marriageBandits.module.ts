@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MarriageBanditService } from './services/marriageBandits.service';
 import { ViewClaimsComponent } from './components/view-claims/view-claims.component';
 import { ViewOffendersComponent } from './components/view-offenders/view-offenders.component';
@@ -24,11 +25,13 @@ import { PrivilegeComponent } from './components/privilege/privilege.component';
       { path: 'makeClaim', component: MakeClaimComponent},
       { path: 'viewClaims', component: ViewClaimsComponent},
       { path: 'viewOffenders', component: ViewOffendersComponent},
-      { path: 'claimView/:id', component: ClaimViewComponent}
+      { path: 'claimView/:id', component: ClaimViewComponent},
+      { path: 'privileges', component: PrivilegeComponent}
     ]),
     MatStepperModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   exports: [
     RouterModule
