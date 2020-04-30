@@ -19,7 +19,8 @@ export class MakeClaimComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailAddress:[''],
-      phoneNumber:['']
+      phoneNumber:[''],
+      pictures:['']
     });
     this.secondFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
@@ -33,6 +34,7 @@ export class MakeClaimComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       extraDetails: [''],
+      supportingProof: ['']
     });
   }
 }
