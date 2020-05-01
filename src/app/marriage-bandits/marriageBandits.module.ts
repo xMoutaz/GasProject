@@ -12,6 +12,7 @@ import { ViewOffendersComponent } from './components/view-offenders/view-offende
 import { ClaimViewComponent } from './components/claim-view/claim-view.component';
 import { PrivilegeComponent } from './components/privilege/privilege.component';
 import { RoleGaurdService } from '../shared/services/auth-guard.service';
+import { ClaimConfirmationComponent } from './components/claim-confirmation/claim-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RoleGaurdService } from '../shared/services/auth-guard.service';
   ViewClaimsComponent,
   ViewOffendersComponent,
   PrivilegeComponent,
-  ClaimViewComponent],
+  ClaimViewComponent,
+  ClaimConfirmationComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
@@ -27,6 +29,7 @@ import { RoleGaurdService } from '../shared/services/auth-guard.service';
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
       { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
       { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
+      { path: 'claimConfirmation', component: ClaimConfirmationComponent}
     ]),
     MatStepperModule,
     MatDatepickerModule,
@@ -41,4 +44,3 @@ import { RoleGaurdService } from '../shared/services/auth-guard.service';
   ]
 })
 export class MarriageBanditsModule { }
-
