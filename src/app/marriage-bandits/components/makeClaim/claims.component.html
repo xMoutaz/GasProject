@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Email Address</label>
                             <input type="text" name="emailAddress" formControlName="emailAddress" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.emailAddress.touched) && firstFormGroup.controls.emailAddress.errors">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Phone Number</label>
                             <input type="text" name="phoneNumber" formControlName="phoneNumber" class="form-control"/>
                             <div *ngIf="(firstFormGroup.controls.phoneNumber.touched) && firstFormGroup.controls.phoneNumber.errors">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Last Name</label>
                             <input type="text" name="lastName" formControlName="lastName" class="form-control"/>
                             <div *ngIf="(secondFormGroup.controls.lastName.touched) && secondFormGroup.controls.lastName.errors">
@@ -72,16 +72,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Also known as</label>
                             <input type="text" name="alsoKnownAs" formControlName="alsoKnownAs" class="form-control"/>
-                            <div *ngIf="(secondFormGroup.controls.alsoKnownAs.touched) && secondFormGroup.controls.alsoKnownAs.errors">
-                            <span *ngIf="secondFormGroup.controls.alsoKnownAs.invalid" class="msg-error">Error</span>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Date of birth</label>
                             <input type="text" name="dateOfBirth" formControlName="dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -92,30 +89,30 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Local Masjid</label>
                             <input type="text" name="masjid" formControlName="masjid" class="form-control"/>
-                            <div *ngIf="(secondFormGroup.controls.masjid.touched) && secondFormGroup.controls.masjid.errors">
-                            <span *ngIf="secondFormGroup.controls.masjid.invalid" class="msg-error">Error</span>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Description</label>
                             <input type="text" name="description" formControlName="description" class="form-control"/>
-                            <div *ngIf="(secondFormGroup.controls.description.touched) && secondFormGroup.controls.description.errors">
-                            <span *ngIf="secondFormGroup.controls.description.invalid" class="msg-error">Error</span>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4 required">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Phone Number</label>
                             <input type="text" name="phoneNumber" formControlName="phoneNumber" class="form-control"/>
                             <div *ngIf="(secondFormGroup.controls.phoneNumber.touched) && secondFormGroup.controls.phoneNumber.errors">
                             <span *ngIf="secondFormGroup.controls.phoneNumber.invalid" class="msg-error">Error</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Pictures</label>
+                            <input type="file"  name="pictures" formControlName="pictures" class="form-control"/>
                         </div>
                     </div>
                     <div class="row">
@@ -130,9 +127,15 @@
                     <form [formGroup]="thirdFormGroup">
                         <ng-template matStepLabel>Fill out details</ng-template>
                         <div class="row">
-                            <div class="form-group col-md-4 required">
-                                <label class="control-label">Extra information </label>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Extra information</label>
                                 <textarea  name="extraDetails" formControlName="extraDetails" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Proof to support claim</label>
+                                <input type="file"  name="supportingProof" formControlName="supportingProof" class="form-control"/>
                             </div>
                         </div>
                         <div class="row">
