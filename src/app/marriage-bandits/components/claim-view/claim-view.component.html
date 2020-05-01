@@ -4,13 +4,13 @@
             <h4>Claim</h4>
             <div class="row">
                 <div class="col-md-6" [ngClass]="{'editState':editState.offender}">
-                    <form>                    
+                    <form  #o="ngForm" (ngSubmit)="onSubmit('offender')">                    
                         <ul class="list-group"  *ngIf="claim.offender">
                         <li class="list-group-item  panel-heading">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h5><i class="glyphicon glyphicon-user"></i>Offender</h5>
-                                    <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.offender = !editState.offender"></button>
+                                    <a class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.offender = !editState.offender"></a>
                                 </div>
                             </div>
                         </li>
@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button (click)="editState.offender = !editState.offender" class="btn btn-default pull-left">Cancel</button>
-                                    <button type="submit" class="btn btn-primary pull-right" (click)="onSubmit('offender')">Save</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Save</button>
                                 </div>
                             </div>
                         </li>
@@ -60,13 +60,13 @@
    
                 </div>
                 <div class="col-md-6">
-                    <form [ngClass]="{'editState':editState.claimant}">
+                    <form #c="ngForm" (ngSubmit)="onSubmit('claimant')" [ngClass]="{'editState':editState.claimant}">
                         <ul class="list-group" *ngIf="claim.claimant">
                             <li class="list-group-item  panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h5><i class="glyphicon glyphicon-user"></i>Claimant</h5>
-                                        <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claimant = !editState.claimant"></button>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claimant = !editState.claimant"></a>
                                     </div>
                                 </div>                        
                             </li>
@@ -90,19 +90,19 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button (click)="editState.claimant = !editState.claimant" class="btn btn-default pull-left">Cancel</button>
-                                        <button type="submit" (click)="onSubmit('claimant')" class="btn btn-primary pull-right">Save</button>
+                                        <button type="submit"  class="btn btn-primary pull-right">Save</button>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </form>
-                    <form [ngClass]="{'editState':editState.claim}">
+                    <form  (ngSubmit)="onSubmit('claim')"  [ngClass]="{'editState':editState.claim}">
                         <ul class="list-group" *ngIf="claim.claim">
                             <li class="list-group-item  panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h5><i class="glyphicon glyphicon-paperclip"></i>Extra details</h5>
-                                        <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claim = !editState.claim"></button>
+                                        <a class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claim = !editState.claim"></a>
                                     </div>
                                 </div>                         
                             </li>
@@ -118,7 +118,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button (click)="editState.claim = !editState.claim" class="btn btn-default pull-left">Cancel</button>
-                                        <button (click)="onSubmit('claim')" type="submit" class="btn btn-primary pull-right">Save</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
                                     </div>
                                 </div>
                             </li>
