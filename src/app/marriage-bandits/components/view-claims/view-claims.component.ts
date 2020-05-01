@@ -36,7 +36,6 @@ export class ViewClaimsComponent implements OnInit {
 
   getTotalRecord() {
     this.claimsServer.getTotalRecord().subscribe((data) => {
-      debugger;
       this.pageSettings.setTotalRecords(data.data);
     });
   }
@@ -44,32 +43,42 @@ export class ViewClaimsComponent implements OnInit {
   setUpColumnDefintion() {
     this.colDefinitions = [
       {
-        key: 'offender.firstName',
+        key:"offender.firstName",
         className: 'data_grid_left_align',
-        header: 'First Name'
-      },
-      {
-        key: 'offender.lastName',
-        className: 'data_grid_left_align',
-        header: 'Last Name',
-        responsivePriority: true
+        header: 'Offender',
+        formatter: (data,type, row) => {
+          return data + " " + (row.offender.lastName || "")
+        }
       },
       {
         key: 'offender.address',
         className: 'data_grid_left_align',
-        header: 'Adress',
+        header: 'Address',
         responsivePriority: true
       },
       {
-        key: 'claimaint.firstName',
-        className: 'data_grid_center_align',
-        header: 'claiment',
+        key: 'offender.description',
+        className: 'data_grid_left_align',
+        header: 'Description'
+      },
+      {
+        key: 'claimant.firstName',
+        className: 'data_grid_left_align',
+        header:'Claimant',
+        formatter: (data,type, row) => {
+          return data + " " + (row.claimant.lastName || "")
+        },
         responsivePriority: true
       },
       {
         key: 'dateOfEntry',
         className: 'data_grid_center_align',
-        header: 'loggedTime'
+        header: 'Time of claim'
+      },
+      {
+        key: 'offender.verified',
+        className: 'data_grid_center_align',
+        header: 'Verified'
       },
       {
         cellElement: (cellData, rowData, row) => {
@@ -87,19 +96,13 @@ export class ViewClaimsComponent implements OnInit {
     editAddressInfo.action = (data) => {
       this.router.navigate([`claimView/` + `${data._id}`]);
     };
-    let viewRecord = new ActionButton();
-    viewRecord.label = "View Record";
-    viewRecord.data = rowData;
-    viewRecord.action = (data => {
-      //this.deleteUserInfo(data._id);
-    });
     let deleteClaim = new ActionButton();
-    deleteClaim.label = "Delete Claim";
+    deleteClaim.label = "Remove Claim";
     deleteClaim.data = rowData;
     deleteClaim.action = (data => {
       //this.deleteUserInfo(data._id);
     });
-    menu.buttons.push(editAddressInfo, viewRecord, deleteClaim);
+    menu.buttons.push(editAddressInfo, deleteClaim);
     return menu;
   };
 
@@ -107,6 +110,10 @@ export class ViewClaimsComponent implements OnInit {
     this.pageSettings = new PageSettings(() => {
       this.onPageChange();
     });
+  }
+
+  search(){
+    
   }
 
   onPageChange() {

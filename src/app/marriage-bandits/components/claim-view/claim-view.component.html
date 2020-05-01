@@ -3,32 +3,127 @@
         <div class="panel-body">
             <h4>Claim</h4>
             <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-group" *ngIf="claim.offender">
-                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-user pull-left"></span>Ofender<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
-                        <li class="list-group-item"><label>First name</label> {{claim?.offender.firstName}}</li>
-                        <li class="list-group-item"><label>Last name</label> {{claim?.offender.lastName}}</li>
-                        <li class="list-group-item"> <label>AKA</label> {{claim?.offender.alsoKnownAs}}</li>
-                        <li class="list-group-item">  <label>Address</label> {{claim?.offender.address}}</li>
-                        <li class="list-group-item">  <label>Date of birth</label> {{claim?.offender.dateOfBirth}}</li>
-                        <li class="list-group-item">  <label>Description</label> {{claim?.offender.description}}</li>
-                        <li class="list-group-item">  <label>Masjid</label> {{claim?.offender.masjid}}</li>
-                        <li class="list-group-item">   <label>Verified</label> {{claim?.offender.verified}}</li>
-                      </ul>   
+                <div class="col-md-6" [ngClass]="{'editState':editState.offender}">
+                    <form>                    
+                        <ul class="list-group"  *ngIf="claim.offender">
+                        <li class="list-group-item  panel-heading">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><i class="glyphicon glyphicon-user"></i>Offender</h5>
+                                    <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.offender = !editState.offender"></button>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item"><label>First name</label> 
+                            <span class="readContent">{{claim?.offender.firstName}}</span>
+                            <input type="text" class="form-control" name="firstName" [(ngModel)]="claim?.offender.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Last name</label> 
+                            <span class="readContent">{{claim?.offender.lastName}}</span>
+                            <input type="text" class="form-control" name="lastName" [(ngModel)]="claim?.offender.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>AKA</label> 
+                            <span class="readContent">{{claim?.offender.alsoKnownAs}}</span>
+                            <input type="text" class="form-control" name="alsoKnownAs" [(ngModel)]="claim?.offender.alsoKnownAs" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Address</label> 
+                            <span class="readContent">{{claim?.offender.address}}</span>
+                            <input type="text" class="form-control" name="address" [(ngModel)]="claim?.offender.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Date of birth</label> 
+                            <span class="readContent">{{claim?.offender.dateOfBirth}}</span>
+                            <input type="text" class="form-control" name="dateOfBirth" [(ngModel)]="claim?.offender.dateOfBirth" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Description</label> 
+                            <span class="readContent">{{claim?.offender.description}}</span>
+                            <input type="text" class="form-control" name="description" [(ngModel)]="claim?.offender.description" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Local Masjid</label> 
+                            <span class="readContent">{{claim?.offender.masjid}}</span>
+                            <input type="text" class="form-control" name="masjid" [(ngModel)]="claim?.offender.masjid" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Verified</label> 
+                            <span class="readContent">{{claim?.offender.verified}}</span>
+                            <input type="text" class="form-control" name="verified" [(ngModel)]="claim?.offender.verified" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item editBtns">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button (click)="editState.offender = !editState.offender" class="btn btn-default pull-left">Cancel</button>
+                                    <button type="submit" class="btn btn-primary pull-right" (click)="onSubmit('offender')">Save</button>
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                    </form>
+   
                 </div>
                 <div class="col-md-6">
-                    <ul class="list-group" *ngIf="claim.claimant">
-                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-user pull-left"></span>Claimaint<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
-                        <li class="list-group-item"><label>First name</label> {{claim?.claimant.firstName}}</li>
-                        <li class="list-group-item"><label>Last name</label> {{claim?.claimant.lastName}}</li>
-                        <li class="list-group-item"> <label>Contact</label> {{claim?.claimant.phoneNumber}}</li>
-                        <li class="list-group-item"> <label>Email</label> {{claim?.claimant.email}}</li>
-                      </ul>
-                      <ul class="list-group" *ngIf="claim.claim">
-                        <li class="list-group-item  panel-heading"><h5><span class="glyphicon glyphicon-envelope pull-left"></span>Details<span class="glyphicon glyphicon-pencil pull-right"></span></h5></li>
-                        <li class="list-group-item"><label>Further information</label> {{claim?.claim.extraDetails}}</li>
-                        <li class="list-group-item"><label>LoggedTime</label> {{claim?.claim.loggedTime}}</li>
-                      </ul>
+                    <form [ngClass]="{'editState':editState.claimant}">
+                        <ul class="list-group" *ngIf="claim.claimant">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-user"></i>Claimant</h5>
+                                        <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claimant = !editState.claimant"></button>
+                                    </div>
+                                </div>                        
+                            </li>
+                            <li class="list-group-item"><label>First name</label> 
+                                <span class="readContent">{{claim?.claimant.firstName}}</span>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="claim?.claimant.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Last name</label> 
+                                <span class="readContent">{{claim?.claimant.lastName}}</span>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="claim?.claimant.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Phone Number</label> 
+                                <span class="readContent">{{claim?.claimant.phoneNumber}}</span>
+                                <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="claim?.claimant.phoneNumber" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Email</label> 
+                                <span class="readContent">{{claim?.claimant.email}}</span>
+                                <input type="text" class="form-control" name="email" [(ngModel)]="claim?.claimant.email" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.claimant = !editState.claimant" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit" (click)="onSubmit('claimant')" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <form [ngClass]="{'editState':editState.claim}">
+                        <ul class="list-group" *ngIf="claim.claim">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-paperclip"></i>Extra details</h5>
+                                        <button class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.claim = !editState.claim"></button>
+                                    </div>
+                                </div>                         
+                            </li>
+                            <li class="list-group-item"><label>Further information</label> 
+                                <span class="readContent">{{claim?.claim.extraDetails}}</span>
+                                <input type="text" class="form-control" name="extraDetails" [(ngModel)]="claim?.claim.extraDetails" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>LoggedTime</label> 
+                                <span class="readContent">{{claim?.claim.loggedTime}}</span>
+                                <input type="text" class="form-control" name="loggedTime" [(ngModel)]="claim?.claim.loggedTime" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.claim = !editState.claim" class="btn btn-default pull-left">Cancel</button>
+                                        <button (click)="onSubmit('claim')" type="submit" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
             </div>
             <div class="row">

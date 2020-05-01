@@ -2,6 +2,73 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <h4>Claims</h4>
+            <div class="well">
+                <form #f="ngForm" (ngSubmit)="search()">
+                    <div class="row">
+
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Offender
+                        </a>
+                        <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="col-md-3 form-group">
+                                <label>{{'First Name' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Last Name' | translate}}</label>
+                                <input type="text"  class="form-control" name="lastName" /> <!--[(ngModel)]="searchedOffender.lastName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Masjid' | translate}}</label>
+                                <input type="text"  class="form-control" name="lastName" /> <!--[(ngModel)]="searchedOffender.lastName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Verified' | translate}}</label>
+                                <input type="checkbox"  class="" name="lastName" /> <!--[(ngModel)]="searchedOffender.lastName">-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                            Claimant
+                        </a>
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="col-md-3 form-group">
+                                <label>{{'First Name' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Last Name' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Email' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                            Claim
+                        </a>
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="col-md-3 form-group">
+                                <label>{{'Logged date from' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>{{'Logged date to' | translate}}</label>
+                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="button btn btn-primary pull-right" (click)="search()">{{'SEARCH' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
               <app-data-table 
             [Columns]="colDefinitions" 
             [(GeneralSettings)]="generalSettings"

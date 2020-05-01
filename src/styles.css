@@ -63,3 +63,17 @@ html, body { height: 100%; }
   border-color: #3f51b5;
 }
 
+.calenderControl .mat-icon-button{
+  width: 18px;
+  height: 5px;
+  flex-shrink: 0;
+  line-height: 0px;
+}
+
+.calenderControl .input-group-addon{
+  padding-left: 7px;
+}
+
+textarea.form-control {
+  height: 110px;
+}

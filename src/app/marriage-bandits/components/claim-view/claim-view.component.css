@@ -9,3 +9,37 @@ h5{
 label{
     width: 160px;
 }
+
+.panel-heading{
+    text-align: left;
+}
+
+.panel-heading i{
+    margin-right:10px;
+    font-size: 20px;
+}
+
+.panel-heading h5{
+    display: inline;
+}
+
+.panel-heading button{
+    font-size:10px;
+}
+
+.editBtns{
+    display:none;
+}
+.editState .editBtns{
+    display:block;
+}
+.editState .readContent{
+    display:none;
+}
+.list-group input{
+    display: none;
+}
+.editState .list-group input{
+    display: inline-block;
+    width: 450px;
+}

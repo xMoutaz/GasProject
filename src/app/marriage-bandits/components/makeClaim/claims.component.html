@@ -80,24 +80,18 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Date of birth</label>
-                            <input type="text" name="dateOfBirth" formControlName="dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <div *ngIf="(secondFormGroup.controls.dateOfBirth.touched) && secondFormGroup.controls.dateOfBirth.errors">
-                            <span *ngIf="secondFormGroup.controls.dateOfBirth.invalid" class="msg-error">Error</span>
-                            </div>
+                            <div class="input-group calenderControl">
+                                <input type="text" name="dateOfBirth" formControlName="dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                <span class="input-group-addon" id="basic-addon2">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker></span>
+                              </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Local Masjid</label>
                             <input type="text" name="masjid" formControlName="masjid" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label class="control-label">Description</label>
-                            <input type="text" name="description" formControlName="description" class="form-control"/>
                         </div>
                     </div>
                     <div class="row">
@@ -116,6 +110,12 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Additional information</label>
+                            <textarea type="text" name="description" formControlName="description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default" matStepperPrevious>Back</button>
                             <button class="btn btn-primary" matStepperNext>Next</button>
@@ -128,14 +128,14 @@
                         <ng-template matStepLabel>Fill out details</ng-template>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">Extra information</label>
-                                <textarea  name="extraDetails" formControlName="extraDetails" class="form-control"></textarea>
+                                <label class="control-label">Proof to support claim</label>
+                                <input type="file"  name="supportingProof" formControlName="supportingProof" class="form-control"/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Proof to support claim</label>
-                                <input type="file"  name="supportingProof" formControlName="supportingProof" class="form-control"/>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">Extra information</label>
+                                <textarea  name="extraDetails" formControlName="extraDetails" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row">

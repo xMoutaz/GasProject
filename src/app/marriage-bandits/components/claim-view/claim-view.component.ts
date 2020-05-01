@@ -13,6 +13,12 @@ export class ClaimViewComponent implements OnInit {
 
   claimId:string;
   verified: boolean =  true;
+  editState = {
+    claim: false,
+    claimant:false,
+    offender:false
+  };
+  // TODO:- Make this an interface in the claim service
   claim = {
     offender:{
       firstName:"",
@@ -49,12 +55,15 @@ export class ClaimViewComponent implements OnInit {
       this.claim.offender = data.data[0].offender;
     })
     console.log(this.claim);
-    
   }
 
   verifyButton() {
     this.verified = true;
     this.claimsService.verifyClaim( this.claimId ,this.verified).subscribe(data => console.log(data));
+  }
+
+  onSubmit(entity){
+    this.editState[entity] = false;
   }
 
   backButton(){
