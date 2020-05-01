@@ -25,7 +25,6 @@ export class ViewOffendersComponent implements OnInit {
   
   constructor(private banditService: MarriageBanditService, private offenderService: OffendersService) {
 
-    this.getTotalRecord();
     this.setUpColumnDefintion();
     this.setUppageSettings();
    }
@@ -35,12 +34,6 @@ export class ViewOffendersComponent implements OnInit {
     // this.banditService.getOffenders().subscribe(claims => {
     //   this.data.next(claims);
     // });
-  }
-
-  getTotalRecord() {
-    this.offenderService.getTotalRecord(this.searchedOffender).subscribe((data) => {
-      this.pageSettings.setTotalRecords(data.data);
-    });
   }
 
   setUpColumnDefintion() {

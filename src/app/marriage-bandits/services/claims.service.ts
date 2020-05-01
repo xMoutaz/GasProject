@@ -27,11 +27,14 @@ export class ClaimsService {
   makeClaime(claim) {
     return this.http.post<ApiResponse<any>>(`${this.url}/makeClaim`,  claim);
   }
-  verifyClaim(claimId, value: boolean) {
-    return this.http.patch(`${this.url}/claims/claimverifying/${claimId}`, value)
+  editClaimInfo(claim) {
+    return this.http.patch(`${this.url}/editClaim/${claim._id}`, claim)
+  }
+  archivingClaim(claimId) {
+    return this.http.patch(`${this.url}/claimarchive/${claimId}`, {"claimarchive": true});
   }
   deleteClaim(id) {
-    return this.http.get(`${this.url}/deleteClaim/${id}`)
+    return this.http.delete(`${this.url}/deleteClaim/${id}`)
   }
 
 }

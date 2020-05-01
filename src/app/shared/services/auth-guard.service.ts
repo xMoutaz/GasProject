@@ -16,13 +16,15 @@ import { User } from 'src/app/marriage-bandits/models/user';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate{
+   user = null;
 
-  constructor(
-    private auth : AuthService,
-    private router: Router) { }
+  constructor(private store: Store<AppState>, private auth : AuthService, private router: Router) { 
+    this.store.select(store => store.User.user).pipe(filter((data) => !!data))
+      .subscribe((user: any)=> this.user = user);
+  }
 
   canActivate(route, state: RouterStateSnapshot) {
-    return this.auth.user$.pipe(map(user => {
+    return this.user.pipe(map(user => {
       if(user) return true;
       this.router.navigate(['/login'], {queryParams: { returnUrl: state.url }});
       return false 

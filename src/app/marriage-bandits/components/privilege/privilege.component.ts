@@ -11,7 +11,7 @@ export class PrivilegeComponent implements OnInit {
   @Output() assign: EventEmitter<any> = new EventEmitter();
   @Output() cancel: EventEmitter<any> = new EventEmitter();
   roles = [];
-  userlRoles= [];
+  userlRoles: Array<string>;
   constructor() { }
 
   ngOnInit(): void {
@@ -19,6 +19,9 @@ export class PrivilegeComponent implements OnInit {
 
   onRoleChange($event, role){
     if($event.checked) {this.userlRoles.push(role);}
+    console.log(role);
+    console.log(this.userlRoles);
+    
     if(!$event.checked) {_.pull(this.userlRoles, role);}
   }
 
