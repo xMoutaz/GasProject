@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { ClaimsService } from '../../services/claims.service';
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { switchMap } from 'rxjs/operators';
+import { OffendersService } from '../../services/offenders.service';
+import { ClaimantService } from '../../services/claimant.service';
 
 @Component({
   selector: 'app-view-claims',
@@ -20,7 +23,8 @@ export class ViewClaimsComponent implements OnInit {
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
 
-  constructor(private claimsServer: ClaimsService, private banditService: MarriageBanditService, private router:Router) {
+  constructor(private claimsServer: ClaimsService, private offenderService: OffendersService, 
+    private router:Router, private claimantService: ClaimantService) {
     
     this.getTotalRecord();
     this.setUpColumnDefintion();
@@ -100,7 +104,7 @@ export class ViewClaimsComponent implements OnInit {
     deleteClaim.label = "Remove Claim";
     deleteClaim.data = rowData;
     deleteClaim.action = (data => {
-      //this.deleteUserInfo(data._id);
+      this.removeClaim(data);
     });
     menu.buttons.push(editAddressInfo, deleteClaim);
     return menu;
@@ -125,4 +129,10 @@ export class ViewClaimsComponent implements OnInit {
     );
   }
 
+  removeClaim(data) {
+    // {_id: "5eab211f7404544b3cbe0cc9", verified: false, 
+    // claimant_id: "5eab211f7e34e50003043a2f", 
+    // offender_id: "5eab211f7e34e50003043a30"      
+    this.claimsServer.archivingClaim(data._id).subscribe(data => console.log(data));
+  }
 }

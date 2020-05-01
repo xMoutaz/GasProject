@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { concatMap, mergeMap, filter, switchMap, tap } from 'rxjs/operators';
 import { Address } from 'src/app/shared/models/address';
-import { User } from 'src/app/shared/models/user';
 import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
@@ -15,6 +14,10 @@ import { PageSettings } from 'src/app/components/controls/data-table/classes/Pag
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
 import { PrivilegeComponent } from 'src/app/marriage-bandits/components/privilege/privilege.component';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import { User } from 'src/app/marriage-bandits/models/user';
+import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 
 @Component({
   selector: 'app-admin',
@@ -25,20 +28,19 @@ export class AdminComponent {
   
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
-  newUser = new User();
   userAddressInfo = new Address();
   name: string;
   id: string;
-  searchedUser = new User();
+  searchedUser: User = {_id:'', name:'', email:'', phone:'', roles:['']}
   pageSettings: PageSettings;
   generalSettings = new GeneralSettings();
   expansionSettings: ExpansionSettings;
   Roles: any;
+  currentUser: User;
 
-  constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private router: Router) {
-    this.searchedUser.name = "";
-    this.searchedUser._id = "";
-    this.getTotalRecord();
+  constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private router: Router,
+              private store: Store<AppState>) {
+    // this.getTotalRecord();
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
@@ -46,6 +48,9 @@ export class AdminComponent {
   }
 
   ngOnInit() {
+    this.store.select(store => store.User.user).subscribe(user => {
+      this.currentUser = user
+    });
     this.onPageChange();
   }
 
@@ -106,7 +111,7 @@ export class AdminComponent {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     this.userMdbService.searchUser(pg, pgS, this.searchedUser).subscribe(
-      data => { this.data.next(data.data) },
+      (data: any) => { this.data.next(data.data); this.pageSettings.setTotalRecords(data.data.count); },
       err => { console.log(err); }
     );
   }
@@ -142,7 +147,9 @@ export class AdminComponent {
         component.instance.assign.subscribe(event => {
           this.userMdbService.assignPrivileges(component.instance.userlRoles, rowData._id)
             .pipe(filter((data: any) => data.success === true))
-            .subscribe(() => { this.generalSettings.UpddateRow({ id: rowData._id, propertyName: "_id" }, rowData); });
+            .subscribe((data) => {
+              this.store.dispatch(new SelectCurrentUserInfo(rowData))
+              this.generalSettings.UpddateRow({ id: rowData._id, propertyName: "_id" }, rowData); });
           this.expansionSettings.CollapseGrid({ id: rowData._id, propertyName: "_id" });
         });
         component.instance.cancel.subscribe(event => {

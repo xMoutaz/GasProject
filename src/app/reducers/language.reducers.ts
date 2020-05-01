@@ -4,8 +4,8 @@ import { LanguageAction, LanguageActionTypes } from '../state/language.actions';
 import * as fromRouter from '@ngrx/router-store';
 import { Params, RouterStateSnapshot } from '@angular/router';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { User } from '../shared/models/user';
 import { UserActions, UserActionsTypes } from '../state/user-actions';
+import { User } from '../marriage-bandits/models/user';
 
 export interface LanguageState {
   list: string[],

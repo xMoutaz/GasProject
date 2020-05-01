@@ -32,12 +32,16 @@ export class OffendersService {
      return this.http.post<Offender>(`${this.url}/createOffender`,  offender);
   }
 
-  verifyOffender(id ,verified) {
-    return this.http.patch(`${this.url}/verify/${id}`, verified);
+  editOffenderInfo(offender) {
+    // return this.http.patch(`${this.url}/editOffenderInfo/${offender._id}`, offender)
+    return this.http.patch(`${this.url}/editOffenderInfo/${offender._id}`, offender)
+  }
+  verifyOffender(id ,value) {
+    return this.http.patch(`${this.url}/verify/${id}`, {"verified": value});
   }
 
-  deleteOffender(id) {
-    return this.http.get(`${this.url}/deleteOffender/${id}`)
+   deleteOffender(id): any {
+    return this.http.delete(`${this.url}/deleteOffender/${id}`)
   }
 
 }

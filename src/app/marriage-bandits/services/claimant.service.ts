@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Claimant } from '../models/claimant';
+import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,11 @@ export class ClaimantService {
   createClaimnt(claimnt): Observable<Claimant> {
      return this.http.post<Claimant>(`${this.url}/createClaimant`,  claimnt);
   }
-  deleteClaimnt(id) {
-    return this.http.get(`${this.url}/deleteClaimant/${id}`)
+  editClaimantInfo(claimant) {
+    return this.http.patch(`${this.url}/editClaimant/${claimant._id}`, claimant)
+  }
+  deleteClaimnt(id): any {
+    console.log(`${this.url}/deleteClaimant/${id}`)
+    return this.http.delete(`${this.url}/deleteClaimant/${id}`)
   }
 }
