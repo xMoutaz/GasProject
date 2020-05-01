@@ -59,30 +59,30 @@ export class ViewOffendersComponent implements OnInit {
       {
         key: 'alsoKnownAs',
         className: 'data_grid_center_align',
-        header: 'alsoKnownAs',
+        header: 'Also Known As',
         responsivePriority: true
       },
       {
         key: 'address',
         className: 'data_grid_left_align',
-        header: 'Adress',
+        header: 'Address',
         responsivePriority: true
       },
       {
         key: 'dateOfBirth',
         className: 'data_grid_center_align',
-        header: 'dateOfBirth',
+        header: 'D.O.B',
         responsivePriority: true
       },
       {
         key: 'description',
         className: 'data_grid_center_align',
-        header: 'description'
+        header: 'Description'
       },
       {
         key: 'masjid',
         className: 'data_grid_center_align',
-        header: 'masjid'
+        header: 'Local Masjid'
       },
       {
         cellElement: (cellData, rowData, row) => {
