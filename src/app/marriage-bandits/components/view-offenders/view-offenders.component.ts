@@ -9,6 +9,7 @@ import { GeneralSettings } from 'src/app/components/controls/data-table/classes/
 import { Offender } from '../../models/offender';
 import { tap, switchMap } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-offenders',
@@ -23,7 +24,7 @@ export class ViewOffendersComponent implements OnInit {
   colDefinitions: Array<ColumnDefs>;
   searchedOffender: Offender = { _id:'', firstName:'', lastName:'', alsoKnownAs:'', address:'', dateOfBirth:'', description:'', masjid:'', verified: false}
   
-  constructor(private banditService: MarriageBanditService, private offenderService: OffendersService) {
+  constructor(private banditService: MarriageBanditService, private offenderService: OffendersService,  private router: Router) {
 
     this.setUpColumnDefintion();
     this.setUppageSettings();
@@ -80,7 +81,7 @@ export class ViewOffendersComponent implements OnInit {
       {
         cellElement: (cellData, rowData, row) => {
           return new GPFIButton('view',()=>{
-
+            this.router.navigate(['offenderView/' + rowData._id])
           });
         }, className: 'data_grid_center_align', responsivePriority: true
       }

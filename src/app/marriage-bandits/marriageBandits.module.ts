@@ -14,6 +14,9 @@ import { PrivilegeComponent } from './components/privilege/privilege.component';
 import { RoleGaurdService } from '../shared/services/auth-guard.service';
 import { ClaimConfirmationComponent } from './components/claim-confirmation/claim-confirmation.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ClaimMenuComponent } from './components/claim-menu/claim-menu.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { OffenderViewComponent } from './offender-view/offender-view.component';
 
 @NgModule({
   declarations: [
@@ -22,24 +25,29 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ViewOffendersComponent,
   PrivilegeComponent,
   ClaimViewComponent,
-  ClaimConfirmationComponent],
+  ClaimConfirmationComponent,
+  ClaimMenuComponent,
+  OffenderViewComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
-      { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
-      { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
-      { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier', 'Masjid']}},
-      { path: 'claimConfirmation', component: ClaimConfirmationComponent}
+      { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
+      { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
+      { path: 'claimConfirmation', component: ClaimConfirmationComponent},
+      { path:  'offenderView/:id', component:OffenderViewComponent}
     ]),
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBadgeModule
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    ClaimMenuComponent
   ],
   providers: [
     MarriageBanditService

@@ -54,11 +54,21 @@
                         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="col-md-3 form-group">
                                 <label>{{'Logged date from' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker></span>
+                                </div>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Logged date to' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" class="form-control" matInput [matDatepicker]="picker2">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker></span>
+                                </div>
                             </div>
                         </div>
                     </div>
