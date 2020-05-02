@@ -39,6 +39,12 @@ label{
 .list-group input{
     display: none;
 }
+.list-group mat-checkbox{
+    display: none;
+}
+.editState .list-group mat-checkbox{
+    display: inline-block;
+}
 .editState .list-group input{
     display: inline-block;
     width: 450px;

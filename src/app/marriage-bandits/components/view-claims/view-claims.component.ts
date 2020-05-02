@@ -82,7 +82,14 @@ export class ViewClaimsComponent implements OnInit {
       {
         key: 'offender.verified',
         className: 'data_grid_center_align',
-        header: 'Verified'
+        header: 'Verified',
+        cellElement: (cellData, rowData, row, col, td) => {
+          if(cellData){
+            $(td).html("<span style='font-size: 25px' class='glyphicon glyphicon-ok-circle'></span>");
+          }else{
+            $(td).html("<span style='font-size: 25px' class='glyphicon glyphicon-remove-circle'></span>");
+          }
+        }
       },
       {
         cellElement: (cellData, rowData, row) => {

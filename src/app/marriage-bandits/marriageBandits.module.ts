@@ -13,6 +13,7 @@ import { ClaimViewComponent } from './components/claim-view/claim-view.component
 import { PrivilegeComponent } from './components/privilege/privilege.component';
 import { RoleGaurdService } from '../shared/services/auth-guard.service';
 import { ClaimConfirmationComponent } from './components/claim-confirmation/claim-confirmation.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ClaimConfirmationComponent } from './components/claim-confirmation/clai
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCheckboxModule
   ],
   exports: [
     RouterModule
