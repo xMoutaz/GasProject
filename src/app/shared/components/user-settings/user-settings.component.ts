@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap, tap, filter } from 'rxjs/operators';
 import { Address } from '../../models/address';
-import { User } from '../../models/user';
+// import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { UserMdbService } from '../../services/Mongodb/user-mdb.service';
@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
+import { User } from 'src/app/marriage-bandits/models/user';
 
 @Component({
   selector: 'app-user-settings',
@@ -17,24 +18,14 @@ import { Store } from '@ngrx/store';
 })
 export class UserSettingsComponent implements OnInit {
 
-  appUser: User;
-  address: Address;
+  appUser: User = {_id:'', name:'', email:'', phone:'', roles:['']};
+  address: Address = { _id:'', zip:'', addressLine1:'', addressLine2:'', longitude:'',latitude:''};
   constructor(public auth: AuthService, private userMdbServices: UserMdbService, private store: Store<AppState>,
      private addressMdbService: AddressMdbService, private _location: Location, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.auth.appUser$.pipe(
-      filter(data => !!data),
-      tap(data => this.appUser = data),
-      switchMap(data =>
-        this.addressMdbService.get(data._id))
-    ).subscribe(
-      (data: any) => {
-        this.address = data;
-      },
-      err => { console.log(err) }
-    );
+    
   }
   
   updateUserInfo() {

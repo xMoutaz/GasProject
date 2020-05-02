@@ -42,7 +42,8 @@ export class MakeClaimComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       extraDetails: [''],
-      supportingProof: ['']
+      supportingProof: [''],
+      evidence: ''
     });
   }
 
