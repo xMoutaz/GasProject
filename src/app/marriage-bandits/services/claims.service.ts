@@ -15,9 +15,7 @@ export class ClaimsService {
   constructor(private http: HttpClient) { }
 
   getClaims(pg, pgS, searchedOffender: Offender, searchedClaimant: Claimant) {
-    let localHost= `http://localhost:8081/claims`;
-    return this.http.get(`${localHost}/search/viewClaim?pg=${pg}&pgS=${pgS}&offenderFirstName=${searchedOffender.firstName}&offenderLastName=${searchedOffender.lastName}&masjid=${searchedOffender.masjid}&verified=${searchedOffender.verified}&claimantFirstName=${searchedClaimant.firstName}&claimantLastName=${searchedClaimant.lastName}&email=${searchedClaimant.emailAddress}`)
-    // return this.http.get(`${this.url}/search/viewClaim?pg=${pg}&pgS=${pgS}`);
+    return this.http.get(`${this.url}/search/viewClaim?pg=${pg}&pgS=${pgS}&offenderFirstName=${searchedOffender.firstName}&offenderLastName=${searchedOffender.lastName}&masjid=${searchedOffender.masjid}&verified=${searchedOffender.verified}&claimantFirstName=${searchedClaimant.firstName}&claimantLastName=${searchedClaimant.lastName}&email=${searchedClaimant.emailAddress}`)
   }
   getTotalRecord() {
     return this.http.get<ApiResponse<number>>(this.url +`/search/totalrecord`)
