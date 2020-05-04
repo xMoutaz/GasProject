@@ -12,19 +12,19 @@
                         <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="col-md-3 form-group">
                                 <label>{{'First Name' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="searchedOffender.firstName">
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Last Name' | translate}}</label>
-                                <input type="text"  class="form-control" name="lastName" /> <!--[(ngModel)]="searchedOffender.lastName">-->
+                                <input type="text"  class="form-control" name="lastName" [(ngModel)]="searchedOffender.lastName">
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Masjid' | translate}}</label>
-                                <input type="text"  class="form-control" name="lastName" /> <!--[(ngModel)]="searchedOffender.lastName">-->
+                                <input type="text"  class="form-control" name="lastName" [(ngModel)]="searchedOffender.masjid">
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Verified' | translate}}</label>
-                                <mat-checkbox style="display: block;" class="example-margin" ></mat-checkbox>
+                                <mat-checkbox style="display: block;" class="example-margin" name="searchedOffender.verified" [(ngModel)]="searchedOffender.verified" [checked]="searchedOffender.verified"></mat-checkbox>
                             </div>
                         </div>
                     </div>
@@ -35,15 +35,15 @@
                         <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="col-md-3 form-group">
                                 <label>{{'First Name' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="searchedClaimant.firstName">
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Last Name' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="searchedClaimant.lastName">
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>{{'Email' | translate}}</label>
-                                <input type="text" class="form-control" name="firstName" /> <!--[(ngModel)]="searchedOffender.firstName">-->
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="searchedClaimant.emailAddress">
                             </div>
                         </div>
                     </div>

@@ -28,8 +28,9 @@ export class OffendersService {
     return this.http.get(`${this.url}/${id}`);
   }
 
-  createOffender(offender): Observable<Offender> {
-     return this.http.post<Offender>(`${this.url}/createOffender`,  offender);
+  createOffender( pic): Observable<Offender> {
+    debugger;
+     return this.http.post<Offender>(`http://localhost:8081/offenders/createOffender`, pic);
   }
 
   editOffenderInfo(offender) {

@@ -10,6 +10,8 @@ import { GeneralSettings } from 'src/app/components/controls/data-table/classes/
 import { switchMap } from 'rxjs/operators';
 import { OffendersService } from '../../services/offenders.service';
 import { ClaimantService } from '../../services/claimant.service';
+import { Offender } from '../../models/offender';
+import { Claimant } from '../../models/claimant';
 
 @Component({
   selector: 'app-view-claims',
@@ -22,27 +24,21 @@ export class ViewClaimsComponent implements OnInit {
   generalSettings = new GeneralSettings();
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
+  searchedOffender: Offender = { _id:'', firstName:'', lastName:'', alsoKnownAs:'', address:'', dateOfBirth:'', description:'', masjid:'', verified: false}
+  searchedClaimant: Claimant = { _id:'', firstName:'', lastName:'', phoneNumber: '', emailAddress: ''}
+
 
   constructor(private claimsServer: ClaimsService, private offenderService: OffendersService, 
     private router:Router, private claimantService: ClaimantService) {
     
-    this.getTotalRecord();
     this.setUpColumnDefintion();
     this.setUppageSettings();
   }
 
   ngOnInit(): void {
     this.onPageChange();
-    // this.banditService.getClaimsView().subscribe(claims => {
-    //   this.data.next(claims);
-    // });
   }
 
-  getTotalRecord() {
-    this.claimsServer.getTotalRecord().subscribe((data) => {
-      this.pageSettings.setTotalRecords(data.data);
-    });
-  }
 
   setUpColumnDefintion() {
     this.colDefinitions = [
@@ -124,22 +120,27 @@ export class ViewClaimsComponent implements OnInit {
   }
 
   search(){
-    
+    let pg = this.pageSettings.currentPage - 1;
+    let pgS = this.pageSettings.pageSize;
+    console.log(this.searchedOffender)
+
+    this.claimsServer.getClaims(pg, pgS, this.searchedOffender, this.searchedClaimant).subscribe((data:any) => {
+      this.pageSettings.setTotalRecords(data.count[0].count)
+      this.data.next(data.data);
+    })
   }
 
   onPageChange() {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
-    this.claimsServer.getClaims(pg, pgS).subscribe(
-      (data: any) => { this.data.next(data.data) },
-      err => { console.log(err); }
-    );
+    this.claimsServer.getClaims(pg, pgS, this.searchedOffender, this.searchedClaimant).subscribe((data:any) => {
+      this.pageSettings.setTotalRecords(data.count[0].count)
+      console.log(data);
+      this.data.next(data.data);
+    })
   }
 
-  removeClaim(data) {
-    // {_id: "5eab211f7404544b3cbe0cc9", verified: false, 
-    // claimant_id: "5eab211f7e34e50003043a2f", 
-    // offender_id: "5eab211f7e34e50003043a30"      
+  removeClaim(data) {     
     this.claimsServer.archivingClaim(data._id).subscribe(data => console.log(data));
   }
 }

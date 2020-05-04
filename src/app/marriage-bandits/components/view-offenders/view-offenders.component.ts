@@ -32,9 +32,6 @@ export class ViewOffendersComponent implements OnInit {
 
   ngOnInit(): void {
     this.onPageChange();
-    // this.banditService.getOffenders().subscribe(claims => {
-    //   this.data.next(claims);
-    // });
   }
 
   setUpColumnDefintion() {
@@ -98,17 +95,17 @@ export class ViewOffendersComponent implements OnInit {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
     this.offenderService.searchOffender(pg, pgS, this.searchedOffender).subscribe(
-      data => { this.data.next(data.data) },
+      (data: any) => { this.pageSettings.setTotalRecords(data.count); this.data.next(data.data) },
       err => { console.log(err); }
     );
   }
 
   search() {
-    this.offenderService.getTotalRecord(this.searchedOffender).pipe(
-      tap((data: any) => this.pageSettings.setTotalRecords(data.data)),
-      switchMap(() => this.offenderService.searchOffender(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedOffender))
-    ).subscribe(
-      (data: ApiResponse<Offender[]>) => {
+     this.offenderService.searchOffender(this.pageSettings.currentPage-1, this.pageSettings.pageSize, this.searchedOffender)
+     .subscribe(
+      (data: any) => {
+        console.log(data);
+        this.pageSettings.setTotalRecords(data.count);
         this.data.next(data.data);
       },
       err => { console.log(err) }

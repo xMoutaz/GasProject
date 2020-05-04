@@ -98,9 +98,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: LoaderInterceptor, 
       multi: true
     },
-    {provide: HTTP_INTERCEPTORS,
-      useClass: AppHttpInterceptor,
-      multi: true}
+    // {provide: HTTP_INTERCEPTORS,
+    //   useClass: AppHttpInterceptor,
+    //   multi: true}
     ],
   bootstrap: [AppComponent],
   entryComponents: [ActionMenuComponent]

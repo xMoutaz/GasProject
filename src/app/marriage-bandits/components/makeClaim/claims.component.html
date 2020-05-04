@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Pictures</label>
-                            <input type="file"  name="pictures" formControlName="pictures" class="form-control"/>
+                            <input type="file"  name="pictures" formControlName="pictures" (change)="selectImage($event, 'offender')" class="form-control"/>
                         </div>
                     </div>
                     <div class="row">
@@ -130,7 +130,7 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="control-label">Proof to support claim</label>
-                                <input type="file"  name="supportingProof" formControlName="supportingProof" class="form-control"/>
+                                <input type="file"  name="supportingProof" formControlName="supportingProof" (change)="selectImage($event, 'claim')" class="form-control"/>
                             </div>
                         </div>
                         <div class="row">
