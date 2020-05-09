@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="container">
-      <app-claim-menu></app-claim-menu>
+
       <div class="panel panel-default">
         <div class="panel-body">
             <h4>Make Claim</h4>
@@ -124,6 +124,41 @@
                     </div>
                 </form>
                 </mat-step>
+                <mat-step [stepControl]="witnessFormGroup">
+                    <form>
+                        <ng-template matStepLabel>Witness information</ng-template>
+                        <div class="row">
+                            <div class="form-group col-md-4 required">
+                                <label class="control-label">First Name</label>
+                                <input type="text" name="firstName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4 required">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" name="lastName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Email Address</label>
+                                <input type="text" name="emailAddress"  class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Phone Number</label>
+                                <input type="text" name="phoneNumber" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" matStepperPrevious>Back</button>
+                                <button class="btn btn-primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </form>
+                    </mat-step>
                 <mat-step [stepControl]="thirdFormGroup">
                     <form [formGroup]="thirdFormGroup">
                         <ng-template matStepLabel>Fill out details</ng-template>

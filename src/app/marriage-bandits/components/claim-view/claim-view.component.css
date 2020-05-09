@@ -49,3 +49,16 @@ label{
     display: inline-block;
     width: 450px;
 }
+
+.calenderControl{
+    display: none;
+}
+
+.editState .calenderControl{
+    display: inline-block;
+    width:450px;
+}
+
+.editState .list-group .calenderControl input{
+    width: 400px;
+} 

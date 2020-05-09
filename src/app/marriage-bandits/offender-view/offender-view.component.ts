@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OffendersService } from '../services/offenders.service';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-offender-view',
@@ -14,7 +15,7 @@ export class OffenderViewComponent implements OnInit {
   offenderId:string;
   offender$:Observable<any>;
 
-  constructor(private route: ActivatedRoute, private offenderSerivce: OffendersService) { 
+  constructor(private route: ActivatedRoute, private offenderSerivce: OffendersService, private _location: Location) { 
     this.offenderId = this.route.snapshot.paramMap.get('id');
   }
 
@@ -22,6 +23,10 @@ export class OffenderViewComponent implements OnInit {
     this.offender$ = this.offenderSerivce.getOffender(this.offenderId).pipe(
       filter(resp => !!resp),
       map(resp => resp['data']));
+  }
+
+  backButton() {
+    this._location.back();
   }
 
 }

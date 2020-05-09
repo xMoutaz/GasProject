@@ -17,6 +17,7 @@ export class MakeClaimComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  witnessFormGroup: FormGroup;
   claim: Claim = {claimant_id: '', offender_id: '', evidence: null, dateOfEntry: new Date(), extraDetails: ''};
   
   constructor(private claimsService: ClaimsService,private _formBuilder: FormBuilder, private router: Router,
@@ -45,6 +46,7 @@ export class MakeClaimComponent implements OnInit {
       supportingProof: [''],
       evidence: ''
     });
+    this.witnessFormGroup = this._formBuilder.group({});
   }
 
   submitClaim() {

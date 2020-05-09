@@ -62,7 +62,6 @@
                         </li>
                       </ul>
                     </form>
-   
                 </div>
                 <div class="col-md-6">
                     <form #c="ngForm" (ngSubmit)="onSubmit('claimant')" [ngClass]="{'editState':editState.claimant}">
@@ -101,6 +100,11 @@
                             </li>
                         </ul>
                     </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default pull-right">Contact Claimant</button>
+                        </div>
+                    </div>
                     <form  (ngSubmit)="onSubmit('claim')"  [ngClass]="{'editState':editState.claim}">
                         <ul class="list-group" *ngIf="claim.claim">
                             <li class="list-group-item  panel-heading">
@@ -135,6 +139,7 @@
                 <div class="col-md-12">
                     <button class="btn btn-default pull-left" (click)="backButton()">Back</button>
                     <button class="btn btn-primary pull-right" (click)="verifyButton()">Verify</button>
+                    <button class="btn btn-default pull-right" (click)="verifyButton()">Reject</button>
                 </div>
             </div>
         </div>

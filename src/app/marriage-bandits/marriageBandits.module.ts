@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ClaimMenuComponent } from './components/claim-menu/claim-menu.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { OffenderViewComponent } from './offender-view/offender-view.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OffenderViewComponent } from './offender-view/offender-view.component';
     MatNativeDateModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   exports: [
     RouterModule,
