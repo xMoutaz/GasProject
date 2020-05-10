@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class RegistrationComponent implements OnInit {
   newUser = new User();
 
-  constructor(private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   tryRegister(newUser) {
     this.auth.signup(newUser);
@@ -19,12 +20,12 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-  googleLogin() {
-    this.auth.googlelogin();
-  }
-
   facebookLogin() {
     this.auth.facebookLogin();
+  }
+
+  googleLogin() {
+    this.auth.googlelogin();
   }
 
 }

@@ -36,6 +36,6 @@ export class HomeComponent implements OnInit {
 
   testAuth() {
     console.log(this.auth.getJwtToken());
-   this.mbS.testUser().subscribe(data => console.log(data));
+  //  this.mbS.testUser().subscribe(data => console.log(data));
   }
 }

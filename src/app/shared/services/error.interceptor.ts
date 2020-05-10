@@ -21,7 +21,7 @@ export class ErrorIntercept implements HttpInterceptor {
           if ([500, 404, 403, 0].indexOf(response.status) != -1 ) {
             let errorCode = ""
              if(response.error && response.error.error){
-              errorCode = response.error.error.code;
+              errorCode = response.error.error.message;
             }
             const transSub = this.translate.get(["unexpectedServerError", "errorReferenceCodeExplanation"]).subscribe((trans) => {
               this.statusMessageService.SetMessage(new MessageStatus(MessageType.Error, "", [trans.unexpectedServerError + ": " + response.status,

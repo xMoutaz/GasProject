@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap, tap, filter } from 'rxjs/operators';
 import { Address } from 'src/app/shared/models/address';
-import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
+import { User } from 'src/app/marriage-bandits/models/user';
 
 @Component({
   selector: 'app-user-details',
@@ -16,26 +16,28 @@ import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 })
 export class UserDetailsComponent implements OnInit {
 
-  newUser = new User();
-  newAddress = new Address();
+  newUser: User= {_id:'', name:'', email:'', phone:'', roles:['']};
+  newAddress: Address = { _id:'',zip:'', addressLine1:'', addressLine2:'', longitude:'', latitude:''}
 
   constructor(private store: Store<AppState>,private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.auth.appUser$.pipe(
-      filter(data => !!data),
-      tap(data => {
-        this.store.dispatch(new SelectCurrentUserInfo(data));
-         this.newUser = data;}),
-      switchMap(data =>
-        this.mDBAddressService.get(data._id))
-    ).subscribe(
-      (data: any) => {
-        this.newAddress = data;
-      },
-      err => { console.log(err) }
-    );
+    // this.auth.appUser$.pipe(
+    //   filter(data => !!data),
+    //   tap(data => { 
+    //     debugger;
+    //     this.newUser = data;
+    //     this.newAddress._id = data._id
+    //   }),
+    //   switchMap(data => this.mDBAddressService.get(data._id))
+    // ).pipe(filter(data => !!data)).subscribe(
+    //   (data: any) => {
+    //     debugger;
+    //     this.newAddress = data;
+    //   },
+    //   err => { console.log(err) }
+    // );
   }
 
   addUserInfo() {

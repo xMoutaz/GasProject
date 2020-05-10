@@ -16,8 +16,8 @@ export class AppComponent {
 
   constructor(private store: Store<AppState>, public auth: AuthService) {
     this.auth.appUser$
-    .subscribe((data) =>{
-          this.store.dispatch(new SelectCurrentUserInfo(data))
+    .subscribe((data: any) =>{
+          this.store.dispatch(new SelectCurrentUserInfo(data.data.user))
     });
   }
 }

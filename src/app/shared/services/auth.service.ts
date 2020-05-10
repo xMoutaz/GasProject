@@ -16,6 +16,8 @@ import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 import { MarriageBanditsUserService } from './Mongodb/marriage-bandits-user.service';
 import * as jwt from 'jsonwebtoken';
+import { database } from 'firebase-functions/lib/providers/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,99 +27,88 @@ export class AuthService {
   userMDB: User;
   signedUpUser: User= new User();
   signedUpAddress: Address = new Address();
-  token: Observable<any>;
+  token: string;
   private  JWT_TOKEN = 'JWT_TOKEN';
-
+  
   constructor(private store: Store<AppState>,private ngZone: NgZone, private statusMessageService: MessageService, private afAuth: AngularFireAuth, private router: Router,
     private userMDBService: UserMdbService, private addressMdbService: AddressMdbService, private MGBUser :MarriageBanditsUserService) {
     this.user$ = afAuth.authState;
-    this.token = afAuth.idTokenResult;
   }
-  // async signup(value) {
-  //   this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
-  //     .then(result => {
-  //       this.signedUpUser.name = value.name;
-  //       this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
-  //       this.signedUpUser.email = result.user.email;
-  //       this.userMDBService.saveUser(this.signedUpUser).pipe(
-  //         switchMap((data) => this.addressMdbService.saveAddress(this.signedUpAddress))
-  //       ).subscribe(data => this.statusMessageService.ClearMessage());
-  //       this.ngZone.run(() => this.router.navigate(['userDetails']));
-  //       { return auth; }
-  //     })
-  //     .catch(err => {
-  //       let authError = err;
-  //       let errorCode = authError.code;
-  //       let errorMessage: string = authError.message;
-  //       if (errorMessage === "auth/weak-password") {
-  //         alert("The password is too weak.");
-  //       } else {
-  //         this.statusMessageService.SetMessage(new MessageStatus(MessageType.Error, "", errorMessage))
-  //       }
-  //       console.log(err);
-  //     });
-  // }
 
   async signup(value) {
-    this.MGBUser.createUser(value).pipe(filter((data: any ) => data.success === true)).subscribe(
-      data => {
-        this.router.navigate(['/login']);
-      }
-    )}
-
-
-  // emailLogin(email: string, password: string) {
-  //   this.afAuth.auth.signInWithEmailAndPassword(email, password)
-  //     .then(value => {
-  //       this.router.navigate(['']);
-  //     })
-  //     .catch(err => {
-  //       console.log('Something went wrong:', err.message);
-  //       this.router.navigate(['signup']);
-  //     });
-  // }
-
+    this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
+      .then((result: any) => {
+        localStorage.setItem(this.JWT_TOKEN, result.user._lat);
+        this.signedUpUser.name = value.name;
+        this.signedUpUser._id= this.signedUpAddress._id = result.user.uid;
+        this.signedUpUser.email = result.user.email;
+        if(this.signedUpUser.name, this.signedUpUser._id, this.signedUpUser.email) {
+        this.MGBUser.createUser(this.signedUpUser).subscribe((data: any) => {
+          localStorage.setItem(this.JWT_TOKEN, data.data.token);
+          this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+          this.ngZone.run(() => this.router.navigate(['userDetails']))
+          console.log(data)
+        }); 
+        }
+        this.ngZone.run(() => this.router.navigate(['userDetails']));
+        // this.router.navigate(['userDetails']);
+        { return auth; }
+      })
+      .catch(err => {
+        let authError = err;
+        let errorMessage: string = authError.message;
+        this.statusMessageService.SetMessage(new MessageStatus(MessageType.Error, "", errorMessage))
+        console.log(err);
+      });
+    }
+  
   emailLogin(email: string, password: string) {
-    this.MGBUser.loginwithEmail({email, password})
-    .pipe(filter((data: any ) => data.success === true))
-    .subscribe((data: any) => { 
-        this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
-        localStorage.setItem(this.JWT_TOKEN, data.data.token); 
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((value: any) => {
+        debugger;
+        localStorage.setItem(this.JWT_TOKEN, value.user._lat);
+        this.MGBUser.getLoggedUser(value.user.uid).subscribe((data: any) =>{
+          this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+          localStorage.setItem(this.JWT_TOKEN, data.data.token);
+        });
         this.router.navigate(['']);
       })
+      .catch(err => {
+        console.log('Something went wrong:', err.message);
+        this.router.navigate(['signup']);
+      });
   }
 
   facebookLogin() {
     this.AuthLogin(new auth.FacebookAuthProvider());
   }
+
   googlelogin() {
-    this.AuthLogin(new auth.GoogleAuthProvider())
+    this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
   async AuthLogin(provider) {
-    try {
-      const result = await this.afAuth.auth.signInWithPopup(provider);
-      console.log(result.credential);
-      if (result.additionalUserInfo.isNewUser) {
-        this.signedUpUser.name = result.user.displayName;
-        this.signedUpUser._id = this.signedUpAddress._id = result.user.uid;
-        this.signedUpUser.email = result.user.email;
-
-        if (this.JWT_TOKEN && this.signedUpUser._id && this.signedUpUser.email && this.signedUpUser.name) {
-          this.userMDBService.saveUser(this.signedUpUser).pipe(switchMap(() => this.addressMdbService.saveAddress(this.signedUpAddress))).subscribe(success => {
-            this.statusMessageService.ClearMessage();
-            this.ngZone.run(() => this.router.navigate(['userDetails']));
-          });
+      this.afAuth.auth.signInWithPopup(provider).then((result: any) => {
+        localStorage.setItem(this.JWT_TOKEN, result.user._lat);
+        if (result.additionalUserInfo.isNewUser) {
+          this.MGBUser.createUser(result.user).pipe(filter((data: any) => data.success === true)).subscribe((data: any) => {
+            localStorage.setItem(this.JWT_TOKEN, data.data.token);
+            this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+            this.ngZone.run(() => this.router.navigate(['userDetails']))
+            console.log(data)
+          }); 
+              this.ngZone.run(() => this.router.navigate(['userDetails']));
         }
-      }
-      else {
-        this.ngZone.run(() => this.router.navigate(['']));
-      }
-    }
-    catch (error) {
-      console.log(error);
+        else {
+          this.MGBUser.getLoggedUser(result.user.uid).subscribe((data: any) => {
+            this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+          })
+          this.ngZone.run(() => this.router.navigate(['']));
+        }
+    }).catch (error => {
+        console.log(error);
       alert(error.message);
-    }
+      })
   }
 
 
@@ -125,7 +116,6 @@ export class AuthService {
     this.router.navigate(['']);
     localStorage.removeItem(this.JWT_TOKEN);
     this.store.dispatch(new SelectCurrentUserInfo(null));
-    // this.afAuth.auth.signOut();
   }
 
 
@@ -142,9 +132,10 @@ export class AuthService {
 
   get appUser$(): Observable<User> {
     return this.user$
-      .pipe(switchMap(user => {
+      .pipe(switchMap((user: any) => {
+        localStorage.setItem(this.JWT_TOKEN, user._lat);
         if (user) {
-          return this.userMDBService.get(user.uid);
+          return this.MGBUser.getLoggedUser(user.uid);
         }
         return of(null);
       }));
