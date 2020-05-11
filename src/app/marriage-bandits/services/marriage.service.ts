@@ -9,7 +9,7 @@ import { Marriage } from '../models/marriage';
 export class MarriageService {
 
   readonly url = "https://marriage-bandits.herokuapp.com/marriage";
-  // readonly localurl = "http://localhost:8081/marriage";
+  readonly localurl = "http://localhost:8081/marriage";
 
   constructor(private http: HttpClient) { }
 

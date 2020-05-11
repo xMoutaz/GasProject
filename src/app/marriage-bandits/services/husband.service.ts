@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class HusbandService {
 
   readonly url = "https://marriage-bandits.herokuapp.com/husband";
-  // readonly localurl = "http://localhost:8081/husband";
+  readonly localurl = "http://localhost:8081/husband";
 
   constructor(private http: HttpClient) { }
 

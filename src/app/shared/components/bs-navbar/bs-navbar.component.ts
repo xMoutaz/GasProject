@@ -69,4 +69,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.translate.use(language);
   }
 
+  viewMarriages() {
+    this.router.navigate(['viewMarriages'])
+  }
 }

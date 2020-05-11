@@ -24,6 +24,7 @@
             <button class="nameBadge" mat-mini-fab color="primary">{{btnWord}}</button>
           </a>
           <ul class="dropdown-menu">
+            <li><a (click)="viewMarriages()">View Marriages</a></li>
             <li *ngIf="appUser.roles.includes('Verifier')"><a (click)="viewClaims()">View Claims</a></li>
             <li *ngIf="appUser.roles.includes('Masjid')"><a (click)="viewOffenders()">View Offenders</a></li>
             <li *ngIf="appUser.roles.includes('Admin')"> <a (click)="manageUsers()">{{'MANAGE_USERS' | translate}}</a></li>
