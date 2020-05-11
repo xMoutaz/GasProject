@@ -17,6 +17,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ClaimMenuComponent } from './components/claim-menu/claim-menu.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { OffenderViewComponent } from './offender-view/offender-view.component';
+import { RegisterMarriageComponent } from './components/register-marriage/register-marriage.component';
+import { ViewMarriagesComponent } from './components/view-marriages/view-marriages.component';
+import { MarriageViewComponent } from './components/marriage-view/marriage-view.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +30,17 @@ import { OffenderViewComponent } from './offender-view/offender-view.component';
   ClaimViewComponent,
   ClaimConfirmationComponent,
   ClaimMenuComponent,
-  OffenderViewComponent],
+  OffenderViewComponent,
+  RegisterMarriageComponent,
+  ViewMarriagesComponent,
+  MarriageViewComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
+      { path: 'registerMarriage', component: RegisterMarriageComponent},
+      { path: 'viewMarriages', component: ViewMarriagesComponent},
+      { path: 'marriageView/:id', component: MarriageViewComponent},
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
       { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},

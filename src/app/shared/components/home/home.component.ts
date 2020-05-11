@@ -33,9 +33,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['makeClaim']);
   }
 
-
-  testAuth() {
-    console.log(this.auth.getJwtToken());
-  //  this.mbS.testUser().subscribe(data => console.log(data));
+  registerMarriage() {
+    this.router.navigate(['registerMarriage']);
   }
 }

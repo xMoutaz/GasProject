@@ -1,0 +1,145 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>Marriage Information</h4>
+            <div class="row">
+                <div class="col-md-6" [ngClass]="{'editState':editState.husband}">
+                    <form  #o="ngForm" (ngSubmit)="onSubmit('husband')">                    
+                        <ul class="list-group"  *ngIf="marriage.husband">
+                        <li class="list-group-item  panel-heading">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><i class="glyphicon glyphicon-user"></i>Husband</h5>
+                                    <a class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.husband = !editState.husband"></a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item"><label>First name</label> 
+                            <span class="readContent">{{marriage?.husband.firstName}}</span>
+                            <input type="text" class="form-control" name="firstName" [(ngModel)]="marriage?.husband.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Last name</label> 
+                            <span class="readContent">{{marriage?.husband.lastName}}</span>
+                            <input type="text" class="form-control" name="lastName" [(ngModel)]="marriage?.husband.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Address</label> 
+                            <span class="readContent">{{marriage?.husband.address}}</span>
+                            <input type="text" class="form-control" name="address" [(ngModel)]="marriage?.husband.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item"><label>Post Code</label> 
+                            <span class="readContent">{{marriage?.husband.postCode}}</span>
+                            <input type="text" class="form-control" name="postCode" [(ngModel)]="marriage?.husband.postCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item" *ngIf="!editState.husband"><label>Age</label> 
+                            <span class="readContent">{{husbandAge}}</span>
+                            <input type="text" class="form-control" name="husbandAge" [(ngModel)]="husbandAge" [ngModelOptions]="{updateOn:'submit'}"/>
+                        </li>
+                        <li class="list-group-item" *ngIf="editState.husband"><label>Date of birth</label> 
+                            <span class="readContent">{{marriage?.husband.dateOfBirth}}</span>
+                            <div class="input-group calenderControl">
+                                <input type="text" name="dateOfBirth" [(ngModel)]="marriage?.husband.dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                <span class="input-group-addon" id="basic-addon2">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker></span>
+                            </div>
+                        </li>
+                        <li class="list-group-item editBtns">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button (click)="editState.husband = !editState.husband" class="btn btn-default pull-left">Cancel</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form #c="ngForm" (ngSubmit)="onSubmit('wife')" [ngClass]="{'editState':editState.wife}">
+                        <ul class="list-group" *ngIf="marriage.wife">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-user"></i>Wife</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.wife = !editState.wife"></a>
+                                    </div>
+                                </div>                        
+                            </li>
+                            <li class="list-group-item"><label>First name</label> 
+                                <span class="readContent">{{marriage?.wife.firstName}}</span>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="marriage?.wife.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Last name</label> 
+                                <span class="readContent">{{marriage?.wife.lastName}}</span>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="marriage?.wife.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Address</label> 
+                                <span class="readContent">{{marriage?.wife.address}}</span>
+                                <input type="text" class="form-control" name="address" [(ngModel)]="marriage?.wife.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Post Code</label> 
+                                <span class="readContent">{{marriage?.wife.postCode}}</span>
+                                <input type="text" class="form-control" name="postCode" [(ngModel)]="marriage?.wife.postCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="!editState.wife"><label>Age</label> 
+                                <span class="readContent">{{wifeAge}}</span>
+                                <input type="text" class="form-control" name="wifeAge" [(ngModel)]="wifeAge" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="editState.wife"><label>Date of birth</label> 
+                                <span class="readContent">{{marriage?.wife.dateOfBirth}}</span>
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" [(ngModel)]="marriage?.wife.dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker></span>
+                                </div>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.wife = !editState.wife" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <form  (ngSubmit)="onSubmit('marriage')"  [ngClass]="{'editState':editState.marriage}">
+                         <ul class="list-group" *ngIf="marriage._id">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-paperclip"></i>Marriage details</h5>
+                                        <a class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.marriage = !editState.marriage"></a>
+                                    </div>
+                                </div>                         
+                            </li>
+                            <li class="list-group-item"><label> Mahar </label> 
+                                <span class="readContent">{{marriage?.mahr}}</span>
+                                <input type="text" class="form-control" name="mahr" [(ngModel)]="marriage.mahr" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Date Of Marriage </label> 
+                                <span class="readContent">{{marriage?.dateOfMarriage}}</span>
+                                <input type="text" class="form-control" name="dateOfMarriage" [(ngModel)]="marriage.dateOfMarriage" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.marriage = !editState.marriage" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li> 
+                        </ul> 
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
