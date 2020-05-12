@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Person } from '../models/person';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class HusbandService {
 
   readonly url = "https://marriage-bandits.herokuapp.com/husband";
-  readonly localurl = "http://localhost:8081/husband";
+  // readonly url = "http://localhost:8081/husband";
 
   constructor(private http: HttpClient) { }
 
@@ -15,4 +16,7 @@ export class HusbandService {
     return this.http.post(`${this.url}/createHusband`, husband);
   }
   
+  editHusbandInfo(husband: Person) {
+    return this.http.patch(`${this.url}/editHusband/${husband._id}`, husband);
+  }
 }

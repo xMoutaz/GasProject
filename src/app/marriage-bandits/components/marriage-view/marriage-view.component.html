@@ -54,6 +54,171 @@
                         </li>
                       </ul>
                     </form>
+                    <li class="list-group-item  panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><i class="glyphicon glyphicon-user"></i>Witnesses</h5>
+                                <a type="button" *ngIf="!viewWitnesses" class="glyphicon glyphicon-plus btn btn-primary pull-right" (click)="viewWitnesses = !viewWitnesses"></a>
+                                <a type="button" *ngIf="viewWitnesses" class="glyphicon glyphicon-minus btn btn-primary pull-right" (click)="viewWitnesses = !viewWitnesses"></a>
+                            </div>
+                        </div>                        
+                    </li>
+                    <form #c="ngForm" *ngIf="viewWitnesses" (ngSubmit)="onSubmit('witness1')" [ngClass]="{'editState':editState.witness1}">
+                        <ul class="list-group" *ngIf="marriage.witness1">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-user"></i>Witness 1</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.witness1 = !editState.witness1"></a>
+                                    </div>
+                                </div>                        
+                            </li>
+                            <li class="list-group-item"><label>First name</label> 
+                                <span class="readContent">{{marriage?.witness1.firstName}}</span>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="marriage?.witness1.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Last name</label> 
+                                <span class="readContent">{{marriage?.witness1.lastName}}</span>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="marriage?.witness1.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Address</label> 
+                                <span class="readContent">{{marriage?.witness1.address}}</span>
+                                <input type="text" class="form-control" name="address" [(ngModel)]="marriage?.witness1.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Post Code</label> 
+                                <span class="readContent">{{marriage?.witness1.postCode}}</span>
+                                <input type="text" class="form-control" name="postCode" [(ngModel)]="marriage?.witness1.postCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="!editState.witness1"><label>Age</label> 
+                                <span class="readContent">{{witness1Age}}</span>
+                                <input type="text" class="form-control" name="witness1Age" [(ngModel)]="witness1Age" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="editState.witness1"><label>Date of birth</label> 
+                                <span class="readContent">{{marriage?.witness1.dateOfBirth}}</span>
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" [(ngModel)]="marriage?.witness1.dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker></span>
+                                </div>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.wife = !editState.wife" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <form #c="ngForm" *ngIf="viewWitnesses" (ngSubmit)="onSubmit('witness2')" [ngClass]="{'editState':editState.witness2}">
+                        <ul class="list-group" *ngIf="marriage.witness2">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-user"></i>Witness 1</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.witness2 = !editState.witness2"></a>
+                                    </div>
+                                </div>                        
+                            </li>
+                            <li class="list-group-item"><label>First name</label> 
+                                <span class="readContent">{{marriage?.witness2.firstName}}</span>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="marriage?.witness2.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Last name</label> 
+                                <span class="readContent">{{marriage?.witness2.lastName}}</span>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="marriage?.witness2.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Address</label> 
+                                <span class="readContent">{{marriage?.witness2.address}}</span>
+                                <input type="text" class="form-control" name="address" [(ngModel)]="marriage?.witness2.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Post Code</label> 
+                                <span class="readContent">{{marriage?.witness2.postCode}}</span>
+                                <input type="text" class="form-control" name="postCode" [(ngModel)]="marriage?.witness2.postCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="!editState.witness2"><label>Age</label> 
+                                <span class="readContent">{{witness2Age}}</span>
+                                <input type="text" class="form-control" name="witness2Age" [(ngModel)]="witness2Age" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="editState.witness2"><label>Date of birth</label> 
+                                <span class="readContent">{{marriage?.witness2.dateOfBirth}}</span>
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" [(ngModel)]="marriage?.witness2.dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker></span>
+                                </div>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.wife = !editState.wife" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <li class="list-group-item  panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><i class="glyphicon glyphicon-user"></i>Wali</h5>
+                                <a type="button" *ngIf="!viewWali" class="glyphicon glyphicon-plus btn btn-primary pull-right" (click)="viewWali = !viewWali"></a>
+                                <a type="button" *ngIf="viewWali" class="glyphicon glyphicon-minus btn btn-primary pull-right" (click)="viewWali = !viewWali"></a>
+                            </div>
+                        </div>                        
+                    </li>
+                    <form #c="ngForm" *ngIf="viewWali" (ngSubmit)="onSubmit('witness2')" [ngClass]="{'editState':editState.witness2}">
+                        <ul class="list-group" *ngIf="marriage.witness2">
+                            <li class="list-group-item  panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><i class="glyphicon glyphicon-user"></i>Witness 1</h5>
+                                        <a type="button" class="glyphicon glyphicon-pencil btn btn-primary pull-right" (click)="editState.witness2 = !editState.witness2"></a>
+                                    </div>
+                                </div>                        
+                            </li>
+                            <li class="list-group-item"><label>First name</label> 
+                                <span class="readContent">{{marriage?.witness2.firstName}}</span>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="marriage?.witness2.firstName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Last name</label> 
+                                <span class="readContent">{{marriage?.witness2.lastName}}</span>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="marriage?.witness2.lastName" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Address</label> 
+                                <span class="readContent">{{marriage?.witness2.address}}</span>
+                                <input type="text" class="form-control" name="address" [(ngModel)]="marriage?.witness2.address" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item"><label>Post Code</label> 
+                                <span class="readContent">{{marriage?.witness2.postCode}}</span>
+                                <input type="text" class="form-control" name="postCode" [(ngModel)]="marriage?.witness2.postCode" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="!editState.witness2"><label>Age</label> 
+                                <span class="readContent">{{witness2Age}}</span>
+                                <input type="text" class="form-control" name="witness2Age" [(ngModel)]="witness2Age" [ngModelOptions]="{updateOn:'submit'}"/>
+                            </li>
+                            <li class="list-group-item" *ngIf="editState.witness2"><label>Date of birth</label> 
+                                <span class="readContent">{{marriage?.witness2.dateOfBirth}}</span>
+                                <div class="input-group calenderControl">
+                                    <input type="text" name="dateOfBirth" [(ngModel)]="marriage?.witness2.dateOfBirth" class="form-control" matInput [matDatepicker]="picker">
+                                    <span class="input-group-addon" id="basic-addon2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker></span>
+                                </div>
+                            </li>
+                            <li class="list-group-item editBtns">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button (click)="editState.wife = !editState.wife" class="btn btn-default pull-left">Cancel</button>
+                                        <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
                 <div class="col-md-6">
                     <form #c="ngForm" (ngSubmit)="onSubmit('wife')" [ngClass]="{'editState':editState.wife}">
@@ -138,6 +303,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-default pull-left" (click)="backButton()">Back</button>
+                    <button class="btn btn-primary pull-right">Print</button>
+                    <button class="btn btn-default pull-right">Add Note</button>
+                    <button class="btn btn-default pull-right">Email</button>
+                    <button class="btn btn-default pull-right">  Register Divorce  </button>
+
                 </div>
             </div>
         </div>

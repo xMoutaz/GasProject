@@ -9,7 +9,7 @@ import { Marriage } from '../models/marriage';
 export class MarriageService {
 
   readonly url = "https://marriage-bandits.herokuapp.com/marriage";
-  readonly localurl = "http://localhost:8081/marriage";
+  // readonly url = "http://localhost:8081/marriage";
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +24,11 @@ export class MarriageService {
   getMarriageInfo(marriageId) {
     return this.http.get(`${this.url}/search/MarriageView/${marriageId}`)
   }
+
+  editMarriageInfo(marriage: any) {
+    return this.http.patch(`${this.url}/editMarriage/${marriage._id}`, marriage);
+  }
+
 }
 
 export interface ViewMarriage {
