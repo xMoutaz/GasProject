@@ -20,6 +20,7 @@ import { OffenderViewComponent } from './offender-view/offender-view.component';
 import { RegisterMarriageComponent } from './components/register-marriage/register-marriage.component';
 import { ViewMarriagesComponent } from './components/view-marriages/view-marriages.component';
 import { MarriageViewComponent } from './components/marriage-view/marriage-view.component';
+import { RegisterDivorceComponent } from './components/register-divorce/register-divorce.component';
 
 @NgModule({
   declarations: [
@@ -33,12 +34,15 @@ import { MarriageViewComponent } from './components/marriage-view/marriage-view.
   OffenderViewComponent,
   RegisterMarriageComponent,
   ViewMarriagesComponent,
-  MarriageViewComponent],
+  MarriageViewComponent,
+  RegisterDivorceComponent
+  ],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
       { path: 'registerMarriage', component: RegisterMarriageComponent},
+      { path: 'registerDivorce/:id', component: RegisterDivorceComponent},
       { path: 'viewMarriages', component: ViewMarriagesComponent},
       { path: 'marriageView/:id', component: MarriageViewComponent},
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},

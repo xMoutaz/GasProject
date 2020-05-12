@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MarriageService } from '../../services/marriage.service';
 import { filter } from 'rxjs/operators';
 import { Route } from '@angular/compiler/src/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HusbandService } from '../../services/husband.service';
 import { WifeService } from '../../services/wife.service';
@@ -15,7 +15,6 @@ import { WitnessService } from '../../services/witness.service';
 })
 export class MarriageViewComponent implements OnInit {
   
-  marriageId:string;
   husbandAge: number;
   wifeAge: number;
   witness1Age: number;
@@ -38,12 +37,13 @@ export class MarriageViewComponent implements OnInit {
   
 
   constructor(private marriageService: MarriageService, private route: ActivatedRoute, private _location: Location,
-    private husbandService: HusbandService, private wifeService: WifeService, private witnessService: WitnessService) { 
-    this.marriageId = this.route.snapshot.paramMap.get('id');
+    private husbandService: HusbandService, private wifeService: WifeService, private witnessService: WitnessService,
+    private router: Router) { 
+    this.marriage._id = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    this.marriageService.getMarriageInfo(this.marriageId).pipe(filter((data:any) => !!data.success))
+    this.marriageService.getMarriageInfo(this.marriage._id).pipe(filter((data:any) => !!data.success))
     .subscribe((data: any) => {
       console.log(data);
       this.marriage = data.data[0];
@@ -81,5 +81,9 @@ export class MarriageViewComponent implements OnInit {
 
   backButton() {
     this._location.back();
+  }
+
+  registerDivorce() {
+    this.router.navigate([`registerDivorce/${this.marriage._id}`])
   }
 }
