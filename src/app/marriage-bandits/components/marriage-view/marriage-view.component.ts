@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { HusbandService } from '../../services/husband.service';
 import { WifeService } from '../../services/wife.service';
 import { WitnessService } from '../../services/witness.service';
+import * as moment from 'moment-mini';
 
 @Component({
   selector: 'app-marriage-view',
@@ -29,10 +30,10 @@ export class MarriageViewComponent implements OnInit {
     marriage:false
   };
   marriage= {_id:'', mahr:'', institution: '', dateOfMarriage: '',
-  husband: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:''},
-  wife: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:''},
-  witness1: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:''},
-  witness2: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:''}
+  husband: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:'', isFlagged: false},
+  wife: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:'', isFlagged: false},
+  witness1: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:'', isFlagged: false},
+  witness2: {_id: '', firstName: '', lastName: '', address: '', postCode: '', dateOfBirth: '', identificationId:'', isFlagged: false}
   };
   
 
@@ -53,6 +54,10 @@ export class MarriageViewComponent implements OnInit {
       this.witness2Age = Math.floor(Math.abs(Date.now() - new Date(data.data[0].witness2.dateOfBirth).getTime())/(1000 * 3600 * 24) / 365.25);      
       console.log(this.marriage);
     });
+  }
+
+  dateFormat(date) {
+    return moment(date).format("DD/MM/YYYY");
   }
 
   onSubmit(entity){

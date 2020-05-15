@@ -21,6 +21,11 @@ import { RegisterMarriageComponent } from './components/register-marriage/regist
 import { ViewMarriagesComponent } from './components/view-marriages/view-marriages.component';
 import { MarriageViewComponent } from './components/marriage-view/marriage-view.component';
 import { RegisterDivorceComponent } from './components/register-divorce/register-divorce.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { PartnerViewComponent } from './components/partner-view/partner-view.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { ViewPartnerComponent } from './components/view-partner/view-partner.component';
 
 @NgModule({
   declarations: [
@@ -35,15 +40,19 @@ import { RegisterDivorceComponent } from './components/register-divorce/register
   RegisterMarriageComponent,
   ViewMarriagesComponent,
   MarriageViewComponent,
-  RegisterDivorceComponent
+  RegisterDivorceComponent,
+  PartnerViewComponent,
+  ViewPartnerComponent
   ],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
-      { path: 'registerMarriage', component: RegisterMarriageComponent},
-      { path: 'registerDivorce/:id', component: RegisterDivorceComponent},
-      { path: 'viewMarriages', component: ViewMarriagesComponent},
+      { path: 'registerMarriage', component: RegisterMarriageComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'registerDivorce/:id', component: RegisterDivorceComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'viewParteners', component: PartnerViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'viewPartener/:id/:gender', component: ViewPartnerComponent},
+      { path: 'viewMarriages', component: ViewMarriagesComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'marriageView/:id', component: MarriageViewComponent},
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
       { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
@@ -56,7 +65,10 @@ import { RegisterDivorceComponent } from './components/register-divorce/register
     MatNativeDateModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatIconModule,
+    MatMenuModule,
+    MatRadioModule
   ],
   exports: [
     RouterModule,

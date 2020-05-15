@@ -72,4 +72,8 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   viewMarriages() {
     this.router.navigate(['viewMarriages'])
   }
+
+  viewParteners() {
+    this.router.navigate(['viewParteners']);
+  }
 }

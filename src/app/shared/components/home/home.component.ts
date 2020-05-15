@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MarriageBanditsUserService } from '../../services/Mongodb/marriage-bandits-user.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/marriage-bandits/models/user';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  appUser: any;
+  appUser: User;
 
   constructor(private auth: AuthService, private mbS : MarriageBanditsUserService, private router: Router, private store: Store<AppState>) { }
 

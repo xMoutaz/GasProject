@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person';
 import { Marriage } from '../models/marriage';
+import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class MarriageService {
   constructor(private http: HttpClient) { }
 
   registerMarriage(marriageInfo) {
-    return this.http.post(`${this.url}/createMarriage`, marriageInfo);
+    return this.http.post<ApiResponse<Marriage>>(`${this.url}/createMarriage`, marriageInfo);
   }
 
-  getMarriages(pg, pgS, searchedHusband: Person, searchedWife: Person, searchedMarriage: Marriage) {
-    return this.http.get(`${this.url}/search/viewMarriage?pg=${pg}&pgS=${pgS}&husbandFirstName=${searchedHusband.firstName}&husbandLastName=${searchedHusband.lastName}&wifeFirstName=${searchedWife.firstName}&wifeLastName=${searchedWife.lastName}&marriageDate=${searchedMarriage.dateOfMarriage}`)
+  getMarriages(pg, pgS, searchedHusband: Person, searchedWife: Person, searchedMarriage: Marriage, institustion: string) {        
+    return this.http.get(`${this.url}/search/viewMarriage?pg=${pg}&pgS=${pgS}&husbandFirstName=${searchedHusband.firstName}&husbandLastName=${searchedHusband.lastName}&wifeFirstName=${searchedWife.firstName}&wifeLastName=${searchedWife.lastName}&marriageDate=${searchedMarriage.dateOfMarriage}&_id=${institustion}`)
   }
 
   getMarriageInfo(marriageId) {

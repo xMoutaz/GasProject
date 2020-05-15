@@ -4,6 +4,7 @@ export interface User{
     email:string;
     phone:string;
     roles:[string];
+    institution: string;
 }
 export interface Roles {
     claimnt?: boolean;

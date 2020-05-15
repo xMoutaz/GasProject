@@ -9,6 +9,9 @@ import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Colum
 import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
 import { MarriageService } from '../../services/marriage.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/models/app-state-models';
+import * as moment from 'moment-mini';
 
 @Component({
   selector: 'app-view-marriages',
@@ -21,16 +24,18 @@ export class ViewMarriagesComponent implements OnInit {
   generalSettings = new GeneralSettings();
   colDefinitions: Array<ColumnDefs>;
   data = new BehaviorSubject<Array<any>>([]);
+  institution_id: string;
   searchedHusband: Person = { _id:'', firstName:'', lastName:'',  address:'', dateOfBirth:'', postCode: '', identificationId: ''};
   searchedWife: Person = { _id:'', firstName:'', lastName:'',  address:'', dateOfBirth:'', postCode: '', identificationId: ''};
-  searchedMarriage: Marriage = { _id: '', mahr: '', dateOfMarriage: '', institution: '',husbandId: '', wifeId: '', witness1Id: '', witness2Id: '' }
-
-  constructor(private marriageService: MarriageService, private router: Router) { 
+  searchedMarriage: Marriage = { _id: '', mahr: '', dateOfMarriage: '', institution_id: '',husbandId: '', wifeId: '', witness1Id: '', witness2Id: '' }
+  
+  constructor(private marriageService: MarriageService, private router: Router, private store: Store<AppState>) { 
     this.setUpColumnDefintion();
     this.setUppageSettings();
   }
 
   ngOnInit(): void {
+    this.store.select(store => store.User.user).subscribe(data => this.institution_id = data._id);
     this.onPageChange();
   }
 
@@ -58,13 +63,9 @@ export class ViewMarriagesComponent implements OnInit {
         key: 'dateOfMarriage',
         className: 'data_grid_center_align',
         header: 'Date of Nikkah',
-        responsivePriority: true
-      },
-      {
-        key: 'institution',
-        className: 'data_grid_center_align',
-        header: 'Marriage Institution',
-        responsivePriority: true
+        formatter:(data) =>{
+          return moment(data).format("DD/MM/YYYY");
+        }
       },
       {
         cellElement: (cellData, rowData, row) => {
@@ -101,7 +102,7 @@ export class ViewMarriagesComponent implements OnInit {
   onPageChange() {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
-    this.marriageService.getMarriages(pg, pgS, this.searchedHusband, this.searchedWife, this.searchedMarriage).subscribe((data:any) => {
+    this.marriageService.getMarriages(pg, pgS, this.searchedHusband, this.searchedWife, this.searchedMarriage, this.institution_id).subscribe((data:any) => {
       this.pageSettings.setTotalRecords(data.count[0].count)
       console.log(data);
       this.data.next(data.data);
@@ -111,7 +112,7 @@ export class ViewMarriagesComponent implements OnInit {
   search(){
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
-    this.marriageService.getMarriages(pg, pgS, this.searchedHusband, this.searchedWife, this.searchedMarriage).subscribe((data:any) => {
+    this.marriageService.getMarriages(pg, pgS, this.searchedHusband, this.searchedWife, this.searchedMarriage, this.institution_id).subscribe((data:any) => {
       this.pageSettings.setTotalRecords(data.count[0].count)
       this.data.next(data.data);
     });

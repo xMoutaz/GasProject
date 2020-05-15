@@ -5,7 +5,7 @@
                 <div class="jumbotron">
                     <h1>Welcome to the Islamic Support Network</h1>
                     <p>This site is dedicated to organize muslims marriage</p>
-                    <button class="btn btn-primary btn-lg" (click)="registerMarriage()"> Register Marriage</button>
+                    <button *ngIf="appUser?.roles.includes('Masjid')" class="btn btn-primary btn-lg" (click)="registerMarriage()"> Register Marriage</button>
                     <button class="btn btn-default btn-lg"> Search</button>
                     <button class="btn btn-default btn-lg pull-right" (click)="makeClaim()"> Make Claim</button>
                   </div>

@@ -16,7 +16,7 @@ import { User } from 'src/app/marriage-bandits/models/user';
 })
 export class UserDetailsComponent implements OnInit {
 
-  newUser: User= {_id:'', name:'', email:'', phone:'', roles:['']};
+  newUser: User= {_id:'', name:'', email:'', phone:'', roles:[''], institution: ''};
   newAddress: Address = { _id:'',zip:'', addressLine1:'', addressLine2:'', longitude:'', latitude:''}
 
   constructor(private store: Store<AppState>,private mDBUserService: UserMdbService, private mDBAddressService: AddressMdbService, private auth: AuthService) {
