@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Claim } from '../models/claim';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import { Offender } from '../models/offender';
+import { Claimant } from '../models/claimant';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,8 @@ export class ClaimsService {
 
   constructor(private http: HttpClient) { }
 
-  getClaims(pg, pgS) {
-    return this.http.get(`${this.url}/search/viewClaim?pg=${pg}&pgS=${pgS}`);
+  getClaims(pg, pgS, searchedOffender: Offender, searchedClaimant: Claimant) {
+    return this.http.get(`${this.url}/search/viewClaim?pg=${pg}&pgS=${pgS}&offenderFirstName=${searchedOffender.firstName}&offenderLastName=${searchedOffender.lastName}&masjid=${searchedOffender.masjid}&verified=${searchedOffender.verified}&claimantFirstName=${searchedClaimant.firstName}&claimantLastName=${searchedClaimant.lastName}&email=${searchedClaimant.emailAddress}`)
   }
   getTotalRecord() {
     return this.http.get<ApiResponse<number>>(this.url +`/search/totalrecord`)

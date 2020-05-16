@@ -1,6 +1,7 @@
 export interface Claimant{
-    id:number;
-    name:string;
-    email:string;
+    _id:string;
+    firstName:string;
+    lastName: string;
+    emailAddress:string;
     phoneNumber:string;
 }

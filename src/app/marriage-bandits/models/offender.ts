@@ -8,4 +8,5 @@ export interface Offender{
     description:string;
     masjid:string;
     verified: boolean;
+    picture?:Blob;
 }

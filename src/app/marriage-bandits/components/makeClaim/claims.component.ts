@@ -18,45 +18,80 @@ export class MakeClaimComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   witnessFormGroup: FormGroup;
-  claim: Claim = {claimant_id: '', offender_id: '', evidence: null, dateOfEntry: new Date(), extraDetails: ''};
-  
-  constructor(private claimsService: ClaimsService,private _formBuilder: FormBuilder, private router: Router,
-    private claimntServer: ClaimantService,private offenderServer: OffendersService) {}
+  claim: Claim = { claimant_id: '', offender_id: '', evidence: null, dateOfEntry: new Date(), extraDetails: '' };
+  selectedImage: any;
+  offenderformData = new FormData();
+  evidenceformData = new FormData();
+
+  constructor(private claimsService: ClaimsService, private _formBuilder: FormBuilder, private router: Router,
+    private claimntServer: ClaimantService, private offenderServer: OffendersService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      emailAddress:[''],
-      phoneNumber:['']
+      emailAddress: [''],
+      phoneNumber: ['']
     });
     this.secondFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: [''],
       alsoKnownAs: [''],
-      address:[''],
-      dateOfBirth:[''],
-      description:[''],
-      masjid:[''],
-      phoneNumber:[''],
-      pictures:['']
+      address: [''],
+      dateOfBirth: [''],
+      description: [''],
+      masjid: [''],
+      phoneNumber: [''],
+      pictures: [''],
+      file: [null],
     });
     this.thirdFormGroup = this._formBuilder.group({
       extraDetails: [''],
-      supportingProof: [''],
-      evidence: ''
+      supportingProof: ['']
     });
     this.witnessFormGroup = this._formBuilder.group({});
   }
 
-  submitClaim() {
-    this.claimntServer.createClaimnt(this.firstFormGroup.value).pipe(
-      (tap((data: any) => { this.claim.claimant_id= data.data._id})),
-      switchMap(() => this.offenderServer.createOffender(this.secondFormGroup.value)),
-      (tap((data: any) => { this.claim.extraDetails = this.thirdFormGroup.value; this.claim.offender_id = data.data._id})),
-      switchMap((data:any)=> this.claimsService.makeClaime(this.claim))
-    ).subscribe(data => {
-      this.router.navigate(["claimConfirmation"]);
-      console.log(data)});
+  selectImage(event, val) {
+    if (val === 'offender') {
+      if (event.target.files.length > 0) {
+        const file = event.target.files[0];
+        this.selectedImage = file;
+        this.offenderformData.append('myFile', this.selectedImage);
+      }
+      if (val === 'claim') {
+        if (event.target.files.length > 0) {
+          const file = event.target.files[0];
+          this.selectedImage = file;
+          this.evidenceformData.append('myFile', this.selectedImage);
+        }
+      }
+    }
   }
+
+
+
+  submitClaim() {
+    this.offenderformData.append('firstName', this.secondFormGroup.get('firstName').value);
+    this.offenderformData.append('lastName', this.secondFormGroup.get('lastName').value);
+    this.offenderformData.append('alsoKnownAs', this.secondFormGroup.get('alsoKnownAs').value);
+    this.offenderformData.append('address', this.secondFormGroup.get('address').value);
+    this.offenderformData.append('dateOfBirth', this.secondFormGroup.get('dateOfBirth').value);
+    this.offenderformData.append('description', this.secondFormGroup.get('description').value);
+    this.offenderformData.append('masjid', this.secondFormGroup.get('masjid').value);
+    this.offenderformData.append('phoneNumber', this.secondFormGroup.get('phoneNumber').value);
+    this.offenderformData.append('pictures', this.secondFormGroup.get('pictures').value);
+    this.evidenceformData.append('extraDetails', this.thirdFormGroup.get('extraDetails').value);
+    debugger;
+    this.offenderServer.createOffender(this.offenderformData).subscribe(data => console.log(data));
+  }
+  //   this.claimntServer.createClaimnt(this.firstFormGroup.value).pipe(
+  //     (tap((data: any) => { this.claim.claimant_id= data.data._id})),
+  //     switchMap(() => this.offenderServer.createOffender(this.secondFormGroup.value)),
+  //     (tap((data: any) => { this.claim.extraDetails = this.thirdFormGroup.value; this.claim.offender_id = data.data._id})),
+  //     switchMap((data:any)=> this.claimsService.makeClaime(this.claim))
+  //   ).subscribe(data => {
+  //     this.router.navigate(["claimConfirmation"]);
+  //     console.log(data)});
+  // }
 }
