@@ -1,0 +1,401 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>Register Marriage</h4>
+                <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                    <mat-step [stepControl]="HusbandFormGroup">
+                        <div *ngIf="!husbandFlagged">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button"
+                                    data-toggle="dropdown">view Spouse
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let spouse of maleSpouseInfo$ | async"
+                                        (click)="selectedSpouse('husband', spouse)"><a>{{spouse.firstName}}
+                                            {{spouse.lastName}}, {{dateFormat(spouse.dateOfBirth)}}</a></li>
+                                </ul>
+                            </div>
+                            <form [formGroup]="HusbandFormGroup">
+                                <ng-template matStepLabel>Husband</ng-template>
+                                <div class="row">
+                                    <div class="form-group col-md-4 required">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" name="firstName" formControlName="firstName"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(HusbandFormGroup.controls.firstName.touched) && HusbandFormGroup.controls.firstName.errors">
+                                            <span *ngIf="HusbandFormGroup.controls.firstName.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4 required">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" name="lastName" formControlName="lastName"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(HusbandFormGroup.controls.lastName.touched) && HusbandFormGroup.controls.lastName.errors">
+                                            <span *ngIf="HusbandFormGroup.controls.lastName.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Address</label>
+                                        <input type="text" name="address" formControlName="address"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(HusbandFormGroup.controls.address.touched) && HusbandFormGroup.controls.address.errors">
+                                            <span *ngIf="HusbandFormGroup.controls.address.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Post Code</label>
+                                        <input type="text" name="postCode" formControlName="postCode"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(HusbandFormGroup.controls.postCode.touched) && HusbandFormGroup.controls.postCode.errors">
+                                            <span *ngIf="HusbandFormGroup.controls.postCode.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Date of birth</label>
+                                        <div class="input-group calenderControl">
+                                            <input type="text" name="dateOfBirth" formControlName="dateOfBirth"
+                                                class="form-control" matInput [matDatepicker]="picker1">
+                                            <span class="input-group-addon" id="basic-addon2">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Identification</label>
+                                        <input type="file" name="husbandID" formControlName="husbandID"
+                                            (change)="selectImage($event, 'husband')" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary" (click)="createFormData('husband')"
+                                            matStepperNext>Next</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div *ngIf="husbandFlagged">
+                            <label style="color:red">Warning:- This individual has been flagged </label>
+                            <div>
+                            <textarea disabled style="margin: 0px; width: 490px; height: 183px;">{{spouseNote}}</textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-default" (click)="husbandFlagged=selectedHusband=!husbandFlagged">Back</button>
+                                <button class="btn btn-primary"matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="wifeFormGroup">
+                        <div *ngIf="!wifeFlagged">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">view
+                                    Spouse
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let spouse of femaleSpouseInfo$ | async" (click)="selectedSpouse('wife', spouse)">
+                                        <a>{{spouse.firstName}} {{spouse.lastName}}, {{dateFormat(spouse.dateOfBirth)}}</a></li>
+                                </ul>
+                            </div>
+                            <form [formGroup]="wifeFormGroup">
+                                <ng-template matStepLabel>Wife</ng-template>
+                                <div class="row">
+                                    <div class="form-group col-md-4 required">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" name="firstName" formControlName="firstName"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(wifeFormGroup.controls.firstName.touched) && wifeFormGroup.controls.firstName.errors">
+                                            <span *ngIf="wifeFormGroup.controls.firstName.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" name="lastName" formControlName="lastName"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(wifeFormGroup.controls.lastName.touched) && wifeFormGroup.controls.lastName.errors">
+                                            <span *ngIf="wifeFormGroup.controls.lastName.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Address</label>
+                                        <input type="text" name="address" formControlName="address" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Post Code</label>
+                                        <input type="text" name="postCode" formControlName="postCode"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="(wifeFormGroup.controls.postCode.touched) && wifeFormGroup.controls.postCode.errors">
+                                            <span *ngIf="wifeFormGroup.controls.postCode.invalid"
+                                                class="msg-error">Error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Date of birth</label>
+                                        <div class="input-group calenderControl">
+                                            <input type="text" name="dateOfBirth" formControlName="dateOfBirth"
+                                                class="form-control" matInput [matDatepicker]="picker">
+                                            <span class="input-group-addon" id="basic-addon2">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Identification</label>
+                                    <input type="file" name="wifeId" formControlName="wifeId"
+                                        (change)="selectImage($event, 'wife')" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                                    <button class="btn btn-primary" (click)="createFormData('wife')" matStepperNext>Next</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <div *ngIf="wifeFlagged">
+                            <label style="color:red">Warning:- This individual has been flagged </label>
+                            <div>
+                            <textarea disabled style="margin: 0px; width: 490px; height: 183px;">{{spouseNote}}</textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-default" (click)="wifeFlagged= selectedWife= !wifeFlagged">Back</button>
+                                <button class="btn btn-primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="witness1FormGroup">
+                        <form [formGroup]="witness1FormGroup">
+                            <ng-template matStepLabel>1st Witness</ng-template>
+                            <div class="row">
+                                <div class="form-group col-md-4 required">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" name="firstName" formControlName="firstName"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness1FormGroup.controls.firstName.touched) && witness1FormGroup.controls.firstName.errors">
+                                        <span *ngIf="witness1FormGroup.controls.firstName.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" name="lastName" formControlName="lastName"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness1FormGroup.controls.lastName.touched) && witness1FormGroup.controls.lastName.errors">
+                                        <span *ngIf="witness1FormGroup.controls.lastName.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Address</label>
+                                    <input type="text" name="address" formControlName="address" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Post Code</label>
+                                    <input type="text" name="postCode" formControlName="postCode"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness1FormGroup.controls.postCode.touched) && witness1FormGroup.controls.postCode.errors">
+                                        <span *ngIf="witness1FormGroup.controls.postCode.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Date of birth</label>
+                                    <div class="input-group calenderControl">
+                                        <input type="text" name="dateOfBirth" formControlName="dateOfBirth"
+                                            class="form-control" matInput [matDatepicker]="picker2">
+                                        <span class="input-group-addon" id="basic-addon2">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Identification</label>
+                                    <input type="file" name="witnessId" formControlName="witnessId"
+                                        (change)="selectImage($event, 'witness1')" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                                    <button class="btn btn-primary" (click)="createFormData('witness1')"
+                                        matStepperNext>Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="witness2FormGroup">
+                        <form [formGroup]="witness2FormGroup">
+                            <ng-template matStepLabel>2nd Witness</ng-template>
+                            <div class="row">
+                                <div class="form-group col-md-4 required">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" name="firstName" formControlName="firstName"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness2FormGroup.controls.firstName.touched) && witness2FormGroup.controls.firstName.errors">
+                                        <span *ngIf="witness2FormGroup.controls.firstName.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" name="lastName" formControlName="lastName"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness2FormGroup.controls.lastName.touched) && witness2FormGroup.controls.lastName.errors">
+                                        <span *ngIf="witness2FormGroup.controls.lastName.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Address</label>
+                                    <input type="text" name="address" formControlName="address" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Post Code</label>
+                                    <input type="text" name="postCode" formControlName="postCode"
+                                        class="form-control" />
+                                    <div
+                                        *ngIf="(witness2FormGroup.controls.postCode.touched) && witness2FormGroup.controls.postCode.errors">
+                                        <span *ngIf="witness2FormGroup.controls.postCode.invalid"
+                                            class="msg-error">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Date of Birth</label>
+                                    <div class="input-group calenderControl">
+                                        <input type="text" name="dateOfBirth" formControlName="dateOfBirth"
+                                            class="form-control" matInput [matDatepicker]="picker3">
+                                        <span class="input-group-addon" id="basic-addon2">
+                                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker3></mat-datepicker>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Identification</label>
+                                    <input type="file" name="witnessId" formControlName="witnessId"
+                                        (change)="selectImage($event, 'witness2')" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                                    <button class="btn btn-primary" (click)="createFormData('witness2')"
+                                        matStepperNext>Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="marriageFormGroup">
+                        <form [formGroup]="marriageFormGroup">
+                            <ng-template matStepLabel>Details</ng-template>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Date of Nikkah</label>
+                                    <div class="input-group calenderControl">
+                                        <input type="text" name="dateOfNikkah" formControlName="dateOfNikkah"
+                                            class="form-control" matInput [matDatepicker]="picker4">
+                                        <span class="input-group-addon" id="basic-addon2">
+                                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker4></mat-datepicker>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">Mahr</label>
+                                    <input type="text" name="mahr" formControlName="mahr" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                                    <button class="btn btn-primary" (click)="createFormData('marriage')"
+                                        matStepperNext>Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>Your claim is complete please press submit button to submit information, or press back to
+                            adjust claim </p>
+                        <div>
+                            <button class="btn btn-default" matStepperPrevious>Back</button>
+                            <button class="btn btn-primary" (click)="registerMarriage()">Submit</button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</div>

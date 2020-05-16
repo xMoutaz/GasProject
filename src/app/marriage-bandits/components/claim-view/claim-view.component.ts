@@ -78,9 +78,8 @@ export class ClaimViewComponent implements OnInit {
     if(entity == 'claimant'){this.claimantService.editClaimantInfo(this.claim.claimant).subscribe(data=> console.log(data)); }
   }
 
-  
-
   backButton(){
     this._location.back();
   }
+  
 }

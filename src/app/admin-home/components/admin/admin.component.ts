@@ -31,7 +31,7 @@ export class AdminComponent {
   userAddressInfo = new Address();
   name: string;
   id: string;
-  searchedUser: User = {_id:'', name:'', email:'', phone:'', roles:['']}
+  searchedUser: User = {_id:'', name:'', email:'', phone:'', roles:[''], institution: ''}
   pageSettings: PageSettings;
   generalSettings = new GeneralSettings();
   expansionSettings: ExpansionSettings;

@@ -18,6 +18,15 @@ import { ClaimMenuComponent } from './components/claim-menu/claim-menu.component
 import {MatBadgeModule} from '@angular/material/badge';
 import { OffenderViewComponent } from './offender-view/offender-view.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { RegisterMarriageComponent } from './components/register-marriage/register-marriage.component';
+import { ViewMarriagesComponent } from './components/view-marriages/view-marriages.component';
+import { MarriageViewComponent } from './components/marriage-view/marriage-view.component';
+import { RegisterDivorceComponent } from './components/register-divorce/register-divorce.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { PartnerViewComponent } from './components/partner-view/partner-view.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { ViewPartnerComponent } from './components/view-partner/view-partner.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +37,24 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ClaimViewComponent,
   ClaimConfirmationComponent,
   ClaimMenuComponent,
-  OffenderViewComponent],
+  OffenderViewComponent,
+  RegisterMarriageComponent,
+  ViewMarriagesComponent,
+  MarriageViewComponent,
+  RegisterDivorceComponent,
+  PartnerViewComponent,
+  ViewPartnerComponent
+  ],
   imports: [
     SharedModule,
     RouterModule.forChild([
       { path: 'makeClaim', component: MakeClaimComponent},
+      { path: 'registerMarriage', component: RegisterMarriageComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'registerDivorce/:id', component: RegisterDivorceComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'viewParteners', component: PartnerViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'viewPartener/:id/:gender', component: ViewPartnerComponent},
+      { path: 'viewMarriages', component: ViewMarriagesComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
+      { path: 'marriageView/:id', component: MarriageViewComponent},
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
       { path: 'viewOffenders', component: ViewOffendersComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'claimView/:id', component: ClaimViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},
@@ -45,7 +67,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSlideToggleModule,
     MatCheckboxModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule,
+    MatMenuModule,
+    MatRadioModule
   ],
   exports: [
     RouterModule,

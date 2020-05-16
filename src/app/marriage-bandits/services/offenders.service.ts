@@ -30,7 +30,7 @@ export class OffendersService {
 
   createOffender( pic): Observable<Offender> {
     debugger;
-     return this.http.post<Offender>(`http://localhost:8081/offenders/createOffender`, pic);
+     return this.http.post<Offender>(`${this.url}/createOffender`, pic);
   }
 
   editOffenderInfo(offender) {

@@ -15,27 +15,27 @@ import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LanguageEffects } from 'src/app/state/language.effects';
 import { environment } from 'src/environments/environment.prod';
 import { TranslateHttpLoader } from 'src/lib/http-loader';
 import { AdminHomeModule } from './admin-home/admin-home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
-import { ErrorIntercept } from './shared/services/error.interceptor';
-import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
-import { SharedModule } from './shared/shared.module';
-import { LanguageEffects } from 'src/app/state/language.effects';
 import { ActionMenuComponent } from './components/controls/action-menu/action-menu.component';
 import { ConfirmationBoxComponent } from './components/controls/confirmation-box/confirmation-box.component';
 import { GpfiModalComponent } from './components/controls/gpfi-modal/gpfi-modal.component';
-import { MessageService } from './shared/services/message.service';
 import { MessageComponent } from './components/controls/message/message.component';
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
 import { MarriageBanditsModule } from './marriage-bandits/marriageBandits.module';
+import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
+import { ErrorIntercept } from './shared/services/error.interceptor';
+import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
+import { MessageService } from './shared/services/message.service';
+import { SharedModule } from './shared/shared.module';
 import { AppHttpInterceptor } from './shared/services/auth-guard.service';
-
+ 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -98,9 +98,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: LoaderInterceptor, 
       multi: true
     },
-    // {provide: HTTP_INTERCEPTORS,
-    //   useClass: AppHttpInterceptor,
-    //   multi: true}
+    {provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptor,
+      multi: true}
     ],
   bootstrap: [AppComponent],
   entryComponents: [ActionMenuComponent]
