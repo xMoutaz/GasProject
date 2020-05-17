@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WifeService {
 
-  readonly url = "https://marriage-bandits.herokuapp.com/wife";
-  // readonly url = "http://localhost:8081/wife";
+  readonly url = `${environment.baseUrl}/wife`;
 
   constructor(private http: HttpClient) { }
 

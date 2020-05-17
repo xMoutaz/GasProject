@@ -35,7 +35,7 @@ import { LoaderInterceptor, LoaderService } from './shared/services/loader.servi
 import { MessageService } from './shared/services/message.service';
 import { SharedModule } from './shared/shared.module';
 import { AppHttpInterceptor } from './shared/services/auth-guard.service';
- 
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OverlayComponent,
     ConfirmationBoxComponent,
     OperationButtonsComponent
-    ],
+  ],
   imports: [
     SharedModule,
     AdminHomeModule,
@@ -84,25 +84,30 @@ export function HttpLoaderFactory(http: HttpClient) {
       logOnly: environment.production
     }),
     MatProgressSpinnerModule,
-    MatDialogModule    
+    MatDialogModule
   ],
-  providers: 
-  [ 
-    MessageService, ErrorIntercept, 
-    { provide: HTTP_INTERCEPTORS,
-      useClass: ErrorIntercept,
-      multi: true
-  },
-    LoaderService, LoaderInterceptor,
-    { provide: HTTP_INTERCEPTORS, 
-      useClass: LoaderInterceptor, 
-      multi: true
-    },
-    {provide: HTTP_INTERCEPTORS,
-      useClass: AppHttpInterceptor,
-      multi: true}
+  providers:
+    [
+      MessageService, ErrorIntercept,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorIntercept,
+        multi: true
+      },
+      LoaderService, LoaderInterceptor,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: LoaderInterceptor,
+        multi: true
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AppHttpInterceptor,
+        multi: true
+      }
     ],
   bootstrap: [AppComponent],
   entryComponents: [ActionMenuComponent]
 })
+
 export class AppModule { }

@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 import { Offender } from '../models/offender';
 import { Claimant } from '../models/claimant';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimsService {
-  readonly url = 'https://marriage-bandits.herokuapp.com/claims';
+  readonly url = `${environment.baseUrl}/claims`;
 
   constructor(private http: HttpClient) { }
 

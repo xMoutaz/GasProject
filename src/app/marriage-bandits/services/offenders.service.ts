@@ -4,12 +4,13 @@ import { Offender } from '../models/offender';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 import { User } from 'src/app/shared/models/user';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OffendersService {
-  readonly url = 'https://marriage-bandits.herokuapp.com/offenders';
+  readonly url = `${environment.baseUrl}/offenders`;
 
   constructor(private http: HttpClient) { }
 

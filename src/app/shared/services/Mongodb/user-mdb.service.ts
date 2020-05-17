@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { throwError, Observable } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ApiResponse } from './api-response';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserMdbService {
   
   selectedUser: User;
   users: User[];
-  readonly baseURL = 'https://marriage-bandits.herokuapp.com/users';
+  readonly baseURL = `${environment.baseUrl}/users`;
   commingUser: User;
 
   constructor(private http: HttpClient, private router: Router) { }
