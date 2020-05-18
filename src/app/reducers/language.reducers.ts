@@ -5,7 +5,7 @@ import * as fromRouter from '@ngrx/router-store';
 import { Params, RouterStateSnapshot } from '@angular/router';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import { UserActions, UserActionsTypes } from '../state/user-actions';
-import { User } from '../marriage-bandits/models/user';
+import { User } from '../shared/models/user';
 
 export interface LanguageState {
   list: string[],

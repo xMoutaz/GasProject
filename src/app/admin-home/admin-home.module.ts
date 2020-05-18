@@ -7,12 +7,13 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { EditWordComponent } from './components/edit-word/edit-word.component';
 import { NavpillComponent } from './components/navpill/navpill.component';
 import { UserDetailsComponent } from '../shared/components/user-details/user-details.component';
-import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { AdminHomeComponent } from './admin-home.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuardService, RoleGaurdService } from '../shared/services/auth-guard.service';
 import { AdminAddNewLanguageComponent } from './components/admin-add-new-language/admin-add-new-language.component';
 import { AddWordComponent } from './components/add-word/add-word.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PrivilegeComponent } from './components/privilege/privilege.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +25,13 @@ import { AddWordComponent } from './components/add-word/add-word.component';
     UserDetailsComponent,
     AdminHomeComponent,
     AdminAddNewLanguageComponent,
-    AddWordComponent
+    AddWordComponent,
+    PrivilegeComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
-    
+    MatSlideToggleModule,
     RouterModule.forRoot([
       { 
         path: 'admin', 
@@ -61,7 +63,6 @@ import { AddWordComponent } from './components/add-word/add-word.component';
     UserDetailsComponent
   ],
   providers: [
-    AdminAuthGuardService,
     AuthGuardService,
     RoleGaurdService
   ],

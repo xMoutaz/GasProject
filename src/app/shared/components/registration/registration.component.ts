@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  newUser = new User();
+  newUser: User;
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 

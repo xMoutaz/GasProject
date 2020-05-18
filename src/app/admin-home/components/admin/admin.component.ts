@@ -1,23 +1,20 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { concatMap, mergeMap, filter, switchMap, tap } from 'rxjs/operators';
-import { Address } from 'src/app/shared/models/address';
-import { AddressMdbService } from 'src/app/shared/services/Mongodb/address-mdb.service';
-import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
-import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
-import * as $ from 'jquery';
-import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
-import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
-import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
-import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
-import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
-import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
-import { PrivilegeComponent } from 'src/app/marriage-bandits/components/privilege/privilege.component';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
+import { ActionButton, ActionMenuComponent } from 'src/app/components/controls/action-menu/action-menu.component';
+import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
+import { ExpansionSettings } from 'src/app/components/controls/data-table/classes/Expansion';
+import { GeneralSettings } from 'src/app/components/controls/data-table/classes/General';
+import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
+import { Address } from 'src/app/shared/models/address';
+import { User } from 'src/app/shared/models/user';
+import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import { UserMdbService } from 'src/app/shared/services/Mongodb/user-mdb.service';
 import { AppState } from 'src/app/state/models/app-state-models';
-import { User } from 'src/app/marriage-bandits/models/user';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
+import { PrivilegeComponent } from '../privilege/privilege.component';
 
 @Component({
   selector: 'app-admin',

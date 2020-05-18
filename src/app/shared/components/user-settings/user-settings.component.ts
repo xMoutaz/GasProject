@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
-import { User } from 'src/app/marriage-bandits/models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-settings',

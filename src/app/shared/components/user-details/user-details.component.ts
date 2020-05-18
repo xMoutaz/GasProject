@@ -7,7 +7,7 @@ import { AddressMdbService } from '../../services/Mongodb/address-mdb.service';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
-import { User } from 'src/app/marriage-bandits/models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-details',

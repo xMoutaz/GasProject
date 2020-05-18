@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="jumbotron">
-                    <h1>Welcome to the Islamic Support Network</h1>
-                    <p>This site is dedicated to organize muslims marriage</p>
-                    <button *ngIf="appUser?.roles.includes('Masjid')" class="btn btn-primary btn-lg" (click)="registerMarriage()"> Register Marriage</button>
-                    <button class="btn btn-default btn-lg"> Search</button>
-                    <button class="btn btn-default btn-lg pull-right" (click)="makeClaim()"> Make Claim</button>
+                    <h1>Welcome to the Home Page ...</h1>
+                    <p>This site is dedicated to ....</p>
+                    <button *ngIf="appUser?.roles.includes('Admin')" class="btn btn-primary btn-lg" (click)="registerMarriage()"> Admin Privilege</button>
+                    <button *ngIf="appUser?.roles.includes('test1')" class="btn btn-primary btn-lg" (click)="navigateTest1()"> test1 Privilege</button>
+                    <button *ngIf="appUser?.roles.includes('test2')" class="btn btn-primary btn-lg" (click)="navigateTest2()"> test2 Privilege</button>
                   </div>
             </div>
         </div>

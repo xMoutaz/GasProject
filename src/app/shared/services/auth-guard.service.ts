@@ -10,7 +10,6 @@ import { MessageStatus, MessageType } from 'src/app/components/controls/message/
 import { MessageService } from './message.service';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { Store } from '@ngrx/store';
-import { User } from 'src/app/marriage-bandits/models/user';
 
 @Injectable({
   providedIn: 'root'

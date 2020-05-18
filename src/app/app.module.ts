@@ -28,13 +28,13 @@ import { MessageComponent } from './components/controls/message/message.componen
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
-import { MarriageBanditsModule } from './marriage-bandits/marriageBandits.module';
 import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
 import { ErrorIntercept } from './shared/services/error.interceptor';
 import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
 import { MessageService } from './shared/services/message.service';
 import { SharedModule } from './shared/shared.module';
 import { AppHttpInterceptor } from './shared/services/auth-guard.service';
+import { testPrivilegeModule } from './test-privilege/test.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,12 +51,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ActionMenuComponent,
     OverlayComponent,
     ConfirmationBoxComponent,
-    OperationButtonsComponent
+    OperationButtonsComponent,
   ],
   imports: [
     SharedModule,
     AdminHomeModule,
-    MarriageBanditsModule,
+    testPrivilegeModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

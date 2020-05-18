@@ -1,9 +1,9 @@
-export class User {
-    public key?: string;
-    public _id?: string; // this is for MDN 
-    public name?: string;
-    public email: string;
-    public phone?: string;
-    public password?: string;
-    public isAdmin?: boolean;
+export interface User{
+    _id:string;
+    name:string;
+    email:string;
+    password?:string;
+    phone:string;
+    roles:[string];
+    institution: string;
 }

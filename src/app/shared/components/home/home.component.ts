@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MarriageBanditsUserService } from '../../services/Mongodb/marriage-bandits-user.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/marriage-bandits/models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +18,9 @@ import { User } from 'src/app/marriage-bandits/models/user';
 export class HomeComponent implements OnInit {
   appUser: User;
 
-  constructor(private auth: AuthService, private mbS : MarriageBanditsUserService, private router: Router, private store: Store<AppState>) { }
-
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   ngOnInit() {
-    // TODO: -Access user from store here and display user name in welcome message
     this.store.select(store => store.User.user)
       .pipe(filter((data) => !!data))
       .subscribe(data => {
@@ -30,11 +28,15 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  makeClaim(){
-    this.router.navigate(['makeClaim']);
+  registerMarriage() {
+    this.router.navigate(['admin']);
   }
 
-  registerMarriage() {
-    this.router.navigate(['registerMarriage']);
+  navigateTest1() {
+    this.router.navigate(['test1']);
+  }
+
+  navigateTest2() {
+    this.router.navigate(['test2']);
   }
 }
