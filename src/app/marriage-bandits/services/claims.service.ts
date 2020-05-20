@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 import { Offender } from '../models/offender';
 import { Claimant } from '../models/claimant';
-import {environment} from '../../../environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'

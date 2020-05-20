@@ -4,7 +4,7 @@ import { Offender } from '../models/offender';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
 import { User } from 'src/app/shared/models/user';
-import {environment} from '../../../environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'

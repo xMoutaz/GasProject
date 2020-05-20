@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Claimant } from '../models/claimant';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
-import {environment} from '../../../environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
