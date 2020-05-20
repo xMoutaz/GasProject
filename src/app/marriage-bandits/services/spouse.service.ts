@@ -22,9 +22,7 @@ export class SpouseService {
     return this.http.get(`${this.url}/search/searchByGender?pg=${pg}&pgS=${pgS}&FirstName=${searchedPerson.firstName}&LastName=${searchedPerson.lastName}&gender=${gender}`);
   }
 
-  getPartner(_id, gender) {
-    console.log(`${this.url}/search/searchByIdGender?_id=${_id}&gender=${gender}`);
-    
+  getPartner(_id, gender) {    
     return this.http.get(`${this.url}/search/searchByIdGender?_id=${_id}&gender=${gender}`);
   }
 

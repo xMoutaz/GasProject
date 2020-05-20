@@ -18,15 +18,16 @@ export class ViewPartnerComponent implements OnInit {
   gender: string;
   partner$ = new Observable<any>();
   partnerInformation:any = {};
-  
+  isFlagged: boolean = false;
+
   constructor(private route: ActivatedRoute, private spoucseService: SpouseService, private _location: Location) {
-    debugger;
     this.partner_id = this.route.snapshot.queryParams._id;
     this.gender = this.route.snapshot.queryParams.gender;
     this.partnerInformation =  this.route.snapshot.queryParams;
+    this.isFlagged =  Boolean(JSON.parse(this.route.snapshot.queryParams.isFlagged));
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
    this.partner$ =  this.spoucseService.getPartner(this.partner_id, this.gender).pipe(map((res: any) => res.data[0].marriages));
   }
 
