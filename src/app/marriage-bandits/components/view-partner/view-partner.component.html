@@ -1,14 +1,42 @@
-<h2>Partner Marraige details: </h2>                
-<table>
-    <tr>
-      <th>Date of Marriage</th>
-      <th>Date of Divorce</th>
-      <th>reason</th>
-    </tr>
-    <tr *ngFor="let info of partner$ | async">
-      <td>{{dateFormat(info.dateOfMarriage)}}</td>
-      <td>{{dateFormat(info.divorce[0]?.dateOfDivorce)}}</td>
-      <td>{{info.divorce[0]?.reason}}</td>
-    </tr>
-</table>
-<button type="button" class="btn btn-default pull-left" (click)="back()">Back</button>
+<h2>Partner Marraige details: </h2>  
+<div class="container-fluid">
+  <div  class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>First Name: </h3> {{partnerInformation.firstName  }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Last Name: </h3> {{partnerInformation.lastName  }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Date of Birth: </h3> {{dateFormat(partnerInformation.dateOfBirth)}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <span *ngIf="partnerInformation.isFlagged" class="glyphicon glyphicon-exclamation-sign" ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+              
+  <table>
+      <tr>
+        <th>Date of Marriage</th>
+        <th>Date of Divorce</th>
+        <th>reason</th>
+      </tr>
+      <tr *ngFor="let info of partner$ | async">
+        <td>{{dateFormat(info.dateOfMarriage)}}</td>
+        <td>{{dateFormat(info.divorce[0]?.dateOfDivorce)}}</td>
+        <td>{{info.divorce[0]?.reason}}</td>
+      </tr>
+  </table>
+  <button type="button" class="btn btn-default pull-left" (click)="back()">Back</button>
+</div>

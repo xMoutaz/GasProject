@@ -52,7 +52,7 @@ import { ViewPartnerComponent } from './components/view-partner/view-partner.com
       { path: 'registerMarriage', component: RegisterMarriageComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'registerDivorce/:id', component: RegisterDivorceComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'viewParteners', component: PartnerViewComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
-      { path: 'viewPartener/:id/:gender', component: ViewPartnerComponent},
+      { path: 'viewPartener', component: ViewPartnerComponent},
       { path: 'viewMarriages', component: ViewMarriagesComponent, canActivate: [RoleGaurdService], data: {roles: ['Masjid']}},
       { path: 'marriageView/:id', component: MarriageViewComponent},
       { path: 'viewClaims', component: ViewClaimsComponent, canActivate: [RoleGaurdService], data: {roles: ['Verifier']}},

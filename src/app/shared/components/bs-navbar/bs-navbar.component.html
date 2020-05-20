@@ -25,7 +25,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a *ngIf="appUser.roles.includes('Masjid')" (click)="viewMarriages()">View Marriages</a></li>
-            <li><a *ngIf="appUser.roles.includes('Masjid')" (click)="viewParteners()">view Parteners</a></li>
+            <li><a *ngIf="appUser.roles.includes('Masjid')" (click)="viewParteners()">view Partners</a></li>
             <li *ngIf="appUser.roles.includes('Verifier')"><a (click)="viewClaims()">View Claims</a></li>
             <li *ngIf="appUser.roles.includes('Masjid')"><a (click)="viewOffenders()">View Offenders</a></li>
             <li *ngIf="appUser.roles.includes('Admin')"> <a (click)="manageUsers()">{{'MANAGE_USERS' | translate}}</a></li>

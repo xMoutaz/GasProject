@@ -75,6 +75,17 @@ export class PartnerViewComponent implements OnInit {
         responsivePriority: true
       },
       {
+        key: 'isFlagged',
+        className: 'data_grid_center_align',
+        header:'',
+        cellElement: (cell,rowData,row,col,td) => {
+          $(td).html('');
+          if(cell){
+            $(td).append(`<span class="glyphicon glyphicon-exclamation-sign" ></span>`)
+          }
+        }
+      },
+      {
         cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
         }, className: 'data_grid_center_align', responsivePriority: true
@@ -88,7 +99,10 @@ export class PartnerViewComponent implements OnInit {
     viewPartenerInfo.label = "View All Marriages Information";
     viewPartenerInfo.data = rowData;
     viewPartenerInfo.action = (data) => {
-      this.router.navigate([`viewPartener/${data._id}/${this.gender}/`]);
+      this.router.navigate(['viewPartener'],
+        {
+          queryParams: { ...data, gender: this.gender}
+        });
     };
     menu.buttons.push(viewPartenerInfo);
     return menu;

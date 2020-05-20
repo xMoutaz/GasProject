@@ -17,11 +17,13 @@ export class ViewPartnerComponent implements OnInit {
   partner_id: string;
   gender: string;
   partner$ = new Observable<any>();
-  partner: any;
+  partnerInformation:any = {};
   
   constructor(private route: ActivatedRoute, private spoucseService: SpouseService, private _location: Location) {
-    this.partner_id = this.route.snapshot.paramMap.get('id');
-    this.gender = this.route.snapshot.paramMap.get('gender');
+    debugger;
+    this.partner_id = this.route.snapshot.queryParams._id;
+    this.gender = this.route.snapshot.queryParams.gender;
+    this.partnerInformation =  this.route.snapshot.queryParams;
    }
 
   ngOnInit(): void {

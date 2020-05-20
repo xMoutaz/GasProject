@@ -77,3 +77,8 @@ html, body { height: 100%; }
 textarea.form-control {
   height: 110px;
 }
+
+.glyphicon-exclamation-sign{
+  font-size: large;
+  color: red;
+}
