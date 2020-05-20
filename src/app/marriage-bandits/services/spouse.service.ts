@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpouseService {
-  readonly url = "https://marriage-bandits.herokuapp.com/spouse";
-  // readonly url = "http://localhost:8081/spouse";
+  readonly url = `${environment.baseUrl}/spouse`;
 
   constructor(private http: HttpClient) { }
 

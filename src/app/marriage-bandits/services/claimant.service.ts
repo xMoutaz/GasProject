@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Claimant } from '../models/claimant';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimantService {
 
-  readonly url = 'https://marriage-bandits.herokuapp.com/claimants';
+  readonly url = `${environment.baseUrl}/claimants`;
 
   constructor(private http: HttpClient) { }
   getClaimnts() {

@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person';
 import { Marriage } from '../models/marriage';
 import { ApiResponse } from 'src/app/shared/services/Mongodb/api-response';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarriageService {
 
-  readonly url = "https://marriage-bandits.herokuapp.com/marriage";
-  // readonly url = "http://localhost:8081/marriage";
+  readonly url = `${environment.baseUrl}/marriage`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +19,8 @@ export class MarriageService {
   }
 
   getMarriages(pg, pgS, searchedHusband: Person, searchedWife: Person, searchedMarriage: Marriage, institustion: string) {        
+    console.log(`${this.url}/search/viewMarriage?pg=${pg}&pgS=${pgS}&husbandFirstName=${searchedHusband.firstName}&husbandLastName=${searchedHusband.lastName}&wifeFirstName=${searchedWife.firstName}&wifeLastName=${searchedWife.lastName}&marriageDate=${searchedMarriage.dateOfMarriage}&_id=${institustion}`);
+    
     return this.http.get(`${this.url}/search/viewMarriage?pg=${pg}&pgS=${pgS}&husbandFirstName=${searchedHusband.firstName}&husbandLastName=${searchedHusband.lastName}&wifeFirstName=${searchedWife.firstName}&wifeLastName=${searchedWife.lastName}&marriageDate=${searchedMarriage.dateOfMarriage}&_id=${institustion}`)
   }
 
