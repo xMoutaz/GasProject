@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, tap, filter } from 'rxjs/operators';
+import { switchMap, tap, filter, take, map } from 'rxjs/operators';
 import { Address } from '../../models/address';
 // import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
@@ -18,22 +18,44 @@ import { User } from '../../models/user';
 })
 export class UserSettingsComponent implements OnInit {
 
-  appUser: User = {_id:'', name:'', email:'', phone:'', roles:[''], institution: ''};
-  address: Address = { _id:'', zip:'', addressLine1:'', addressLine2:'', longitude:'',latitude:''};
+  appUser: User = { _id: '', name: '', email: '', phone: '', roles: [''], institution: '' };
+  address: Address = { _id: '', zip: '', addressLine1: '', addressLine2: '', longitude: '', latitude: '' };
+  recordExist: boolean = false;
+
   constructor(public auth: AuthService, private userMdbServices: UserMdbService, private store: Store<AppState>,
-     private addressMdbService: AddressMdbService, private _location: Location, private router: Router) {
+    private addressMdbService: AddressMdbService, private _location: Location, private router: Router) {
   }
 
   ngOnInit(): void {
-    
+    this.store.select(store => store.User.user).pipe(take(1)).subscribe((user :any) => {
+      this.address._id = this.appUser._id = user._id ;this.appUser.name = user.name; this.appUser.phone = user.phone;
+    });
+
+    this.addressMdbService.get(this.appUser._id).pipe(filter(data => !!data)).subscribe(data => {
+      this.recordExist = true;
+      this.address = data
+    });
   }
-  
+
   updateUserInfo() {
-    this.userMdbServices.updateUserInfo(this.appUser).pipe(
-      switchMap(() => this.addressMdbService.updateAddress(this.appUser._id, this.address))
-    ).subscribe(success => { this.router.navigate(['']); console.log(success); },
-      error => { console.log(error); }
-    );
+    this.userMdbServices.updateUserInfo(this.appUser).pipe(map(data => data));
+    if (this.recordExist) {
+     this.addressMdbService.updateAddress(this.appUser._id, this.address)
+      .subscribe(success => { 
+        this.router.navigate(['']);
+        console.log(success);
+      },
+        error => {
+          console.log(error);
+        }
+    )}
+    else {
+      this.addressMdbService.saveAddress(this.address)
+        .subscribe(success => { this.router.navigate(['']); },
+          err => {
+            console.log(err);
+          });
+    }
   }
 
   backButton() {

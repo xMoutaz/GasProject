@@ -3,7 +3,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3 class="panel-heading">{{'GENERAL_ACCOUNT_SETTINGS' | translate}}</h3>
-                <form *ngIf="address" #f="ngForm" (ngSubmit)="updateUserInfo()">
+                <form *ngIf="address && appUser" #f="ngForm" (ngSubmit)="updateUserInfo()">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="name"><b>{{'NAME' | translate}}</b></label><br>
@@ -59,15 +59,9 @@
                         </div>
                         <div class="col-md-12">
                             <label for="phone"><b>{{'PHONE_NUMBER' | translate}}</b></label><br>
-                            <input 
-                            class="form-control"
-                            #phoneNumber="ngModel"
-                            [(ngModel)]="appUser.phone"
-                            type="text" 
-                            placeholder="Enter your Phone Number" 
-                            name="phone" 
-                            id="phone"
-                            required>
+                            <input class="form-control"
+                            #phoneNumber="ngModel" [(ngModel)]="appUser.phone" type="text" 
+                            placeholder="Enter your Phone Number" name="phone" id="phone"required>
                             <br>
                         </div>
                         <div class="col-md-12">

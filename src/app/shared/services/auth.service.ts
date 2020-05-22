@@ -126,8 +126,8 @@ export class AuthService {
   get appUser$(): Observable<User> {
     return this.user$
       .pipe(switchMap((user: any) => {
-        localStorage.setItem(this.JWT_TOKEN, user._lat);
         if (user) {
+          localStorage.setItem(this.JWT_TOKEN, user._lat);
           return this.MGBUser.getLoggedUser(user.uid);
         }
         return of(null);

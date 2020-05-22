@@ -3,6 +3,7 @@ import { Address } from '../../models/address';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AddressMdbService {
   
   selectedUser: Address;
   Addresses: Address[];
-  readonly baseURL = '';
+  readonly baseURL = `${environment.baseUrl}/address`;
   
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class AddressMdbService {
   }
 
   get(_id) {
-    return this.http.get(this.baseURL +`/${_id}`);
+    return this.http.get<Address>(this.baseURL +`/${_id}`);
   }
 
   updateAddress(_id, address: Address): Observable<Address> {
