@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { throwError, Observable } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ApiResponse } from './api-response';
-import {environment} from '../../../../environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
