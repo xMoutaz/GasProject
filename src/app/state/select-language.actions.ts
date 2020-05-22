@@ -10,4 +10,13 @@ export class SelectLanguage implements Action {
     constructor(public payload: any) {}
 }
 
-export type SelectLanguagAction = SelectLanguage;
+export enum selectPageLangActionTypes {
+    SELECT_LANG = 'SELECT_LANG'
+}
+
+export class SelectPageLanguage implements Action {
+    type = selectPageLangActionTypes.SELECT_LANG;
+    constructor(public payload: any) {}
+}
+
+export type SelectLanguagAction = SelectLanguage | SelectPageLanguage;

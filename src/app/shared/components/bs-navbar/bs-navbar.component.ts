@@ -10,6 +10,7 @@ import { LoadLanguages } from 'src/app/state/language.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
+import { SelectPageLanguage } from 'src/app/state/select-language.actions';
 
 @Component({
   selector: 'app-bs-navbar',
@@ -66,7 +67,9 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   selectLanguage(language) {
+    this.translate.setDefaultLang(language);
     this.translate.use(language);
+    this.store.dispatch(new SelectPageLanguage(language));
   }
 
   viewMarriages() {

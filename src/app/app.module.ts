@@ -28,7 +28,7 @@ import { MessageComponent } from './components/controls/message/message.componen
 import { OperationButtonsComponent } from './components/controls/operation-buttons/operation-buttons.component';
 import { OverlayComponent } from './components/controls/overlay/overlay.component';
 import { LoaderComponent } from './components/helpers/loader/loader.component';
-import { LanguageReducer, SelelectLanguageReducer, UserReducer } from './reducers/language.reducers';
+import { LanguageReducer, SelelectLanguageReducer, UserReducer, SelelectPageLanguageReducer } from './reducers/language.reducers';
 import { ErrorIntercept } from './shared/services/error.interceptor';
 import { LoaderInterceptor, LoaderService } from './shared/services/loader.service';
 import { MessageService } from './shared/services/message.service';
@@ -70,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     StoreModule.forRoot({
       selectLang: SelelectLanguageReducer,
+      pageLanguage: SelelectPageLanguageReducer,
       language: LanguageReducer,
       routerReducer: routerReducer,
       User: UserReducer

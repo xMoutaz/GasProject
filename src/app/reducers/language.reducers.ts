@@ -1,5 +1,5 @@
 import { Language } from '../shared/models/language';
-import { selectLangActionTypes, SelectLanguagAction } from '../state/select-language.actions';
+import { selectLangActionTypes, SelectLanguagAction, selectPageLangActionTypes, SelectPageLanguage } from '../state/select-language.actions';
 import { LanguageAction, LanguageActionTypes } from '../state/language.actions';
 import * as fromRouter from '@ngrx/router-store';
 import { Params, RouterStateSnapshot } from '@angular/router';
@@ -78,6 +78,23 @@ export function SelelectLanguageReducer(
   {
   switch(action.type) {
         case selectLangActionTypes.SELECT_LANG:          
+            return { ...state, selectedLang: action.payload };
+    default:
+      return state;
+    }
+}
+export interface PageLanguageState {
+  selectedLang: string
+}
+export const pageLanguageInitialState: PageLanguageState = {
+  selectedLang: 'en'
+}
+export function SelelectPageLanguageReducer(
+  state:PageLanguageState = pageLanguageInitialState, 
+  action: SelectPageLanguage ) 
+  {
+  switch(action.type) {
+        case selectPageLangActionTypes.SELECT_LANG:          
             return { ...state, selectedLang: action.payload };
     default:
       return state;
