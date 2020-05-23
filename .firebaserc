@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "gasproject-2f4cb"
+    "default": "marriagebandits",
+    "staging": "marriagebandits",
+    "production": "marriagebandits"
   }
 }

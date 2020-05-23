@@ -30,16 +30,13 @@ export class UserSettingsComponent implements OnInit {
     this.store.select(store => store.User.user).pipe(take(1)).subscribe((user :any) => {
       this.address._id = this.appUser._id = user._id ;this.appUser.name = user.name; this.appUser.phone = user.phone;
     });
-
     this.addressMdbService.get(this.appUser._id).pipe(filter(data => !!data)).subscribe(data => {
-      this.recordExist = true;
       this.address = data
     });
   }
 
   updateUserInfo() {
     this.userMdbServices.updateUserInfo(this.appUser).pipe(map(data => data));
-    if (this.recordExist) {
      this.addressMdbService.updateAddress(this.appUser._id, this.address)
       .subscribe(success => { 
         this.router.navigate(['']);
@@ -48,14 +45,7 @@ export class UserSettingsComponent implements OnInit {
         error => {
           console.log(error);
         }
-    )}
-    else {
-      this.addressMdbService.saveAddress(this.address)
-        .subscribe(success => { this.router.navigate(['']); },
-          err => {
-            console.log(err);
-          });
-    }
+    )
   }
 
   backButton() {

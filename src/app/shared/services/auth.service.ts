@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import * as firebase from 'firebase';
 import { auth } from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, map } from 'rxjs/operators';
 import { MessageStatus, MessageType } from 'src/app/components/controls/message/messageStatus';
 import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
@@ -15,6 +15,7 @@ import { MessageService } from './message.service';
 import { AddressMdbService } from './Mongodb/address-mdb.service';
 import { MarriageBanditsUserService } from './Mongodb/marriage-bandits-user.service';
 import { UserMdbService } from './Mongodb/user-mdb.service';
+import { AddressService } from './address.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,11 @@ export class AuthService {
 
   user$: Observable<firebase.User>;
   signedUpUser: User;
+  signedUpAddress: Address = new Address();
   private JWT_TOKEN = 'JWT_TOKEN';
 
   constructor(private store: Store<AppState>, private ngZone: NgZone, private statusMessageService: MessageService,
-    private afAuth: AngularFireAuth, private router: Router, private MGBUser: MarriageBanditsUserService) {
+    private afAuth: AngularFireAuth, private router: Router, private MGBUser: MarriageBanditsUserService, private addressServices: AddressMdbService) {
     this.user$ = afAuth.authState;
   }
 
@@ -35,7 +37,7 @@ export class AuthService {
       .then((result: any) => {
         localStorage.setItem(this.JWT_TOKEN, result.user._lat);
         this.signedUpUser.name = value.name;
-        this.signedUpUser._id  = result.user.uid;
+        this.signedUpUser._id = this.signedUpAddress = result.user.uid;
         this.signedUpUser.email = result.user.email;
         if (this.signedUpUser.name, this.signedUpUser._id, this.signedUpUser.email) {
           this.MGBUser.createUser(this.signedUpUser).subscribe((data: any) => {
@@ -44,6 +46,7 @@ export class AuthService {
             this.ngZone.run(() => this.router.navigate(['userDetails']))
             console.log(data)
           });
+          this.addressServices.saveAddress(this.signedUpAddress).pipe(map(data => data));
         }
         this.ngZone.run(() => this.router.navigate(['userDetails']));
         { return auth; }
@@ -85,11 +88,13 @@ export class AuthService {
     this.afAuth.auth.signInWithPopup(provider).then((result: any) => {
       localStorage.setItem(this.JWT_TOKEN, result.user._lat);
       if (result.additionalUserInfo.isNewUser) {
+        this.signedUpAddress._id = result.user.uid;
         this.MGBUser.createUser(result.user).pipe(filter((data: any) => data.success === true)).subscribe((data: any) => {
           localStorage.setItem(this.JWT_TOKEN, data.data.token);
           this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
-          this.ngZone.run(() => this.router.navigate(['userDetails']))
+          this.ngZone.run(() => this.router.navigate(['userDetails']));
         });
+         this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => data);
       }
       else {
         this.MGBUser.getLoggedUser(result.user.uid).subscribe((data: any) => {

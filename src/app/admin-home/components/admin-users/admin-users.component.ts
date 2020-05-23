@@ -14,7 +14,6 @@ export class AdminUsersComponent implements OnInit {
   
   userAddressInfo = new Address();
   userUid: string = null;
-  recordExist: boolean = false;
 
   constructor(private route: ActivatedRoute, private addressMdbService: AddressMdbService, private _location: Location) {
     this.userUid = this.route.snapshot.paramMap.get('id');
@@ -27,13 +26,11 @@ export class AdminUsersComponent implements OnInit {
   getUserAddressDetails(uid) {
     this.addressMdbService.get(uid).pipe(filter(data => !!data))
       .subscribe((data: Address) => {
-        this.recordExist = true;
         this.userAddressInfo = data;
       })
   }
 
   EditUserAddInfo() {
-    if (this.recordExist) {
        this.addressMdbService.updateAddress(this.userUid, this.userAddressInfo)
       .subscribe(success => { 
         console.log(success);
@@ -42,14 +39,6 @@ export class AdminUsersComponent implements OnInit {
           console.log(error);
         }
       );
-    }
-    else {
-      this.addressMdbService.saveAddress(this.userAddressInfo)
-        .subscribe(success => { console.log(success) },
-          err => {
-            console.log(err);
-          });
-    }
   }
 
   backButton() {

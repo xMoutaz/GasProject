@@ -10,7 +10,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "dist/GasProject",
+    "public": "dist/gasproject",
     "ignore": [
       "firebase.json",
       "**/.*",

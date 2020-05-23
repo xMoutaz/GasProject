@@ -18,7 +18,7 @@ export const deleteUser = functions.https.onRequest((request, response) => {
         // https://us-central1-gasproject-2f4cb.cloudfunctions.net/deleteUser?uid=iT4psHvRbtaQdynHG254RRTdb9c2
         const userUid = request.query.uid;
       // Delete user record from Authentication
-        admin.auth().deleteUser(userUid)
+        admin.auth().deleteUser(`${userUid}`)
         .then(function(result) {
             response.status(200).json(userUid);
             console.log('User Authentication record deleted');

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminFirebasaeService {
 
-  readonly baseURL = '';
+  readonly baseURL = 'https://us-central1-marriagebandits.cloudfunctions.net/deleteUser';
 
   constructor( private http: HttpClient) {
   }
