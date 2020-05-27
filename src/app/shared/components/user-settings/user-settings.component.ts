@@ -36,11 +36,10 @@ export class UserSettingsComponent implements OnInit {
   }
 
   updateUserInfo() {
-    this.userMdbServices.updateUserInfo(this.appUser).pipe(map(data => data));
+    this.userMdbServices.updateUserInfo(this.appUser).subscribe(data => data);
      this.addressMdbService.updateAddress(this.appUser._id, this.address)
       .subscribe(success => { 
         this.router.navigate(['']);
-        console.log(success);
       },
         error => {
           console.log(error);

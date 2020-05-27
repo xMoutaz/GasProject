@@ -79,4 +79,5 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   viewParteners() {
     this.router.navigate(['viewParteners']);
   }
+
 }

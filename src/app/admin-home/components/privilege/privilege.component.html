@@ -3,7 +3,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                <div class="col-md-6" *ngFor="let role of roles; index as i">
+                <div class="col-md-6" *ngFor="let role of roles | async">
                 <mat-slide-toggle [checked]="userlRoles.includes(role)" (change)="onRoleChange($event, role)" >{{role}}</mat-slide-toggle>
                 </div>
                 </div>

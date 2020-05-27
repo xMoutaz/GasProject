@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap, map } from 'rxjs/operators';
 import { Language } from 'src/app/shared/models/language';
 import { NewWord } from 'src/app/shared/models/newWord';
 import { Word } from 'src/app/shared/models/wordTrans';
@@ -46,8 +46,9 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
-    this.store.select(store => store.selectLang.selectedLang)
-      .subscribe(data => this.selectedLanguage = data);
+    this.store.select(store => store.selectLang.selectedLang).subscribe(data => {
+      this.selectedLanguage = data;
+    });
     this.getTotalRecord();
     this.setUpColumnDefintion();
     this.languageExpansionSettings = this.setupExpansionSettings();

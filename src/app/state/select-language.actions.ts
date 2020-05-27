@@ -11,11 +11,11 @@ export class SelectLanguage implements Action {
 }
 
 export enum selectPageLangActionTypes {
-    SELECT_LANG = 'SELECT_LANG'
+    SELECT_PAGE_LANG = 'SELECT_PAGE_LANG'
 }
 
 export class SelectPageLanguage implements Action {
-    type = selectPageLangActionTypes.SELECT_LANG;
+    type = selectPageLangActionTypes.SELECT_PAGE_LANG;
     constructor(public payload: any) {}
 }
 

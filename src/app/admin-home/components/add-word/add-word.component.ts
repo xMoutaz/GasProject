@@ -44,7 +44,7 @@ export class AddWordComponent implements OnInit {
 
   addWord() {
     this.translationServiceMdb.saveWord(this.newWord).subscribe(
-      (word: NewWord) => { 
+      (word: NewWord) => {
         this.router.navigate(['admin/add-lang']);
        },
       err => { console.log(err); }

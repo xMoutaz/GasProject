@@ -94,7 +94,7 @@ export function SelelectPageLanguageReducer(
   action: SelectPageLanguage ) 
   {
   switch(action.type) {
-        case selectPageLangActionTypes.SELECT_LANG:          
+        case selectPageLangActionTypes.SELECT_PAGE_LANG:          
             return { ...state, selectedLang: action.payload };
     default:
       return state;
@@ -105,11 +105,11 @@ export interface UserState {
   user: User
 }
 
-export const UserInitialState: UserState = {
+export const UserInitialState = {
   user: null
 }
 export function UserReducer(
-  state: UserState= UserInitialState,
+  state: UserState = UserInitialState,
   action: UserActions) 
   {
   switch(action.type) {    
