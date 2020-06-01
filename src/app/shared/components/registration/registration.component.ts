@@ -9,11 +9,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  newUser: User;
+  newUser= {} as User;
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   tryRegister(newUser) {
+    console.log(newUser);
+    
     this.auth.signup(newUser);
   }
 

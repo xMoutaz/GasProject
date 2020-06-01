@@ -35,6 +35,9 @@ import { MessageService } from './shared/services/message.service';
 import { SharedModule } from './shared/shared.module';
 import { AppHttpInterceptor } from './shared/services/auth-guard.service';
 import { testPrivilegeModule } from './test-privilege/test.module';
+import { SearchPropertiesForSaleComponent } from './moopla/components/search-properties-for-sale/search-properties-for-sale.component';
+import { MooplaModule } from './moopla/moopla.module';
+import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,15 +49,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LoaderComponent,
     MessageComponent,
-    // FirebaseTransLoaderComponent,
     GpfiModalComponent,
     ActionMenuComponent,
+    AppDropdownComponent,
     OverlayComponent,
     ConfirmationBoxComponent,
     OperationButtonsComponent,
+    SearchPropertiesForSaleComponent,
   ],
   imports: [
     SharedModule,
+    MooplaModule,
     AdminHomeModule,
     testPrivilegeModule,
     BrowserModule,

@@ -1,0 +1,24 @@
+  <!-- <div #dropdown class="ui search selection dropdown select-city">
+    <input type="hidden"/>
+    <i class="dropdown icon"></i>
+    <div class="default text">{{placeholder}}</div>
+    <div class="menu">
+      <ng-content></ng-content>
+    </div>
+  </div> -->
+  
+  <select #dropdown class="ui search dropdown">
+    <input type="hidden">
+    <div *ngFor="let data of Data | async">
+        <option>{{data.name}}</option>
+    </div>
+</select>
+
+<!-- <div #dropdown class="ui search selection dropdown">
+    <div class="text">Search</div>
+</div> -->
+
+<!-- 
+<input (keydown)=mapSearch() name="query" [(ngModel)]="query"/>
+<textarea (keydown)=mapSearch() name="query" [(ngModel)]="query"></textarea> -->
+

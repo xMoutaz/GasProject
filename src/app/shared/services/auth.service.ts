@@ -23,7 +23,7 @@ import { AddressService } from './address.service';
 export class AuthService {
 
   user$: Observable<firebase.User>;
-  signedUpUser: User;
+  signedUpUser= {} as User;
   signedUpAddress: Address = new Address();
   private JWT_TOKEN = 'JWT_TOKEN';
 
@@ -33,13 +33,15 @@ export class AuthService {
   }
 
   async signup(value) {
+debugger;
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then((result: any) => {
         localStorage.setItem(this.JWT_TOKEN, result.user._lat);
         this.signedUpUser.name = value.name;
         this.signedUpUser._id = this.signedUpAddress = result.user.uid;
-        this.signedUpUser.email = result.user.email;
-        if (this.signedUpUser.name, this.signedUpUser._id, this.signedUpUser.email) {
+        this.signedUpUser.email = value.email;
+        if (this.signedUpUser._id) {
+          debugger;
           this.MGBUser.createUser(this.signedUpUser).subscribe((data: any) => {
             localStorage.setItem(this.JWT_TOKEN, data.data.token);
             this.store.dispatch(new SelectCurrentUserInfo(data.data.user));

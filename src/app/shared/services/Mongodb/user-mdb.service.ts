@@ -45,7 +45,12 @@ export class UserMdbService {
   }
 
   searchUser(pg: number,pgS:number, user?: User) {
+    console.log(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${user.name}`);
     return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${user.name}`)
+  }
+
+  loadUsers(pg: number, pgS: number) {
+    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=`)
   }
 
   setAdmin(data) {

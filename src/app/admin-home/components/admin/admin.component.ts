@@ -29,7 +29,7 @@ export class AdminComponent {
   expansionSettings: ExpansionSettings;
   Roles: any;
   currentUser: User;
-  searchedUser: User = { _id: '', name: '', email: '', phone: '', roles: [''], institution: '' }
+  searchedUser= {} as User;
 
   constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private firebaseUser: AdminFirebasaeService,
     private addressMdbService: AddressMdbService, private store: Store<AppState>) {
@@ -97,7 +97,7 @@ export class AdminComponent {
   onPageChange() {
     let pg = this.pageSettings.currentPage - 1;
     let pgS = this.pageSettings.pageSize;
-    this.userMdbService.searchUser(pg, pgS, this.searchedUser).subscribe(
+    this.userMdbService.loadUsers(pg, pgS).subscribe(
       (data: any) => {
         this.pageSettings.setTotalRecords(data.count);
         this.data.next(data.data);

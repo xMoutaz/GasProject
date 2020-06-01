@@ -1,0 +1,76 @@
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css" />
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h3>Search properties for sale</h3>
+            <div class="well">
+                <form #f="ngForm">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div id="geocoder"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>{{'Min Price' | translate}}</label>
+                            <input type="text" class="form-control" name="minPrice"
+                                [(ngModel)]="searchedProperty.minPrice">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>{{'Max Price' | translate}}</label>
+                            <input type="text" class="form-control" name="maxPrice"
+                                [(ngModel)]="searchedProperty.maxPrice">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>{{'Property Tpye' | translate}}</label>
+                            <input type="text" class="form-control" name="propertyType"
+                                [(ngModel)]="searchedProperty.propertyType">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>{{'Bedrooms' | translate}}</label>
+                            <input type="text" class="form-control" name="bedRooms"
+                                [(ngModel)]="searchedProperty.bedRooms">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>{{'Distance from Location' | translate}}</label>
+                            <input type="text" class="form-control" name="distanceFromLocation"
+                                [(ngModel)]="searchedProperty.distanceFromLocation">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>{{'Addedd' | translate}}</label>
+                            <input type="text" class="form-control" name="maxPrice"
+                                [(ngModel)]="searchedProperty.maxPrice">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit"
+                                class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+            </div>
+
+            <!-- <div class="right-inner-addon ">
+                <div class="right-inner-addon ">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input name="location" [(ngModel)]="searchedProperty.location"
+                        (keyup)="searchTerm$.next($event.target.value)" type="search" class="form-control"
+                        placeholder="e.g. Tetouan Hamamah">
+                    <select *ngIf="results" (change)="selectedLocation($event.target.value)">
+                        <option *ngFor="let result of results" [value]="result.center">{{ result.place_name }}</option>
+                    </select>
+                </div>
+            </div> -->
+            <button (click)="searchForSale()"> test geocoder </button>
