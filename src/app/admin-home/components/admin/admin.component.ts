@@ -14,6 +14,7 @@ import { AppState } from 'src/app/state/models/app-state-models';
 import { SelectCurrentUserInfo } from 'src/app/state/user-actions';
 import { AdminFirebasaeService } from '../../services/admin-firebasae.service';
 import { PrivilegeComponent } from '../privilege/privilege.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -32,7 +33,7 @@ export class AdminComponent {
   searchedUser= {} as User;
 
   constructor(public CFR: ComponentFactoryResolver, private userMdbService: UserMdbService, private firebaseUser: AdminFirebasaeService,
-    private addressMdbService: AddressMdbService, private store: Store<AppState>) {
+    private addressMdbService: AddressMdbService, private store: Store<AppState>, private router: Router) {
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
@@ -49,13 +50,14 @@ export class AdminComponent {
       {
         key: '_id',
         className: `data_grid_left_align`,
-        header: 'Id'
+        header: 'Id',
+        responsivePriority: true
       },
       {
         key: 'email',
         className: `data_grid_left_align`,
         header: 'Email',
-        responsivePriority: true
+       
       },
       {
         key: 'name',
@@ -67,13 +69,13 @@ export class AdminComponent {
         key: 'roles',
         className: `data_grid_left_align`,
         header: 'Roles',
-        responsivePriority: true
+       
       },
       {
         key: 'phone',
         className: 'data_grid_left_align',
         header: 'Phone Number',
-        responsivePriority: true
+       
       },
 
       {
@@ -122,7 +124,14 @@ export class AdminComponent {
     deleteButton.action = (data => {
       this.deleteUserInfo(data._id);
     });
-    menu.buttons.push(assignPrivileges, deleteButton);
+    let editAddressInfo = new ActionButton();
+    editAddressInfo.label = "edit address information";
+    editAddressInfo.data = rowData;
+    editAddressInfo.action = (data) => {
+      // stoped here
+      this.router.navigate([`admin/admin-user/` + `${data._id}`]);
+    };
+    menu.buttons.push(assignPrivileges, deleteButton, editAddressInfo);
     return menu;
   };
 
