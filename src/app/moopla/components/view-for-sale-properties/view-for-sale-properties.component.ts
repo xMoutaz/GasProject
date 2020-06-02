@@ -18,13 +18,14 @@ export class ViewForSalePropertiesComponent implements OnInit {
   data = new BehaviorSubject<Array<any>>([]);
   colDefinitions: Array<ColumnDefs>;
   orderObj: any;
-  searchedProperty = {} as SearchedProperty;
+  searchedProperty: any;
   pageSettings: PageSettings;
-  
+
   constructor(private route: ActivatedRoute, private searchForSale: SearchForSaleService) { 
     this.setUpColumnDefintion();
     this.route.params.subscribe((data : any) => {
       this.searchedProperty = data;
+      // this.searchedProperty.location = [data.location0, data.location1];
     })
   }
 
@@ -40,30 +41,38 @@ export class ViewForSalePropertiesComponent implements OnInit {
         header: 'Id'
       },
       {
-        key: 'email',
+        key: 'city',
         className: `data_grid_left_align`,
-        header: 'Email',
-        responsivePriority: true
+        header: 'city',
       },
       {
-        key: 'name',
+        key: 'addressLine1',
         className: `data_grid_left_align`,
-        header: 'Name',
-        responsivePriority: true
+        header: 'addressLine1',
       },
       {
-        key: 'roles',
-        className: `data_grid_left_align`,
-        header: 'Roles',
-        responsivePriority: true
-      },
-      {
-        key: 'phone',
+        key: 'addressLine2',
         className: 'data_grid_left_align',
-        header: 'Phone Number',
-        responsivePriority: true
+        header: 'addressLine2',
       },
-
+      {
+        key: 'bedrooms',
+        className: `data_grid_left_align`,
+        header: 'bedrooms'
+      },
+      {
+        key: 'added',
+        className: `data_grid_left_align`,
+        header: 'added',
+      },
+      {
+        key: 'price',
+        className: `data_grid_left_align`,
+        header: 'Price',
+        formatter: (data,type, row) => {
+          return data + " " + ('DH')
+        }
+      }
     ];
   }
 
@@ -76,7 +85,7 @@ export class ViewForSalePropertiesComponent implements OnInit {
   onPageChange() {
     this.searchForSale.searchPropertiesForSale(this.searchedProperty).subscribe(
       (data: any) => {
-        this.data.next(data.data);
+        this.data.next(data);
       },
       err => {
         console.log(err)

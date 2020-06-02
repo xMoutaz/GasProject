@@ -33,24 +33,22 @@ export class AuthService {
   }
 
   async signup(value) {
-debugger;
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then((result: any) => {
         localStorage.setItem(this.JWT_TOKEN, result.user._lat);
         this.signedUpUser.name = value.name;
-        this.signedUpUser._id = this.signedUpAddress = result.user.uid;
+        this.signedUpUser._id = this.signedUpAddress._id = result.user.uid;
         this.signedUpUser.email = value.email;
         if (this.signedUpUser._id) {
-          debugger;
           this.MGBUser.createUser(this.signedUpUser).subscribe((data: any) => {
             localStorage.setItem(this.JWT_TOKEN, data.data.token);
             this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
             this.ngZone.run(() => this.router.navigate(['userDetails']))
-            console.log(data)
+            this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => data);
+            this.statusMessageService.ClearMessage();
           });
-          this.addressServices.saveAddress(this.signedUpAddress).pipe(map(data => data));
+          
         }
-        this.ngZone.run(() => this.router.navigate(['userDetails']));
         { return auth; }
       })
       .catch(err => {
@@ -69,12 +67,14 @@ debugger;
         this.MGBUser.getLoggedUser(value.user.uid).subscribe((data: any) => {
           this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
           localStorage.setItem(this.JWT_TOKEN, data.data.token);
+          this.statusMessageService.ClearMessage();
         });
         this.router.navigate(['']);
       })
       .catch(err => {
-        console.log('Something went wrong:', err.message);
-        this.router.navigate(['signup']);
+        let authError = err;
+        let errorMessage: string = authError.message;
+        this.statusMessageService.SetMessage(new MessageStatus(MessageType.Error, "", errorMessage));
       });
   }
 
@@ -96,7 +96,7 @@ debugger;
           this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
           this.ngZone.run(() => this.router.navigate(['userDetails']));
         });
-         this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => data);
+        this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => console.log(data));
       }
       else {
         this.MGBUser.getLoggedUser(result.user.uid).subscribe((data: any) => {

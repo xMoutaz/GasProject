@@ -8,53 +8,92 @@
         <div class="panel-body">
             <h3>Search properties for sale</h3>
             <div class="well">
-                <form #f="ngForm">
+                <form [formGroup]="searchFormGroup" (ngSubmit)="searchForSale()">
                     <div class="row">
                         <div class="col-xs-6">
-                            <div id="geocoder"></div>
+                            <div id="geocoder">
+                            </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-3 form-group">
-                            <label>{{'Min Price' | translate}}</label>
+                        <div class="form-group col-md-4 required col-md-3">
+                            <mat-form-field>
+                                <mat-select required formControlName="minPrice" placeholder="Mininmun Price">
+                                    <mat-option *ngFor="let price of minPrices" [value]="price">
+                                        {{price}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-error *ngIf="minPrice.hasError('required')">Please choose an animal</mat-error> -->
+                            <!-- <label>{{'Min Price' | translate}}</label>
                             <input type="text" class="form-control" name="minPrice"
-                                [(ngModel)]="searchedProperty.minPrice">
+                                [(ngModel)]="searchedProperty.minPrice" required> -->
                         </div>
                         <div class="col-md-3 form-group">
-                            <label>{{'Max Price' | translate}}</label>
+                            <mat-form-field>
+                                <mat-select formControlName="maxPrice" placeholder="Maximum Price">
+                                    <mat-option *ngFor="let price of maxPrices" [value]="price">
+                                        {{price}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <label>{{'Max Price' | translate}}</label>
                             <input type="text" class="form-control" name="maxPrice"
-                                [(ngModel)]="searchedProperty.maxPrice">
+                                [(ngModel)]="searchedProperty.maxPrice" required> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group">
-                            <label>{{'Property Tpye' | translate}}</label>
+                            <mat-form-field>
+                                <mat-select required formControlName="propertyType" placeholder="Property Type">
+                                    <mat-option *ngFor="let propertyType of propertyTypes" [value]="propertyType">
+                                        {{propertyType}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <label>{{'Property Tpye' | translate}}</label>
                             <input type="text" class="form-control" name="propertyType"
-                                [(ngModel)]="searchedProperty.propertyType">
+                                [(ngModel)]="searchedProperty.propertyType" required> -->
                         </div>
                         <div class="col-md-3 form-group">
-                            <label>{{'Bedrooms' | translate}}</label>
+                            <mat-form-field>
+                                <mat-select formControlName="bedRooms" placeholder="Bedrooms Number">
+                                    <mat-option *ngFor="let bedRoom of bedrooms; index as i" [value]="i">
+                                       more than {{bedRoom}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- <label>{{'Bedrooms' | translate}}</label>
                             <input type="text" class="form-control" name="bedRooms"
-                                [(ngModel)]="searchedProperty.bedRooms">
+                                [(ngModel)]="searchedProperty.bedRooms" required> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group">
-                            <label>{{'Distance from Location' | translate}}</label>
+                            <mat-form-field>
+                                <mat-select formControlName="distanceFromLocation" placeholder="Distance from Location">
+                                    <mat-option *ngFor="let distance of distances" [value]="distance">
+                                        {{distance}} mile
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- <label>{{'Distance from Location' | translate}}</label>
                             <input type="text" class="form-control" name="distanceFromLocation"
-                                [(ngModel)]="searchedProperty.distanceFromLocation">
+                                [(ngModel)]="searchedProperty.distanceFromLocation" required> -->
                         </div>
-                        <div class="col-md-3 form-group">
+                        <!-- <div class="col-md-3 form-group">
                             <label>{{'Addedd' | translate}}</label>
                             <input type="text" class="form-control" name="maxPrice"
-                                [(ngModel)]="searchedProperty.maxPrice">
-                        </div>
+                                [(ngModel)]="searchedProperty.maxPrice" required>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit"
-                                class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
+                            <button type="submit" class="button btn btn-primary pull-right"
+                                >{{'SEARCH' | translate}}</button>
                         </div>
                     </div>
                 </form>
@@ -62,15 +101,4 @@
             <div>
             </div>
 
-            <!-- <div class="right-inner-addon ">
-                <div class="right-inner-addon ">
-                    <i class="glyphicon glyphicon-search"></i>
-                    <input name="location" [(ngModel)]="searchedProperty.location"
-                        (keyup)="searchTerm$.next($event.target.value)" type="search" class="form-control"
-                        placeholder="e.g. Tetouan Hamamah">
-                    <select *ngIf="results" (change)="selectedLocation($event.target.value)">
-                        <option *ngFor="let result of results" [value]="result.center">{{ result.place_name }}</option>
-                    </select>
-                </div>
-            </div> -->
-            <button (click)="searchForSale()"> test geocoder </button>
+            <button (click)="test()">click</button>

@@ -26,6 +26,8 @@ import { ApixuService } from './components/services/apixu.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -45,6 +47,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     MatButtonModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatMenuModule,
     MatIconModule,
     CommonModule,

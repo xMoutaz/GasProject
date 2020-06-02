@@ -11,7 +11,7 @@ export class SearchForSaleService {
 
   constructor(private http: HttpClient) { }
 
-  searchPropertiesForSale(searchedProperty: SearchedProperty) {
-    return this.http.get(`${this.url}/?addedd=${searchedProperty.addedd}&location[0]=${searchedProperty.location[0]}&location[1]=${searchedProperty.location[1]}&minPrice=${searchedProperty.minPrice}&maxPrice=${searchedProperty.maxPrice}&sortedBy=${searchedProperty.sortedBy}&bedrooms=${searchedProperty.bedRooms}&propertyType=${searchedProperty.propertyType}&distanceFromLocation=${searchedProperty.distanceFromLocation}`)
+  searchPropertiesForSale(searchedProperty) {
+    return this.http.get(`${this.url}/?addedd=${searchedProperty.addedd}&location[0]=${searchedProperty.location0}&location[1]=${searchedProperty.location1}&minPrice=${searchedProperty.minPrice}&maxPrice=${searchedProperty.maxPrice}&sortedBy=${searchedProperty.sortedBy}&bedrooms=${searchedProperty.bedRooms}&propertyType=${searchedProperty.propertyType}&distanceFromLocation=${searchedProperty.distanceFromLocation}`)
   }
 }

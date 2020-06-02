@@ -1,5 +1,5 @@
 export interface SearchedProperty {
-     location: Array<any>;
+     location: [any, any];
      minPrice: number;
      maxPrice: number;
      propertyType: string;
