@@ -1,6 +1,6 @@
 <div class="login-form">
     <form #f="ngForm" (ngSubmit)="tryRegister(f.value)">
-        <h2 class="text-center">{{'SIGNUP' | translate}}</h2>
+        <h2 class="text-center">{{'SIGN_UP' | translate}}</h2>
         <div class="text-center social-btn">
             <a class="btn btn-block btn-facebook" (click)="facebookLogin()"> <i class="fa fa-facebook"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'FACEBOOK' | translate}}</b> </a>
 			<a class="btn btn-danger btn-block"  (click)="googleLogin()"><i class="fa fa-google"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'GOOGLE' | translate}}</b></a>
@@ -49,7 +49,7 @@
             </div>
         </div>        
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-block login-btn">SIGNUP</button>
+            <button type="submit" class="btn btn-success btn-block login-btn">{{SIGN_UP}}</button>
         </div>
         
     </form>
