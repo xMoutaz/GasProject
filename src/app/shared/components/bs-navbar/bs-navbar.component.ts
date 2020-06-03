@@ -30,6 +30,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.translate.use('en');
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());

@@ -18,8 +18,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SearchPropertiesForSaleComponent implements OnInit {
 
   geoCoder: any;
-  minPrices= [1000, 10000, '1M'];
-  maxPrices= [1000, '100k', '15M'];
+  // minPrices= [1000, 10000, 100000];
+  minPrices= [
+    {'id': 100, 'value': '100'},
+    {'id': 1000, 'value': '1K'},
+    {'id': 10000, 'value': '10K'}
+  ];
+  maxPrices= [
+    {'id': 1000, 'value': '1K'},
+    {'id': 10000, 'value': '10K'},
+    {'id': 10000000, 'value': '10M'}
+  ];
   propertyTypes= ['HOUSE', 'APARTMENT', 'LAND'];
   bedrooms= [1 , 2 , 3];
   distances= ['10', '20', '50'];
@@ -32,7 +41,6 @@ export class SearchPropertiesForSaleComponent implements OnInit {
   ngOnInit(): void {
     navigator.geolocation.getCurrentPosition(position => {
       this.coordinates = [position.coords.longitude, position.coords.latitude];
-      console.log(this.coordinates);
     });
 
     this.searchFormGroup = this._formBuilder.group({
@@ -48,7 +56,6 @@ export class SearchPropertiesForSaleComponent implements OnInit {
       accessToken: mapboxgl.accessToken,
       types: 'country,region,place,postcode,locality,neighborhood'
     });
-
     this.geoCoder.addTo('#geocoder');
   }
 
