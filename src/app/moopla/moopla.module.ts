@@ -6,13 +6,15 @@ import { ViewForSalePropertiesComponent } from './components/view-for-sale-prope
 import { SharedModule } from '../shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { SearchPropertiesForRentComponent } from './components/search-properties-for-rent/search-properties-for-rent.component';
 
 
 
 @NgModule({
   declarations: [
     SearchPropertiesForSaleComponent,
-    ViewForSalePropertiesComponent
+    ViewForSalePropertiesComponent,
+    SearchPropertiesForRentComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
     SharedModule,
     RouterModule.forChild([
       { path: 'searchPropertiesForSale', component: SearchPropertiesForSaleComponent},
+      { path: 'searchPropertiesForRent', component: SearchPropertiesForRentComponent},
       { path: 'view-for-sale', component: ViewForSalePropertiesComponent},
     ])
   ],

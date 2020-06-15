@@ -53,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppDropdownComponent,
     OverlayComponent,
     ConfirmationBoxComponent,
-    OperationButtonsComponent,
+    OperationButtonsComponent
   ],
   imports: [
     SharedModule,

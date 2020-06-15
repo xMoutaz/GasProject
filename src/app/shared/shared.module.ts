@@ -28,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,6 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserSettingsComponent,
     ForgetPasswordComponent,
     UnregisterationComponent,
+    EmailVerificationComponent,
+    ShortNumberPipe,
   ],
   imports: [
     MatButtonModule,
@@ -67,6 +71,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule.forChild([
       { path: 'login', component: LoginComponent},
       { path: 'signup', component: RegistrationComponent},
+      { path: 'email-verification', component: EmailVerificationComponent},
       { path : 'forgetPassword', component: ForgetPasswordComponent },
       { path: 'no-access', component: NoAccessComponent},
       { path : 'userDetails', component: UserDetailsComponent, canActivate: [AuthGuardService] },
@@ -87,7 +92,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NoAccessComponent,
     NotFoundComponent,
     TranslateModule,
-    RouterModule
+    RouterModule,
+    ShortNumberPipe,
   ],
   providers: [
     AuthService,

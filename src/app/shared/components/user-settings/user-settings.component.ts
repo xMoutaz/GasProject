@@ -28,7 +28,10 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(store => store.User.user).pipe(take(1)).subscribe((user :any) => {
-      this.address._id = this.appUser._id = user._id ;this.appUser.name = user.name; this.appUser.phone = user.phone;
+      this.address._id = this.appUser._id = user._id ;
+      this.appUser.name = user.name;
+      this.appUser.phone = user.phone;
+      this.appUser.email = user.email;
     });
     this.addressMdbService.get(this.appUser._id).pipe(filter(data => !!data)).subscribe(data => {
       this.address = data

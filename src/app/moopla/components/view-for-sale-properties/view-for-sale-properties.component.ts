@@ -25,7 +25,6 @@ export class ViewForSalePropertiesComponent implements OnInit {
     this.setUpColumnDefintion();
     this.route.params.subscribe((data : any) => {
       this.searchedProperty = data;
-      // this.searchedProperty.location = [data.location0, data.location1];
     })
   }
 
@@ -41,29 +40,34 @@ export class ViewForSalePropertiesComponent implements OnInit {
         header: 'Id'
       },
       {
-        key: 'city',
+        key: 'property.city',
         className: `data_grid_left_align`,
         header: 'city',
       },
       {
-        key: 'addressLine1',
+        key: 'property.addressLine1',
         className: `data_grid_left_align`,
         header: 'addressLine1',
       },
       {
-        key: 'addressLine2',
+        key: 'property.addressLine2',
         className: 'data_grid_left_align',
         header: 'addressLine2',
       },
       {
-        key: 'bedrooms',
+        key: 'property.bedrooms',
         className: `data_grid_left_align`,
         header: 'bedrooms'
       },
       {
-        key: 'added',
+        key: 'property.added',
         className: `data_grid_left_align`,
         header: 'added',
+      },
+      {
+        key: 'owner.user.name',
+        className: `data_grid_left_align`,
+        header: 'owner',
       },
       {
         key: 'price',
@@ -86,6 +90,7 @@ export class ViewForSalePropertiesComponent implements OnInit {
     this.searchForSale.searchPropertiesForSale(this.searchedProperty).subscribe(
       (data: any) => {
         this.data.next(data);
+        console.log(data);
       },
       err => {
         console.log(err)

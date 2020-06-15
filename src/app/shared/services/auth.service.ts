@@ -23,7 +23,7 @@ import { AddressService } from './address.service';
 export class AuthService {
 
   user$: Observable<firebase.User>;
-  signedUpUser= {} as User;
+  signedUpUser = {} as User;
   signedUpAddress: Address = new Address();
   private JWT_TOKEN = 'JWT_TOKEN';
 
@@ -35,19 +35,17 @@ export class AuthService {
   async signup(value) {
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then((result: any) => {
+        this.SendVerificationMail();
         localStorage.setItem(this.JWT_TOKEN, result.user._lat);
-        this.signedUpUser.name = value.name;
-        this.signedUpUser._id = this.signedUpAddress._id = result.user.uid;
-        this.signedUpUser.email = value.email;
+        this.signedUpUser = value; this.signedUpUser._id = this.signedUpAddress._id = result.user.uid;
         if (this.signedUpUser._id) {
           this.MGBUser.createUser(this.signedUpUser).subscribe((data: any) => {
             localStorage.setItem(this.JWT_TOKEN, data.data.token);
-            this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
-            this.ngZone.run(() => this.router.navigate(['userDetails']))
+            // this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+            // this.ngZone.run(() => this.router.navigate(['userDetails']))
             this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => data);
             this.statusMessageService.ClearMessage();
           });
-          
         }
         { return auth; }
       })
@@ -59,17 +57,29 @@ export class AuthService {
       });
   }
 
+  SendVerificationMail() {
+    return this.afAuth.auth.currentUser.sendEmailVerification()
+      .then(() => {
+        this.router.navigate(['email-verification']);
+      })
+  }
+
   emailLogin(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value: any) => {
         debugger;
-        localStorage.setItem(this.JWT_TOKEN, value.user._lat);
-        this.MGBUser.getLoggedUser(value.user.uid).subscribe((data: any) => {
-          this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
-          localStorage.setItem(this.JWT_TOKEN, data.data.token);
-          this.statusMessageService.ClearMessage();
-        });
-        this.router.navigate(['']);
+        if (value.user.emailVerified !== true) {
+          this.SendVerificationMail();
+          window.alert('Please validate your email address. Kindly check your inbox.');
+        } else{
+          localStorage.setItem(this.JWT_TOKEN, value.user._lat);
+          this.MGBUser.getLoggedUser(value.user.uid).subscribe((data: any) => {
+            this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+            localStorage.setItem(this.JWT_TOKEN, data.data.token);
+            this.statusMessageService.ClearMessage();
+          });
+          this.router.navigate(['']);
+        }
       })
       .catch(err => {
         let authError = err;
@@ -133,7 +143,7 @@ export class AuthService {
   get appUser$(): Observable<User> {
     return this.user$
       .pipe(switchMap((user: any) => {
-        if (user) {
+        if (user && user.emailVerified) {
           localStorage.setItem(this.JWT_TOKEN, user._lat);
           return this.MGBUser.getLoggedUser(user.uid);
         }

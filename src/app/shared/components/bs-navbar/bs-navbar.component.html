@@ -46,20 +46,11 @@
   </div>
 </nav>
 
-<!-- <ng-template #anonymousUser>
+<ng-template #anonymousUser>
   <ul class="nav navbar-nav navbar-right">
-    <li ><a routerLink="/login"><button class="btn signInBtn">{{'SIGNIN' | translate}} <span class="sr-only">(current)</span></button></a></li>
-    <li><a routerLink="/signup"><button class="btn btn-primary">{{'SIGNUP' | translate}}</button></a></li>
+    <li ><a routerLink="/login"><button class="btn signInBtn">{{'SIGN_IN' | translate}} <span class="sr-only">(current)</span></button></a></li>
+    <li><a routerLink="/signup"><button class="btn btn-primary">{{'SIGN_UP' | translate}}</button></a></li>
   </ul>
 </ng-template>
- -->
-<ng-template #anonymousUser>
-<ul class="nav nav-tabs navbar-right">
-  <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-    <a class="nav-link"   routerLink="/login">{{'SIGN_IN' | translate}}</a>
-  </li>
-  <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-    <a class="nav-link"    routerLink="/signup" >{{'SIGN_UP' | translate}}</a>
-  </li>
-</ul>
-</ng-template>
+
+
