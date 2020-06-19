@@ -1,57 +1,48 @@
 <div class="login-form">
-    <form #f="ngForm" (ngSubmit)="tryRegister(f.value)">
+    <form [formGroup]="newUserForm" (ngSubmit)="tryRegister(newUserForm.value)">
         <h2 class="text-center">{{'SIGN_UP' | translate}}</h2>
         <div class="text-center social-btn">
-            <a class="btn btn-block btn-facebook" (click)="facebookLogin()"> <i class="fa fa-facebook"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'FACEBOOK' | translate}}</b> </a>
-			<a class="btn btn-danger btn-block"  (click)="googleLogin()"><i class="fa fa-google"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'GOOGLE' | translate}}</b></a>
+            <a class="btn btn-block btn-facebook" (click)="facebookLogin()"> <i
+                    class="fa fa-facebook"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'FACEBOOK' | translate}}</b> </a>
+            <a class="btn btn-danger btn-block" (click)="googleLogin()"><i
+                    class="fa fa-google"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'GOOGLE' | translate}}</b></a>
         </div>
         <div class="or-seperator"><i>{{'OR' | translate}}</i></div>
         <div class="form-group">
-        	<div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input 
-                type="text" 
-                class="form-control" 
-                name="ngModel" 
-                [(ngModel)]="newUser.name" 
-                name="name" 
-                placeholder="First Name" 
-                id="name" 
-                required="required">
-            </div>
-        </div>		
-        <div class="form-group">
-        	<div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                <input 
-                type="text" 
-                class="form-control" 
-                #email="ngModel" 
-                [(ngModel)]="newUser.email" 
-                name="email" 
-                placeholder="Email" 
-                id="email" 
-                required="required">
-            </div>
+            <mat-form-field class="full-width">
+                <input matInput type="name" placeholder="Full Name" formControlName="name" required>
+                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-error *ngFor="let validation of account_validation_messages.name">
+                    <mat-error class="error-message"
+                        *ngIf="newUserForm.get('name').hasError(validation.type) && (newUserForm.get('name').dirty || newUserForm.get('name').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
         </div>
-		<div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input 
-                type="password" 
-                class="form-control" 
-                #password="ngModel" 
-                [(ngModel)]="newUser.password" 
-                name="password" 
-                id="passwprd" 
-                placeholder="Password" 
-                required="required">
-            </div>
-        </div>        
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-block login-btn">{{'SIGN_UP' | translate}}</button>
+            <mat-form-field class="full-width">
+                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngFor="let validation of account_validation_messages.email">
+                    <mat-error class="error-message"
+                        *ngIf="newUserForm.get('email').hasError(validation.type) && (newUserForm.get('email').dirty || newUserForm.get('email').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
         </div>
-        
-    </form>
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="password" formControlName="password" required>
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngFor="let validation of account_validation_messages.password">
+                    <mat-error class="error-message"
+                        *ngIf="newUserForm.get('password').hasError(validation.type) && (newUserForm.get('password').dirty || newUserForm.get('password').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block login-btn" [disabled]="!newUserForm.valid">{{'SIGN_UP' | translate}}</button>
+        </div>
+    </form>  
 </div>
-  

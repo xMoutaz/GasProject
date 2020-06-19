@@ -1,50 +1,43 @@
-
 <div class="login-form">
-    <form #f="ngForm" (ngSubmit)="emailLogin(f.value)">
-        <h2 class="text-center">{{'SIGN_IN' | translate}}</h2>		
+    <form [formGroup]="userForm" (ngSubmit)="emailLogin(userForm.value)">
+        <h2 class="text-center">{{'SIGN_IN' | translate}}</h2>
         <div class="text-center social-btn">
-            <a class="btn btn-block btn-facebook" (click)="facebookLogin()"> <i class="fa fa-facebook"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'FACEBOOK' | translate}}</b> </a>
-			<a class="btn btn-danger btn-block"  (click)="googleLogin()"><i class="fa fa-google"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'GOOGLE' | translate}}</b></a>
+            <a class="btn btn-block btn-facebook" (click)="facebookLogin()"> <i
+                    class="fa fa-facebook"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'FACEBOOK' | translate}}</b> </a>
+            <a class="btn btn-danger btn-block" (click)="googleLogin()"><i
+                    class="fa fa-google"></i>{{'SIGN_IN_WITH' | translate}} <b>{{'GOOGLE' | translate}}</b></a>
         </div>
         <div class="or-seperator"><i>{{'OR' | translate}}</i></div>
-        
         <div class="form-group">
-        	<div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input 
-                type="text" 
-                class="form-control" 
-                #email="ngModel"
-                name="email"
-                ngModel
-                placeholder="Email"
-                id="email"
-                required="required">
-            </div>
+            <mat-form-field class="full-width">
+                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngFor="let validation of account_validation_messages.email">
+                    <mat-error class="error-message"
+                        *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
         </div>
-		<div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input 
-                type="password" 
-                class="form-control" 
-                #password="ngModel" 
-                name="password" 
-                ngModel
-                id="passwprd" 
-                placeholder="Password" 
-                required="required">
-            </div>
-        </div>        
-        <button type="submit" class="btn btn-success btn-block"><b>{{'SIGN_IN' | translate}}</b> </button>
-
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="password" formControlName="password" required>
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngFor="let validation of account_validation_messages.password">
+                    <mat-error class="error-message"
+                        *ngIf="userForm.get('password').hasError(validation.type) && (userForm.get('password').dirty || userForm.get('password').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block login-btn" [disabled]="!userForm.valid">{{'SIGN_IN' | translate}}</button>
+        </div>
         <div class="clearfix">
             <a  class="pull-right text-success" routerLink="/forgetPassword">{{'FORGOT_PASSWORD' | translate}}?</a>
         </div>
-        
-    </form>
+    </form>  
     <div class="hint-text small">{{'DO_NOT_HAVE_AN_ACCOUNT?' | translate}}
         <a routerLink="/signup" class="text-success">{{'REGISTER_NOW!' | translate}}</a>
     </div>
 </div>
-

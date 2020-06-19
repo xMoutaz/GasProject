@@ -67,7 +67,6 @@ export class AuthService {
   emailLogin(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value: any) => {
-        debugger;
         if (value.user.emailVerified !== true) {
           this.SendVerificationMail();
           window.alert('Please validate your email address. Kindly check your inbox.');

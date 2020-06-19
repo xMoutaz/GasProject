@@ -28,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActionMenuComponent } from '../components/controls/action-menu/action-menu.component';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 
@@ -53,8 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatInputModule,
     MatMenuModule,
     MatIconModule,
+    MatMenuModule,
     CommonModule,
     BrowserModule,
     FormsModule,
@@ -85,6 +89,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     HomeComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
     DataTableModule,
     LoginComponent,
     BsNavbarComponent,    
