@@ -2,24 +2,24 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3 class="panel-heading">{{'REGISTRATION_INFORMATION' | translate}}</h3>
+                <h3 class="panel-heading">{{'CONTACT_DETAILS' | translate}}</h3>
                 <form *ngIf="newAddress" #f="ngForm" (ngSubmit)="addUserInfo()">
                     <div class="row">
                     <div class="col-md-12">
-                        <label for="zip"><b>{{'ZIP' | translate}}</b></label><br>
-                        <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.zip" name="zip" type="text" placeholder="Enter zip" id="zip" required>
+                        <label for="postCode"><b>{{'POST_CODE' | translate}}</b></label><br>
+                        <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.postCode" name="postCode" type="text" placeholder="Enter Post Code" id="postCode" required>
                         <br>
                     </div>
                     <div class="col-md-12">
                         <label for="addressLine1"><b>{{'ADDRESSLINE1' | translate}}</b></label><br>
                         <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.addressLine1"
-                            name="addressLine1" type="text" placeholder="Enter addressLine1" id="addressLine1" required>
+                            name="addressLine1" type="text" placeholder="Enter Address Line 1" id="addressLine1" required>
                         <br>
                     </div>
                     <div class="col-md-12">
                         <label for="addressLine2"><b>{{'ADDRESSLINE2' | translate}}</b></label><br>
                         <input class="form-control" #name="ngModel" [(ngModel)]="newAddress.addressLine2"
-                            name="addressLine2" type="text" placeholder="Enter addressLine2" id="addressLine2" required>
+                            name="addressLine2" type="text" placeholder="Enter Address Line 2" id="addressLine2" required>
                         <br>
                     </div>
                     <div class="col-md-12">

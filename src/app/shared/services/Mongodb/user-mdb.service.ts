@@ -44,9 +44,9 @@ export class UserMdbService {
    return this.http.delete<ApiResponse<void>>(this.baseURL+ `/${_id}`)
   }
 
-  searchUser(pg: number,pgS:number, user?: User) {
-    console.log(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${user.name}`);
-    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${user.name}`)
+  searchUser(pg: number,pgS:number, searchedUser) {
+    console.log(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}`);
+    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}`)
   }
 
   loadUsers(pg: number, pgS: number) {

@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
       { type: 'required', message: 'Username is required' },
       { type: 'minlength', message: 'Username must be at least 4 characters long' },
       { type: 'maxlength', message: 'Username cannot be more than 15 characters long' },
-      { type: 'pattern', message: 'Your username must containe only letters' }
+      { type: 'pattern', message: 'Your username must containe only letters, no numbers, spaces and special characters allowed' }
     ],
     'email': [
       { type: 'required', message: 'Email is required' },
@@ -28,8 +28,8 @@ export class RegistrationComponent implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long' },
-      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+      { type: 'minlength', message: 'Password must be at least 8 characters long' },
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase,one number and one special charachter' }
     ],
     }
 
@@ -40,17 +40,17 @@ export class RegistrationComponent implements OnInit {
       name:['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(15),
-        Validators.pattern('[a-zA-Z ]*')
+        Validators.maxLength(50),
+        Validators.pattern('[a-zA-Z]*'),
       ])],
       email:['', Validators.compose([
         Validators.required,
-        Validators.pattern("^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$")
+        Validators.pattern("[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$")
       ])],
       password:['', Validators.compose([
         Validators.required,
-        Validators.minLength(5),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        Validators.minLength(8),
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
       ])],
     })
   }

@@ -20,7 +20,7 @@ import { UserService } from '../../services/user.service';
 export class UserDetailsComponent implements OnInit {
 
   newUser: User= {_id:'', name:'', email:'', phone:'', roles:[''], institution: ''};
-  newAddress: Address = { _id:'',zip:'', addressLine1:'', addressLine2:'', longitude:'', latitude:''}
+  newAddress: Address = { _id:'',postCode:'', addressLine1:'', addressLine2:'', longitude:'', latitude:''}
   _id: Observable<string>;
   constructor(private store: Store<AppState>, private mDBAddressService: AddressMdbService, private router: Router,
     private userService: UserMdbService) {

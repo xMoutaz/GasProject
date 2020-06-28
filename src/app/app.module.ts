@@ -37,6 +37,7 @@ import { AppHttpInterceptor } from './shared/services/auth-guard.service';
 import { testPrivilegeModule } from './test-privilege/test.module';
 import { MooplaModule } from './moopla/moopla.module';
 import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
+import { ViewEditRefDataComponent } from './admin-home/components/properties/view-edit-ref-data/view-edit-ref-data.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -53,7 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppDropdownComponent,
     OverlayComponent,
     ConfirmationBoxComponent,
-    OperationButtonsComponent
+    OperationButtonsComponent,
+    ViewEditRefDataComponent
   ],
   imports: [
     SharedModule,

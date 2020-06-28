@@ -10,7 +10,7 @@
         <div class="or-seperator"><i>{{'OR' | translate}}</i></div>
         <div class="form-group">
             <mat-form-field class="full-width">
-                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <input matInput type="email" (keydown.space)="$event.preventDefault()" placeholder="Email" formControlName="email" required>
                 <mat-icon matSuffix>email</mat-icon>
                 <mat-error *ngFor="let validation of account_validation_messages.email">
                     <mat-error class="error-message"

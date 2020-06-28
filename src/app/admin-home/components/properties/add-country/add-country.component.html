@@ -1,0 +1,140 @@
+<div class="container-fluid">
+    <div class="container">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>Create RefData</h4>
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Local information</ng-template>
+                    <div class="row">
+                        <div class="form-group col-md-4 required">
+                            <label class="control-label">Local</label>
+                            <input type="text" name="firstName" formControlName="local" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.local.touched) && firstFormGroup.controls.local.errors">
+                            <span *ngIf="firstFormGroup.controls.local.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 required">
+                            <label class="control-label">Description</label>
+                            <input type="text" formControlName="description" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.description.touched) && firstFormGroup.controls.description.errors">
+                            <span *ngIf="firstFormGroup.controls.description.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Short Date Format</label>
+                            <input type="text" name="shortDateFormat" formControlName="shortDateFormat" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.shortDateFormat.touched) && firstFormGroup.controls.shortDateFormat.errors">
+                            <span *ngIf="firstFormGroup.controls.shortDateFormat.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Long Date Format</label>
+                            <input type="text" name="longDateFormat" formControlName="longDateFormat" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.longDateFormat.touched) && firstFormGroup.controls.longDateFormat.errors">
+                            <span *ngIf="firstFormGroup.controls.longDateFormat.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Long Date Format</label>
+                            <input type="text" name="longDateFormat" formControlName="longDateFormat" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.longDateFormat.touched) && firstFormGroup.controls.longDateFormat.errors">
+                            <span *ngIf="firstFormGroup.controls.longDateFormat.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Time Format</label>
+                            <input type="text" name="timeFormat" formControlName="timeFormat" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.timeFormat.touched) && firstFormGroup.controls.timeFormat.errors">
+                            <span *ngIf="firstFormGroup.controls.timeFormat.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Decimal Format</label>
+                            <input type="text" name="decimalFormat" formControlName="decimalFormat" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.decimalFormat.touched) && firstFormGroup.controls.decimalFormat.errors">
+                            <span *ngIf="firstFormGroup.controls.decimalFormat.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">System Default</label>
+                            <input type="text" name="systemDefault" formControlName="systemDefault" class="form-control"/>
+                            <div *ngIf="(firstFormGroup.controls.systemDefault.touched) && firstFormGroup.controls.systemDefault.errors">
+                            <span *ngIf="firstFormGroup.controls.systemDefault.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" matStepperNext>Next</button>
+                        </div>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>RefData Information</ng-template>
+                    <div class="row">
+                        <div class="form-group col-md-4 required">
+                            <label class="control-label">Country</label>
+                            <input type="text" name="country" formControlName="country" class="form-control"/>
+                            <div *ngIf="(secondFormGroup.controls.country.touched) && secondFormGroup.controls.country.errors">
+                            <span *ngIf="secondFormGroup.controls.country.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Currency Code</label>
+                            <input type="text" name="currencyCode" formControlName="currencyCode" class="form-control"/>
+                            <div *ngIf="(secondFormGroup.controls.currencyCode.touched) && secondFormGroup.controls.currencyCode.errors">
+                            <span *ngIf="secondFormGroup.controls.currencyCode.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Rent Period</label>
+                            <input type="text" name="rentPeriod" formControlName="rentPeriod" class="form-control"/>
+                            <div *ngIf="(secondFormGroup.controls.rentPeriod.touched) && secondFormGroup.controls.rentPeriod.errors">
+                            <span *ngIf="secondFormGroup.controls.rentPeriod.invalid" class="msg-error">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default" matStepperPrevious>Back</button>
+                            <button class="btn btn-primary" matStepperNext>Next</button>
+                        </div>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>Your claim is complete please press submit button to submit information, or press back to adjust claim </p>
+                <div>
+                    <button class="btn btn-default" matStepperPrevious>Back</button>
+                    <button class="btn btn-primary"  (click)="createRefData()">Submit</button>
+                </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+       </div>
+    </div>
+</div>

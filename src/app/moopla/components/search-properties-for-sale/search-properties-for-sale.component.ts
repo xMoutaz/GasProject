@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import * as mapboxgl from 'mapbox-gl';
-import { PriceList } from '../../models/price-list';
-import { PriceListService } from '../../services/price-list.service';
 import { SearchInitialInputsService } from '../../services/search-initial-inputs.service';
 
 @Component({

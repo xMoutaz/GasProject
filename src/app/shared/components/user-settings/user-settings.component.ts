@@ -19,7 +19,7 @@ import { User } from '../../models/user';
 export class UserSettingsComponent implements OnInit {
 
   appUser: User = { _id: '', name: '', email: '', phone: '', roles: [''], institution: '' };
-  address: Address = { _id: '', zip: '', addressLine1: '', addressLine2: '', longitude: '', latitude: '' };
+  address: Address = { _id: '', postCode: '', addressLine1: '', addressLine2: '', longitude: '', latitude: '' };
   recordExist: boolean = false;
 
   constructor(public auth: AuthService, private userMdbServices: UserMdbService, private store: Store<AppState>,

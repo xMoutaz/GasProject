@@ -29,6 +29,7 @@ import { ActionMenuComponent } from '../components/controls/action-menu/action-m
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
@@ -65,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataTableModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatStepperModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -101,6 +103,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule,
     RouterModule,
     ShortNumberPipe,
+    MatStepperModule
   ],
   providers: [
     AuthService,

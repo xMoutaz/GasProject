@@ -10,7 +10,7 @@ export class PrivilegeComponent implements OnInit {
 
   @Output() assign: EventEmitter<any> = new EventEmitter();
   @Output() cancel: EventEmitter<any> = new EventEmitter();
-  roles: any;
+  roles: [];
   userlRoles: Array<string>;
   constructor() { }
 
@@ -21,6 +21,7 @@ export class PrivilegeComponent implements OnInit {
     if($event.checked) {this.userlRoles.push(role);}
     console.log(role);
     console.log(this.userlRoles);
+    
     if(!$event.checked) {_.pull(this.userlRoles, role);}
   }
 

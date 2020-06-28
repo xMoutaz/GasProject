@@ -11,7 +11,7 @@ export class AddressService {
 
   addAddressinfo(newAddress: Address, user) {
     this.db.object('/Addresses/' + user.uid).update({
-      zip: newAddress.zip,
+      zip: newAddress.postCode,
       addressLine1: newAddress.addressLine1,
       addressLine2: newAddress.addressLine2,
       longitude: newAddress.longitude,
@@ -20,7 +20,7 @@ export class AddressService {
   }
   updateAddressInfo(newAddress: Address, uid) {
     this.db.object('/Addresses/' + uid).update({
-      zip: newAddress.zip,
+      zip: newAddress.postCode,
       addressLine1: newAddress.addressLine1,
       addressLine2: newAddress.addressLine2,
       longitude: newAddress.longitude,

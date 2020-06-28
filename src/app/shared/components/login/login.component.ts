@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     'password': [
       { type: 'required', message: 'Password is required' },
       { type: 'minlength', message: 'Password must be at least 5 characters long' },
-      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase,one number and one special charachter' }
     ],
     }
     
@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
       ])],
       password:['', Validators.compose([
         Validators.required,
-        Validators.minLength(5),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        Validators.minLength(8),
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
       ])],
     })
   }

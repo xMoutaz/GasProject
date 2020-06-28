@@ -1,0 +1,24 @@
+<div class="well">
+    <form [formGroup]="editFormGroup" (ngSubmit)="updateRefData()">
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label>{{'COUNTRY' | translate}}</label>
+                <input class="form-control" formControlName='country'>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>{{'CURRENCY_CODE' | translate}}</label>
+                <input class="form-control" formControlName='currencyCode'>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>{{'RENT_PERIOD' | translate}}</label>
+                <input class="form-control" formControlName='rentPeriod'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default pull-left" (click)="cancelButton()">{{'CANCEL' | translate}}</button>
+                <button type="submit" class="button btn btn-primary pull-right">{{'SUBMIT' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

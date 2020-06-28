@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-body">   
+        <h3>{{ 'MANAGE_LANGUAGE' | translate}}</h3>
+
+    <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange()">
+        <div class="well">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>{{'ID' | translate}}</label> <input class="form-control" type="text" name="id" formControlName='_id'>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>{{'COUNTRY' | translate}}</label> <input class="form-control" type="text" name="county" formControlName='country'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="button btn btn-primary pull-right" type="submit">{{'SEARCH' | translate}}</button>
+                    </div>
+                </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                        <div class="pull-right">
+                            <button class="btn btn-default pull-right" (click)="addCountry()">{{'ADD_COUNTRY' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+        <app-data-table 
+            [Columns]="colDefinitions" 
+            [Data]='data' 
+            [(GeneralSettings)]="generalSettings"
+            [ExpansionSettings]="expansionSettings" 
+            [PageSettings]="pageSettings"  
+        >
+        </app-data-table>
+        
+        
+    </div>
+</div>
