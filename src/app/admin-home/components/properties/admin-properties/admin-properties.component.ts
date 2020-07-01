@@ -83,6 +83,26 @@ export class AdminPropertiesComponent implements OnInit {
         header: 'Decimal Format',
       },
       {
+        key: 'rentPriceList.minPrice',
+        className: `data_grid_left_align`,
+        header: 'Rent minPrice',
+      },
+      {
+        key: 'rentPriceList.maxPrice',
+        className: `data_grid_left_align`,
+        header: 'Rent maxPrice',
+      },
+      {
+        key: 'salePriceList.minPrice',
+        className: `data_grid_left_align`,
+        header: 'Sale minPrice',
+      },
+      {
+        key: 'salePriceList.maxPrice',
+        className: `data_grid_left_align`,
+        header: 'Sale maxPrice',
+      },
+      {
         cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
         }, className: 'data_grid_center_align', responsivePriority: true
