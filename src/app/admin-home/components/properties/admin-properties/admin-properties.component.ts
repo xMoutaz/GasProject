@@ -109,7 +109,7 @@ export class AdminPropertiesComponent implements OnInit {
       }
     ];
   }
-
+// all old authentication and admin panel project" On branch authentication-privileges
   setUppageSettings() {
     this.pageSettings = new PageSettings(() => {
       this.onPageChange();
