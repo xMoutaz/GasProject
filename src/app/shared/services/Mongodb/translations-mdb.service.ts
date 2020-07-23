@@ -11,8 +11,8 @@ import { NewWord } from '../../models/newWord';
 })
 export class TranslationsMdbService {
   
-  // readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
-  readonly baseURL = 'http://localhost:3000/translations';
+  readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
+  // readonly baseURL = 'http://localhost:3000/translations';
   word : Word;
   translations: Word[];
   constructor(private http: HttpClient) { }
