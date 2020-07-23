@@ -62,3 +62,7 @@ label{
 .editState .list-group .calenderControl input{
     width: 400px;
 } 
+
+.full-width {
+    width: 100%;
+  }

@@ -18,4 +18,8 @@ export class PriceListService {
   getRentPriceList() {
     return this.http.get(`${this.url}/rent`);
   }
+
+  deletePriceList(_id) {
+    return this.http.delete(`${this.url}/deletePriceList/${_id}`);
+  }
 }

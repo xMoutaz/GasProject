@@ -87,6 +87,79 @@
                     </div>
                 </form>
                 </mat-step>
+                <mat-step [stepControl]="thirdFormGroup">
+                    <ng-template matStepLabel>Price List Range</ng-template>
+                    <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
+                        <div class="row">
+                            <div class="form-group col-md-4 required">
+                                <label class="control-label">Sale Range</label>
+                                <mat-form-field class="example-chip-list">
+                                    <mat-chip-list 
+                                    #salechipList
+                                    formControlName="saleRange"
+                                    aria-label="Fruit selection">
+                                      <mat-chip 
+                                        *ngFor="let data of thirdFormGroup.value.saleRange"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="remove(data, 'sale')">
+                                        {{data}}
+                                        <mat-icon matChipRemove *ngIf="removable">x</mat-icon>
+                                      </mat-chip>
+                                      <input
+                                        placeholder="Enter Sale value"
+                                        #fruitInput
+                                        [matChipInputFor]="salechipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        (matChipInputTokenEnd)="add($event, 'sale')">
+                                    </mat-chip-list>
+                                  </mat-form-field>
+                                <div
+                                    *ngIf="(thirdFormGroup.controls.saleRange.touched) && thirdFormGroup.controls.saleRange.errors">
+                                    <span *ngIf="thirdFormGroup.controls.saleRange.invalid"
+                                        class="msg-error">Error</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Rant Range</label>
+                                <mat-form-field class="example-chip-list">
+                                    <mat-chip-list 
+                                    #chipList
+                                    formControlName="rentRange"
+                                    aria-label="Fruit selection">
+                                      <mat-chip 
+                                        *ngFor="let data of thirdFormGroup.value.rentRange"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="remove(data, 'rent')">
+                                        {{data}}
+                                        <mat-icon matChipRemove *ngIf="removable">x</mat-icon>
+                                      </mat-chip>
+                                      <input
+                                        placeholder="Enter Rent value"
+                                        #fruitInput
+                                        [matChipInputFor]="chipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        (matChipInputTokenEnd)="add($event, 'rent')">
+                                    </mat-chip-list>
+                                  </mat-form-field>
+                                <div
+                                    *ngIf="(thirdFormGroup.controls.rentRange.touched) && thirdFormGroup.controls.rentRange.errors">
+                                    <span *ngIf="thirdFormGroup.controls.rentRange.invalid"
+                                        class="msg-error">Error</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" matStepperPrevious>Back</button>
+                            <button class="btn btn-primary" matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
                 <mat-step [stepControl]="secondFormGroup">
                 <form [formGroup]="secondFormGroup">
                     <ng-template matStepLabel>RefData Information</ng-template>

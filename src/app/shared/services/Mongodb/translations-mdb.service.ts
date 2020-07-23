@@ -11,7 +11,8 @@ import { NewWord } from '../../models/newWord';
 })
 export class TranslationsMdbService {
   
-  readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
+  // readonly baseURL = 'https://gas-apiv0.herokuapp.com/translations';
+  readonly baseURL = 'http://localhost:3000/translations';
   word : Word;
   translations: Word[];
   constructor(private http: HttpClient) { }
@@ -20,7 +21,9 @@ export class TranslationsMdbService {
     return this.http.post<NewWord>(this.baseURL + '/addNewWord/', word);
   }
 
-  getDataTableTranslations(lang, pg, pgS, word: Word): Observable<Word[]> {    
+  getDataTableTranslations(lang, pg, pgS, word) {
+    console.log(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&Word=${word.word}`);
+    
     return this.http.get<Word[]>(`${this.baseURL}/dataTable/search/${lang}?pg=${pg}&pgS=${pgS}&wordId=${word.id}&&Word=${word.word}`);
   }
 

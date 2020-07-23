@@ -38,6 +38,7 @@ import { testPrivilegeModule } from './test-privilege/test.module';
 import { MooplaModule } from './moopla/moopla.module';
 import { AppDropdownComponent } from './components/controls/dropdown/app.dropdown.component';
 import { ViewEditRefDataComponent } from './admin-home/components/properties/view-edit-ref-data/view-edit-ref-data.component';
+import { ChipsComponent } from './components/controls/chips/chips.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OverlayComponent,
     ConfirmationBoxComponent,
     OperationButtonsComponent,
-    ViewEditRefDataComponent
+    ViewEditRefDataComponent,
+    ChipsComponent
   ],
   imports: [
     SharedModule,

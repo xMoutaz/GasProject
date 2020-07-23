@@ -1,0 +1,27 @@
+<mat-form-field class="example-chip-list">
+    <mat-chip-list 
+    #chipList
+    [(ngModel)]="input" 
+    aria-label="Fruit selection">
+      <mat-chip 
+        *ngFor="let data of input"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(data)">
+        {{data}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Enter value"
+        #fruitInput
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+
+  <!-- <input type="text"
+         [(ngModel)]="input"
+         (ngModelChange)="onChange($event)"
+         (blur)="onTouch()">
+  <h2> -->

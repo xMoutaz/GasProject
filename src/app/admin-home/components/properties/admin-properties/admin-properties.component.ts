@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
 import { EditRefDataComponent } from '../edit-ref-data/edit-ref-data.component';
 import { filter } from 'rxjs/operators';
+import { LocalService } from 'src/app/shared/services/local.service';
+import { PriceListService } from 'src/app/moopla/services/price-list.service';
 
 @Component({
   selector: 'app-admin-properties',
@@ -25,7 +27,8 @@ export class AdminPropertiesComponent implements OnInit {
   expansionSettings: ExpansionSettings;
   searchFormGroup: FormGroup;
 
-  constructor(public CFR: ComponentFactoryResolver, private _formBuilder: FormBuilder, private router: Router, private refDataService: RefDataService ) { 
+  constructor(public CFR: ComponentFactoryResolver, private _formBuilder: FormBuilder, private router: Router, 
+    private refDataService: RefDataService, private localServie: LocalService, private priceListService: PriceListService) { 
     this.setUpColumnDefintion();
     this.expansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
@@ -83,25 +86,16 @@ export class AdminPropertiesComponent implements OnInit {
         header: 'Decimal Format',
       },
       {
-        key: 'rentPriceList.minPrice',
+        key: 'priceList.rentRange',
         className: `data_grid_left_align`,
-        header: 'Rent minPrice',
+        header: 'Rent Range',
       },
       {
-        key: 'rentPriceList.maxPrice',
+        key: 'priceList.saleRange',
         className: `data_grid_left_align`,
-        header: 'Rent maxPrice',
+        header: 'Sale Range',
       },
-      {
-        key: 'salePriceList.minPrice',
-        className: `data_grid_left_align`,
-        header: 'Sale minPrice',
-      },
-      {
-        key: 'salePriceList.maxPrice',
-        className: `data_grid_left_align`,
-        header: 'Sale maxPrice',
-      },
+     
       {
         cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
@@ -116,13 +110,16 @@ export class AdminPropertiesComponent implements OnInit {
     });
   }
   
-  onPageChange() {
+  onPageChange(value?) {
+    (value)? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
+
     let pgN = this.pageSettings.currentPage;
     let pgS = this.pageSettings.pageSize;
     this.refDataService.searchRefData(this.searchFormGroup,pgS, pgN).subscribe(
       (data: any) => {
+        console.log(data);
+        this.pageSettings.setTotalRecords(data.total);
         this.data.next(data.data);
-        this.pageSettings.setTotalRecords(data.count);
       },
       err => {
         console.log(err)
@@ -142,7 +139,7 @@ export class AdminPropertiesComponent implements OnInit {
     deleteButton.label = "delete";
     deleteButton.data = rowData;
     deleteButton.action = (data => {
-      this.deleteRefData(data._id);
+      this.deleteRefData(data);
     });
     let viewButton = new ActionButton();
     viewButton.label = "VIEW-REFDATA";
@@ -186,7 +183,10 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   deleteRefData(data) {
-    console.log(data);
+    this.refDataService.deleteRefDate(data._id).subscribe(data => data);
+    this.localServie.deleteLocal(data.local_id).subscribe(data => data);
+    this.priceListService.deletePriceList(data.priceList_id).subscribe(data => data);
+    this.generalSettings.DeleteRow({ _id: data._id, propertyName: "_id" });
   }
   
   onCountryChange(value) {

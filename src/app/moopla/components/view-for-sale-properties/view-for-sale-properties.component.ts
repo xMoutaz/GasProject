@@ -27,7 +27,7 @@ export class ViewForSalePropertiesComponent implements OnInit {
       this.searchedProperty = data;
     })
   }
-
+effecient
   ngOnInit(): void {
     this.onPageChange();
   }

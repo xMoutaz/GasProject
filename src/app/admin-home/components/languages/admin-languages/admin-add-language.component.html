@@ -3,18 +3,18 @@
         <h3>{{ 'MANAGE_LANGUAGE' | translate}}</h3>
 
         <div class="well">
-            <form>
+            <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange('search')">
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>{{'ID' | translate}}</label> <input class="form-control" type="text" name="id" [(ngModel)]="searchedWord.id">
+                        <label>{{'ID' | translate}}</label> <input class="form-control" type="text" formControlName="id">
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>{{'TRANSLATION' | translate}}</label> <input class="form-control" type="text" name="word" [(ngModel)]="searchedWord.word">
+                        <label>{{'TRANSLATION' | translate}}</label> <input class="form-control" type="text" formControlName="word">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="button btn btn-primary pull-right" (click)="search()">{{'SEARCH' | translate}}</button>
+                        <button type="submit" class="button btn btn-primary pull-right">{{'SEARCH' | translate}}</button>
                     </div>
                 </div>
             </form>

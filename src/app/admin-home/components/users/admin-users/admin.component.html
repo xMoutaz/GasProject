@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h3>{{'MANAGE_USERS' | translate}}</h3>
-        <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange()">
+        <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange('search')">
             <div class="well">
                 <div class="row">
                     <div class="col-md-3 form-group">

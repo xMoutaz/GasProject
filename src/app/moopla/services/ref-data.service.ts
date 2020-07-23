@@ -26,4 +26,9 @@ export class RefDataService {
   updateRefData(_id, updatedRefData) {
     return this.http.patch(`${this.url}/editRefData/${_id}`, updatedRefData);
   }
+
+  deleteRefDate(_id) {
+    return this.http.delete(`${this.url}/deleteRefData/${_id}`);
+  }
+
 }

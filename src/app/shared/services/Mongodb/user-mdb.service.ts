@@ -45,8 +45,8 @@ export class UserMdbService {
   }
 
   searchUser(pg: number,pgS:number, searchedUser) {
-    console.log(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}`);
-    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}`)
+    console.log(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}&_id=${searchedUser._id}`);
+    return this.http.get<ApiResponse<User[]>>(`${this.baseURL}/search/user?pg=${pg}&pgS=${pgS}&userName=${searchedUser.name}&_id=${searchedUser._id}`)
   }
 
   loadUsers(pg: number, pgS: number) {

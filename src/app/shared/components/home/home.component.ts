@@ -9,6 +9,7 @@ import { MarriageBanditsUserService } from '../../services/Mongodb/marriage-band
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
+import { SearchForRentService } from 'src/app/moopla/services/search-for-rent.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { User } from '../../models/user';
 export class HomeComponent implements OnInit {
   appUser: User;
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(private router: Router, private store: Store<AppState>, private forRentService: SearchForRentService) { }
 
   ngOnInit() {
     this.store.select(store => store.User.user)
@@ -38,5 +39,9 @@ export class HomeComponent implements OnInit {
 
   navigateTest2() {
     this.router.navigate(['test2']);
+  }
+
+  test() {
+    this.forRentService.testForRent().subscribe(data => console.log(data))
   }
 }

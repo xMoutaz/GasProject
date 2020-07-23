@@ -2,7 +2,7 @@
     <div class="panel-body">   
         <h3>{{ 'MANAGE_LANGUAGE' | translate}}</h3>
 
-    <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange()">
+    <form [formGroup]="searchFormGroup" (ngSubmit)="onPageChange('value')">
         <div class="well">
                 <div class="row">
                     <div class="col-md-3 form-group">

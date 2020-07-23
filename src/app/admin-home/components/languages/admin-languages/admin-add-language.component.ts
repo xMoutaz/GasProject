@@ -17,6 +17,7 @@ import { GeneralSettings } from 'src/app/components/controls/data-table/classes/
 import { PageSettings } from 'src/app/components/controls/data-table/classes/Paging';
 import { ActionMenuComponent, ActionButton } from 'src/app/components/controls/action-menu/action-menu.component';
 import { ColumnDefs } from 'src/app/components/controls/data-table/classes/Columns';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-add-language',
@@ -37,25 +38,27 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   newWord: NewWord = <any>{};
   selectedProject: any;
   searchedWord = new Word();
-
-  constructor(
-    private store: Store<AppState>, private wordLang: LanguagesService, private translationsMDBService: TranslationsMdbService,
-    public CFR: ComponentFactoryResolver, private router: Router) {
-    this.searchedWord.id = "";
-    this.searchedWord.word = "";
+  
+  searchFormGroup: FormGroup;
+  constructor(private store: Store<AppState>, private wordLang: LanguagesService, private translationsMDBService: TranslationsMdbService,
+    public CFR: ComponentFactoryResolver, private router: Router, private _formBuilder: FormBuilder) {
     this.languages$ = this.store.select(store => store.language.list);
     this.store.select(store => store.language.error);
     this.store.dispatch(new LoadLanguages());
     this.store.select(store => store.selectLang.selectedLang).subscribe(data => {
       this.selectedLanguage = data;
     });
-    this.getTotalRecord();
     this.setUpColumnDefintion();
     this.languageExpansionSettings = this.setupExpansionSettings();
     this.setUppageSettings();
   }
 
   ngOnInit() {
+    this.searchFormGroup = this._formBuilder.group({
+      id: [''],
+      word: ['']
+     });
+
     if (this.selectedLanguage.language) {
       this.selectedProject = this.selectedLanguage.language;
       this.onPageChange();
@@ -85,13 +88,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
         }, className: 'data_grid_center_align', responsivePriority: true
       }
     ];
-  }
-
-  getTotalRecord() {
-    this.translationsMDBService.getTotalRecord(this.selectedLanguage, this.searchedWord).subscribe((data: number) => {
-      this.totalRecords = data;
-      this.pageSettings.setTotalRecords(this.totalRecords);
-    })
   }
 
   generateActionMenuForRfr(cellData, rowData, row) {
@@ -142,11 +138,17 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
     });
   }
 
-  onPageChange() {
-    let pg = this.pageSettings.currentPage - 1;
+  onPageChange(value?) {
+    (value)? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
+
+    let pg = this.pageSettings.currentPage - 1;    
     let pgS = this.pageSettings.pageSize;
-    this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchedWord).subscribe((data: Word[]) => {
-      this.data.next(data);
+    this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, pg, pgS, this.searchFormGroup.value)
+    .subscribe((data: any) => {
+      this.pageSettings.setTotalRecords(data.total);
+      (data.total>0)? this.data.next(data.data): this.data.next([]);
+      console.log(data);
+      
     });
   }
 
@@ -184,18 +186,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       data.forEach(data => { this.newWord['word'][data] = ''; });
       this.wordLang.changeWord(this.newWord);
     })
-  }
-
-  search() {
-    this.translationsMDBService.getTotalRecord(this.selectedLanguage, this.searchedWord).pipe(
-      tap(totalRecord => this.pageSettings.setTotalRecords(totalRecord)),
-      switchMap(() => this.translationsMDBService.getDataTableTranslations(this.selectedLanguage.language, this.pageSettings.currentPage - 1, this.pageSettings.pageSize, this.searchedWord))
-    ).subscribe(
-      (data) => {
-        this.data.next(data);
-      },
-      err => { console.log(err) }
-    );
   }
 
 }

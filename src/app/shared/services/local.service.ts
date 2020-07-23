@@ -17,6 +17,9 @@ export class LocalService {
   
   updateLocal(_id, local) {
     return this.http.patch(`${this.url}/editLocal/${_id}`, local);
+  }
 
+  deleteLocal(_id) {
+    return this.http.delete(`${this.url}/deleteLocal/${_id}`);
   }
 }

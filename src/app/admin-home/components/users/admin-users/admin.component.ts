@@ -101,14 +101,17 @@ export class AdminComponent {
       this.userMdbService.getUserRoles().subscribe((data :any) => {this.Roles = data.roles});    
     }
 
-    onPageChange() {
+    onPageChange(value?) {
+      (value)? this.pageSettings.currentPage=1: this.pageSettings.currentPage; 
+
       let pg = this.pageSettings.currentPage - 1;
       let pgS = this.pageSettings.pageSize;
       this.userMdbService.searchUser(pg, pgS, this.searchFormGroup.value).subscribe(
         (data: any) => { 
           console.log(data);
+          this.pageSettings.setTotalRecords(data.total);
           this.data.next(data.data); 
-          this.pageSettings.setTotalRecords(data.data.count); },
+         },
         err => { console.log(err); }
       );
     }
