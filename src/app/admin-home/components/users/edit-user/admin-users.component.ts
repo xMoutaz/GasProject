@@ -34,6 +34,7 @@ export class AdminUsersComponent implements OnInit {
        this.addressMdbService.updateAddress(this.userUid, this.userAddressInfo)
       .subscribe(success => { 
         console.log(success);
+        this._location.back();
       },
         error => {
           console.log(error);

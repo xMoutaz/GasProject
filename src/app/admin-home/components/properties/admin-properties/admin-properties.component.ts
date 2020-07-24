@@ -186,7 +186,7 @@ export class AdminPropertiesComponent implements OnInit {
     this.refDataService.deleteRefDate(data._id).subscribe(data => data);
     this.localServie.deleteLocal(data.local_id).subscribe(data => data);
     this.priceListService.deletePriceList(data.priceList_id).subscribe(data => data);
-    this.generalSettings.DeleteRow({ _id: data._id, propertyName: "_id" });
+    this.generalSettings.DeleteRow({ id: data._id, propertyName: "_id" });
   }
   
   onCountryChange(value) {

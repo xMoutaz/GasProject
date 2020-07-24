@@ -20,6 +20,6 @@ export class PriceListService {
   }
 
   deletePriceList(_id) {
-    return this.http.delete(`${this.url}/deletePriceList/${_id}`);
+    return this.http.delete(`${this.url}/deletePrice/${_id}`);
   }
 }

@@ -10,7 +10,7 @@ export class PrivilegeComponent implements OnInit {
 
   @Output() assign: EventEmitter<any> = new EventEmitter();
   @Output() cancel: EventEmitter<any> = new EventEmitter();
-  roles: [];
+  roles: string[];
   userlRoles: Array<string>;
   constructor() { }
 

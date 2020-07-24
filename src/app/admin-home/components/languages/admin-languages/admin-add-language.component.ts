@@ -30,7 +30,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
   colDefinitions: Array<ColumnDefs>;
   selectedLanguage: any;
   dataList: any;
-  totalRecords: number;
   languages$: Observable<Array<any>>;
   languageExpansionSettings: ExpansionSettings;
   pageSettings: PageSettings;
@@ -158,7 +157,6 @@ export class AdminAddLanguageComponent implements OnInit, OnDestroy {
       .subscribe(
         (data) => {
           this.generalSettings.DeleteRow({ id: _id, propertyName: "id" });
-          this.pageSettings.setTotalRecords(this.totalRecords - 1);
           //Todo: refresh page number
         });
   }
