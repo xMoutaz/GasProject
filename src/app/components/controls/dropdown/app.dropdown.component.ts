@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { MapboxService } from 'src/app/moopla/services/mapbox.service';
 
 
 @Component({
@@ -17,8 +15,6 @@ import { MapboxService } from 'src/app/moopla/services/mapbox.service';
 })
 export class AppDropdownComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
-  constructor(private mapService: MapboxService) {}
-
   private innerValue: string = null;
 
   private dropdownReady$ = new BehaviorSubject<boolean>(false);
@@ -27,16 +23,14 @@ export class AppDropdownComponent implements OnInit, ControlValueAccessor, After
 
   @ViewChild('dropdown', {static: true}) dropdownRef: ElementRef;
 
-  @Input() Data: Observable<Array<any>>;
+  @Input()
   placeholder: string;
 
 
   private onTouchedCallback: () => void = () => {
-    console.log('touchtouchtouchtouchtouchtouch');
   };
 
   private onChangeCallback: (_: any) => void = (_: any) => {
-    console.log('callBACK');
   };
 
   writeValue(obj: any): void {
@@ -85,34 +79,18 @@ export class AppDropdownComponent implements OnInit, ControlValueAccessor, After
         useLabels: false,
         allowTab: true,
         fullTextSearch: true,
-      //   fields: { name: "description", value: "data-value" },
-      //   apiSettings: {
-      //     mockResponse: {
-      //         success: true,
-      //         results: [
-      //             {"description":"Opole","data-value":1},
-      //             {"description":"Wrocław","data-value":2},
-      //             {"description":"Warszawa","data-value":3},
-      //             {"description":"Budapest","data-value":4},
-      //             {"description":"Köln","data-value":5}
-      //         ]
-      //     }
-      // },
         onChange: value => {
-          console.log('ffffffffffffff');
           if (value !== this.innerValue) {
             this.innerValue = value;
             this.onChangeCallback(value);
           }
         },
         onListUpdate: _ => {
-        
           if (this.innerValue !== jQuery(this.dropdownRef.nativeElement).uiDropdown('get value')) {
             jQuery(this.dropdownRef.nativeElement).uiDropdown('set selected', this.innerValue);
           }
         },
         onInit: _ => {
-          
           if (this.innerValue) {
             jQuery(this.dropdownRef.nativeElement).uiDropdown('set selected', this.innerValue);
           }
@@ -121,6 +99,5 @@ export class AppDropdownComponent implements OnInit, ControlValueAccessor, After
       });
   }
 
-  mapSearch() {}
 }
 

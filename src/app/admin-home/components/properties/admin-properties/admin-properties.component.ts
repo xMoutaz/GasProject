@@ -12,6 +12,7 @@ import { EditRefDataComponent } from '../edit-ref-data/edit-ref-data.component';
 import { filter } from 'rxjs/operators';
 import { LocalService } from 'src/app/shared/services/local.service';
 import { PriceListService } from 'src/app/moopla/services/price-list.service';
+import { AppDropdownComponent } from 'src/app/components/controls/dropdown/app.dropdown.component';
 
 @Component({
   selector: 'app-admin-properties',
@@ -95,7 +96,6 @@ export class AdminPropertiesComponent implements OnInit {
         className: `data_grid_left_align`,
         header: 'Sale Range',
       },
-     
       {
         cellElement: (cellData, rowData, row) => {
           return this.generateActionMenuForRfr(cellData, rowData, row);
@@ -150,6 +150,7 @@ export class AdminPropertiesComponent implements OnInit {
     menu.buttons.push(editRefData, deleteButton, viewButton);
     return menu;
   };
+
   
   setupExpansionSettings() {
     return new ExpansionSettings(false, (viewContainerRef, rowData, row) => {

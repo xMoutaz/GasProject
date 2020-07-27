@@ -67,17 +67,29 @@ export class AuthService {
   emailLogin(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value: any) => {
+        this.signedUpAddress._id = value.user.uid;
         if (value.user.emailVerified !== true) {
           this.SendVerificationMail();
           window.alert('Please validate your email address. Kindly check your inbox.');
-        } else{
+        } else {
           localStorage.setItem(this.JWT_TOKEN, value.user._lat);
-          this.MGBUser.getLoggedUser(value.user.uid).subscribe((data: any) => {
-            this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
-            localStorage.setItem(this.JWT_TOKEN, data.data.token);
-            this.statusMessageService.ClearMessage();
-          });
-          this.router.navigate(['']);
+          this.MGBUser.getLoggedUser(value.user.uid)
+            .subscribe((data: any) => {
+              if (!!(data.data.user)) {
+                this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+                localStorage.setItem(this.JWT_TOKEN, data.data.token);
+                this.statusMessageService.ClearMessage();
+                this.router.navigate(['']);
+              }
+              else {
+                this.MGBUser.createUser(value.user).subscribe((data: any) => {
+                  this.addressServices.saveAddress(this.signedUpAddress).subscribe(data => data);
+                  localStorage.setItem(this.JWT_TOKEN, data.data.token);
+                  this.store.dispatch(new SelectCurrentUserInfo(data.data.user));
+                  this.ngZone.run(() => this.router.navigate(['userDetails']));
+                });
+              }
+            });
         }
       })
       .catch(err => {
