@@ -35,6 +35,9 @@ export class AuthService {
   async signup(value) {
     this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
       .then((result: any) => {
+        result.user.updateProfile({
+          displayName: value.name
+        });
         this.SendVerificationMail();
         localStorage.setItem(this.JWT_TOKEN, result.user._lat);
         this.signedUpUser = value; this.signedUpUser._id = this.signedUpAddress._id = result.user.uid;
