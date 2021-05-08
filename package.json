@@ -65,7 +65,7 @@
     "mapbox-gl": "^1.6.1",
     "mongodb": "^3.5.4",
     "mongoose": "^5.9.3",
-    "ng-packagr": "^9.0.2",
+    "ng-packagr": "^10.1.1",
     "ng-redux": "^4.4.1",
     "node-pre-gyp": "^0.14.0",
     "nodemon": "^2.0.2",
